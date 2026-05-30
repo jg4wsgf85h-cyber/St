@@ -1,0 +1,122 @@
+{
+  "entities": {
+    "product": {
+      "title": "Product",
+      "description": "Premium Private Reserve Product",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "pricePerGram": { "type": "number" },
+        "currency": { "type": "string" },
+        "category": { "type": "string" },
+        "displayZone": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "thumbnailUrl": { "type": "string" },
+        "isPremium": { "type": "boolean" },
+        "isFeatured": { "type": "boolean" },
+        "author": { "type": "string" },
+        "views": { "type": "number" },
+        "duration": { "type": "string" },
+        "isUploaded": { "type": "boolean" },
+        "additionalPhotos": { "type": "array" }
+      },
+      "required": ["id", "title", "price", "videoUrl"]
+    },
+    "order": {
+      "title": "Order",
+      "description": "Customer order journal record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerName": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "city": { "type": "string" },
+        "address": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "bankName": { "type": "string" },
+        "items": { "type": "array" },
+        "totalAmount": { "type": "number" },
+        "date": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "customerName", "phoneNumber", "totalAmount", "status"]
+    },
+    "settings": {
+      "title": "BrandingSettings",
+      "description": "Branding settings and metadata",
+      "type": "object",
+      "properties": {
+        "introBgUrl": { "type": "string" },
+        "launchScreenUrl": { "type": "string" },
+        "homepageHeroBgUrl": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "introStatusLine": { "type": "string" },
+        "sectionTitles": { "type": "array" }
+      }
+    },
+    "whitelist": {
+      "title": "WhitelistItem",
+      "description": "Telegram ID / Username white list pattern",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "value": { "type": "string" },
+        "type": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "value", "type"]
+    },
+    "systemFile": {
+      "title": "SystemFile",
+      "description": "Metadata for split binary backup files",
+      "type": "object",
+      "properties": {
+        "filename": { "type": "string" },
+        "mimeType": { "type": "string" },
+        "size": { "type": "number" },
+        "totalChunks": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["filename", "mimeType", "size", "totalChunks", "createdAt"]
+    },
+    "systemFileChunk": {
+      "title": "SystemFileChunk",
+      "description": "Base64 coded data chunk of a backup file",
+      "type": "object",
+      "properties": {
+        "chunkIndex": { "type": "number" },
+        "data": { "type": "string" }
+      },
+      "required": ["chunkIndex", "data"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "product",
+      "description": "Store items and media links"
+    },
+    "/orders/{orderId}": {
+      "schema": "order",
+      "description": "Store customers orders"
+    },
+    "/settings/branding": {
+      "schema": "settings",
+      "description": "Visual settings configurations"
+    },
+    "/whitelist/{whitelistId}": {
+      "schema": "whitelist",
+      "description": "Telegram access whitelist identifiers"
+    },
+    "/system_files/{filename}": {
+      "schema": "systemFile",
+      "description": "Metadata references for binary file chunks"
+    },
+    "/system_files/{filename}/chunks/{chunkId}": {
+      "schema": "systemFileChunk",
+      "description": "Data chunks of split files representing raw binary data"
+    }
+  }
+}

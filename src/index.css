@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-omerta-cream: #080808;
+  --color-omerta-beige: #121212;
+  --color-omerta-nude: #171717;
+  --color-omerta-charcoal: #FCFAF6;
+  --color-omerta-gold: #D4AF37;
+}
+
+body {
+  background-color: #050505;
+  color: #FCFAF6;
+}
+
+/* Custom scrollbar matching dark luxury themes */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1c1c1c;
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Luxury visual shine animation for active hover cues */
+@keyframes shine {
+  100% {
+    left: 125%;
+  }
+}
+
+.animate-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(212, 175, 55, 0) 0%,
+    rgba(212, 175, 55, 0.25) 30%,
+    rgba(212, 175, 55, 0) 100%
+  );
+  transform: skewX(-25deg);
+  animation: shine 4.5s ease-in-out infinite;
+}

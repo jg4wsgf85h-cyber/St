@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default catch-all rule: reject all by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Validation helper
+    function isValidId(id) {
+      return id is string && id.size() <= 128;
+    }
+
+    // Products collection
+    match /products/{productId} {
+      allow read: if true;
+      allow create, update: if isValidId(productId) && request.resource.data.id == productId;
+      allow delete: if isValidId(productId);
+    }
+
+    // Orders collection
+    match /orders/{orderId} {
+      allow read: if true;
+      allow create, update: if isValidId(orderId) && request.resource.data.id == orderId;
+      allow delete: if isValidId(orderId);
+    }
+
+    // Settings collection
+    match /settings/{docId} {
+      allow read: if true;
+      allow create, update: if docId == 'branding';
+    }
+
+    // Whitelist collection
+    match /whitelist/{whitelistId} {
+      allow read: if true;
+      allow create, update: if isValidId(whitelistId) && request.resource.data.id == whitelistId;
+      allow delete: if isValidId(whitelistId);
+    }
+
+    // System files metadata and chunks collection
+    match /system_files/{filename} {
+      allow read: if true;
+      allow create, update: if isValidId(filename);
+      allow delete: if isValidId(filename);
+
+      match /chunks/{chunkId} {
+        allow read: if true;
+        allow create, update: if isValidId(chunkId);
+        allow delete: if isValidId(chunkId);
+      }
+    }
+
+    // File backups registration to allow serving hybrid cached cloud backups seamlessly
+    match /file_backups/{filename} {
+      allow read: if true;
+      allow create, update, delete: if isValidId(filename);
+    }
+  }
+}

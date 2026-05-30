@@ -1,0 +1,26 @@
+# This file tells the gcloud tool which files to ignore when uploading source code.
+.gcloudignore
+
+# Common git/IDE folders
+.git/
+.gitignore
+
+# Node/Vite specific folders and builds
+node_modules/
+dist/
+.npm/
+.yarn/
+
+# Media Uploads folder
+uploads/
+
+# Local database files containing state/backups
+database-file-mappings.json
+database-products-restored.json
+database-products.json
+database-settings.json
+database-whitelist.json
+
+# Env files
+.env
+.env.*
