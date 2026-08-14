@@ -1,0 +1,122 @@
+[
+  {
+    "id": "rev-1",
+    "telegramId": "77812901",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 5,
+    "comment": "Franchement surpris par la qualité rien à dire la texture est propre l’odeur est incroyable je recommanderai sans hésiter 🔥",
+    "date": "2026-07-31T14:30:00.000Z",
+    "vipLevel": "Gold",
+    "verifiedPurchase": true,
+    "productCategory": "Frozen"
+  },
+  {
+    "id": "rev-2",
+    "telegramId": "88210492",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 5,
+    "comment": "J’ai testé plusieurs endroits et pour l’instant c’est clairement ce qui m’a le plus convaincu niveau qualité prix 👌",
+    "date": "2026-07-29T18:15:00.000Z",
+    "vipLevel": "Silver",
+    "verifiedPurchase": true,
+    "productCategory": "Static"
+  },
+  {
+    "id": "rev-3",
+    "telegramId": "99102488",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 5,
+    "comment": "La livraison a été rapide le produit est exactement comme sur les photos très satisfait merci 🤝",
+    "date": "2026-07-28T11:00:00.000Z",
+    "vipLevel": "Elite",
+    "verifiedPurchase": true,
+    "productCategory": "Frozen"
+  },
+  {
+    "id": "rev-4",
+    "telegramId": "55102931",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 5,
+    "comment": "Très belle finition bonne conservation et une saveur qui reste longtemps je reprendrai bientôt 💯",
+    "date": "2026-07-26T09:40:00.000Z",
+    "vipLevel": "Member",
+    "verifiedPurchase": true,
+    "productCategory": "Dry"
+  },
+  {
+    "id": "rev-5",
+    "telegramId": "44910238",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 5,
+    "comment": "Rien à redire communication sérieuse produit au rendez-vous je recommande les yeux fermés.",
+    "date": "2026-07-25T16:20:00.000Z",
+    "vipLevel": "Gold",
+    "verifiedPurchase": true,
+    "productCategory": "Static"
+  },
+  {
+    "id": "rev-6",
+    "telegramId": "61029384",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 5,
+    "comment": "Odeur bien gazeuse dès l'ouverture du pochon, la texture est ultra crémeuse. En bouche le goût terreux tape direct. Reçu sous vide super discret 💨",
+    "date": "2026-07-23T19:05:00.000Z",
+    "vipLevel": "Silver",
+    "verifiedPurchase": true,
+    "productCategory": "Frozen"
+  },
+  {
+    "id": "rev-7",
+    "telegramId": "33918274",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 5,
+    "comment": "Gros kick dès la première latte. Niveau puissance c'est du très lourd, effet bien poseur pour la fin de soirée. Colis arrivé nickel en 24h.",
+    "date": "2026-07-21T13:12:00.000Z",
+    "vipLevel": "Elite",
+    "verifiedPurchase": true,
+    "productCategory": "Static"
+  },
+  {
+    "id": "rev-8",
+    "telegramId": "77201934",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 5,
+    "comment": "Le gars répond direct sur telegram quand t'as une question. Matos au top, terps de fou à l'ouverture. Vous avez gagné un client régulier 🫡",
+    "date": "2026-07-19T20:45:00.000Z",
+    "vipLevel": "Gold",
+    "verifiedPurchase": true,
+    "productCategory": "Dry"
+  },
+  {
+    "id": "rev-9",
+    "telegramId": "88192034",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 4,
+    "comment": "Pour le prix franchement m'attendais pas à une telle qualité. Ça s'effrite tout seul sans trop chauffer et les arômes restent bien en bouche.",
+    "date": "2026-07-17T15:30:00.000Z",
+    "vipLevel": "Member",
+    "verifiedPurchase": true,
+    "productCategory": "Dry"
+  },
+  {
+    "id": "rev-10",
+    "telegramId": "11928374",
+    "telegramUsername": "Anonyme",
+    "authorName": "Anonyme",
+    "rating": 5,
+    "comment": "Deuxième commande et toujours aussi carré. L'emballage zéro odeur c'est vraiment rassurant. Merci l'équipe 🚀",
+    "date": "2026-07-14T10:15:00.000Z",
+    "vipLevel": "Gold",
+    "verifiedPurchase": true,
+    "productCategory": "Accessoires"
+  }
+]

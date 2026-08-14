@@ -5,16 +5,17 @@
   --font-sans: "Plus Jakarta Sans", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   
-  --color-omerta-cream: #080808;
-  --color-omerta-beige: #121212;
-  --color-omerta-nude: #171717;
+  --color-omerta-cream: #050505;
+  --color-omerta-beige: #0a0a0a;
+  --color-omerta-nude: #0f0f0f;
   --color-omerta-charcoal: #FCFAF6;
   --color-omerta-gold: #D4AF37;
 }
 
 body {
-  background-color: #050505;
-  color: #FCFAF6;
+  background-color: #000000;
+  background-image: radial-gradient(circle at top right, #0c0c0c 0%, #000000 100%);
+  color: #F5F5F5;
 }
 
 /* Custom scrollbar matching dark luxury themes */
@@ -24,11 +25,12 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #080808;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1c1c1c;
+  background: #141414;
+  border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: 99px;
 }
 

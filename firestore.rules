@@ -1,60 +1,75 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Default catch-all rule: reject all by default
-    match /{document=**} {
-      allow read, write: if false;
-    }
-
-    // Validation helper
-    function isValidId(id) {
-      return id is string && id.size() <= 128;
-    }
-
     // Products collection
-    match /products/{productId} {
-      allow read: if true;
-      allow create, update: if isValidId(productId) && request.resource.data.id == productId;
-      allow delete: if isValidId(productId);
+    match /products/{document=**} {
+      allow read, write: if true;
     }
 
     // Orders collection
-    match /orders/{orderId} {
-      allow read: if true;
-      allow create, update: if isValidId(orderId) && request.resource.data.id == orderId;
-      allow delete: if isValidId(orderId);
+    match /orders/{document=**} {
+      allow read, write: if true;
     }
 
     // Settings collection
-    match /settings/{docId} {
-      allow read: if true;
-      allow create, update: if docId == 'branding';
+    match /settings/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Reviews collection
+    match /reviews/{document=**} {
+      allow read, write: if true;
     }
 
     // Whitelist collection
-    match /whitelist/{whitelistId} {
-      allow read: if true;
-      allow create, update: if isValidId(whitelistId) && request.resource.data.id == whitelistId;
-      allow delete: if isValidId(whitelistId);
+    match /whitelist/{document=**} {
+      allow read, write: if true;
     }
 
-    // System files metadata and chunks collection
-    match /system_files/{filename} {
-      allow read: if true;
-      allow create, update: if isValidId(filename);
-      allow delete: if isValidId(filename);
-
-      match /chunks/{chunkId} {
-        allow read: if true;
-        allow create, update: if isValidId(chunkId);
-        allow delete: if isValidId(chunkId);
-      }
+    // Pending approvals collection
+    match /pending_approvals/{document=**} {
+      allow read, write: if true;
     }
 
-    // File backups registration to allow serving hybrid cached cloud backups seamlessly
-    match /file_backups/{filename} {
-      allow read: if true;
-      allow create, update, delete: if isValidId(filename);
+    // Connection Logs collection
+    match /connection_logs/{document=**} {
+      allow read, write: if true;
+    }
+
+    // System files metadata and chunks collection (handles nested/slashed paths)
+    match /system_files/{document=**} {
+      allow read, write: if true;
+    }
+
+    // File backups registration
+    match /file_backups/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Promo sent collection
+    match /promo_sent/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Users and VIP profiles collection
+    match /users/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Dynamic loyalty rewards collection
+    match /rewards/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Dynamic promo codes collection
+    match /promo_codes/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Last Broadcast collection
+    match /last_broadcast/{document=**} {
+      allow read, write: if true;
     }
   }
 }
+

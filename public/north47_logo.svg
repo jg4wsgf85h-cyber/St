@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="skyGrad" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#182016" />
+      <stop offset="50%" stop-color="#0b0e0a" />
+      <stop offset="100%" stop-color="#040504" />
+    </radialGradient>
+
+    <!-- Mountain Gradient -->
+    <linearGradient id="snowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f4f0" />
+      <stop offset="40%" stop-color="#b0bec5" />
+      <stop offset="100%" stop-color="#263238" />
+    </linearGradient>
+
+    <linearGradient id="rockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e271c" />
+      <stop offset="100%" stop-color="#0a0e09" />
+    </linearGradient>
+
+    <linearGradient id="northTextGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8a9e4b" />
+      <stop offset="100%" stop-color="#55662a" />
+    </linearGradient>
+
+    <linearGradient id="fortySevenTextGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c83632" />
+      <stop offset="100%" stop-color="#8a1f1c" />
+    </linearGradient>
+
+    <!-- Texture / Noise Overlay Effect -->
+    <filter id="distress">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="noise" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0" />
+      <feComposite in2="SourceGraphic" in="noise" operator="in" />
+    </filter>
+  </defs>
+
+  <!-- Outer Black Canvas Background -->
+  <rect width="800" height="800" fill="#050605" />
+
+  <!-- Main Outer Circle Container -->
+  <g transform="translate(400,400)">
+    <!-- Base Dark Fill Circle -->
+    <circle r="370" fill="url(#skyGrad)" stroke="#1a2218" stroke-width="2" />
+
+    <!-- Distressed Outer Olive Border Ring -->
+    <circle r="362" fill="none" stroke="#5b6c33" stroke-width="12" opacity="0.9" />
+    <circle r="352" fill="none" stroke="#8a9e4b" stroke-width="3" opacity="0.6" stroke-dasharray="8 4 12 3 6 6" />
+
+    <!-- Inner Red Border Ring -->
+    <circle r="342" fill="none" stroke="#b22b27" stroke-width="6" opacity="0.85" />
+    <circle r="336" fill="none" stroke="#8a1f1c" stroke-width="2" opacity="0.5" stroke-dasharray="15 5 8 4" />
+
+    <!-- Inner Thin Olive Accent Ring -->
+    <circle r="310" fill="none" stroke="#55662a" stroke-width="1.5" opacity="0.4" />
+
+    <!-- SKIES AND STARS -->
+    <!-- Top Four-Point Star Glow -->
+    <path d="M 0,-270 Q 0,-240 25,-240 Q 0,-240 0,-210 Q 0,-240 -25,-240 Q 0,-240 0,-270 Z" fill="#d4e09b" opacity="0.9" />
+    <!-- Small Stars Left and Right -->
+    <path d="M -100,-230 Q -100,-215 -85,-215 Q -100,-215 -100,-200 Q -100,-215 -115,-215 Q -100,-215 -100,-230 Z" fill="#c83632" opacity="0.8" />
+    <path d="M 100,-230 Q 100,-215 115,-215 Q 100,-215 100,-200 Q 100,-215 85,-215 Q 100,-215 100,-230 Z" fill="#c83632" opacity="0.8" />
+    <circle cx="-170" cy="-200" r="2" fill="#d4e09b" opacity="0.6" />
+    <circle cx="170" cy="-200" r="2" fill="#d4e09b" opacity="0.6" />
+    <circle cx="-50" cy="-200" r="1.5" fill="#f0f4f0" opacity="0.5" />
+    <circle cx="50" cy="-200" r="1.5" fill="#f0f4f0" opacity="0.5" />
+
+    <!-- MOUNTAIN RANGE SHAPES -->
+    <!-- Back Mountain Left -->
+    <polygon points="-280,-20 -180,-140 -80,-20" fill="#0f150e" stroke="#253023" stroke-width="2" />
+    <polygon points="-180,-140 -180,-20 -230,-20" fill="#3a4a35" opacity="0.5" />
+
+    <!-- Back Mountain Right -->
+    <polygon points="80,-20 180,-140 280,-20" fill="#0f150e" stroke="#253023" stroke-width="2" />
+    <polygon points="180,-140 180,-20 230,-20" fill="#3a4a35" opacity="0.5" />
+
+    <!-- Center Majestic Main Mountain Peak -->
+    <polygon points="-220,40 0,-190 220,40" fill="url(#rockGrad)" />
+    
+    <!-- Main Snow Cap Face Left -->
+    <path d="M 0,-190 L -60,-100 L -30,-90 L -80,-30 L -120,-10 L 0,40 Z" fill="url(#snowGrad)" opacity="0.95" />
+    <!-- Main Snow Cap Face Right (Shadowed) -->
+    <path d="M 0,-190 L 50,-110 L 20,-95 L 70,-40 L 110,10 L 0,40 Z" fill="#1e281d" opacity="0.9" />
+
+    <!-- Mountain Ridge Highlights & Details -->
+    <path d="M 0,-190 L -15,-120 L 5,-80 L -25,-30 L 0,40" fill="none" stroke="#d0dcd0" stroke-width="3" />
+    <path d="M -60,-100 L -40,-60 L -90,-20" fill="none" stroke="#b0bec5" stroke-width="2" />
+    <path d="M 50,-110 L 35,-70 L 80,-10" fill="none" stroke="#334230" stroke-width="2" />
+
+    <!-- Pine Forest Silhouettes at Mountain Base -->
+    <g fill="#070a06">
+      <polygon points="-300,50 -290,0 -280,50" />
+      <polygon points="-285,50 -275,-10 -265,50" />
+      <polygon points="-270,50 -260,-20 -250,50" />
+      <polygon points="-255,50 -245,5 -235,50" />
+      <polygon points="-240,50 -230,-15 -220,50" />
+      <polygon points="-225,50 -215,-5 -205,50" />
+      <polygon points="-210,50 -200,-25 -190,50" />
+      <polygon points="-195,50 -185,-10 -175,50" />
+      <polygon points="-180,50 -170,-30 -160,50" />
+      <polygon points="-165,50 -155,-5 -145,50" />
+      <polygon points="-150,50 -140,-20 -130,50" />
+      
+      <polygon points="130,50 140,-20 150,50" />
+      <polygon points="145,50 155,-5 165,50" />
+      <polygon points="160,50 170,-30 180,50" />
+      <polygon points="175,50 185,-10 195,50" />
+      <polygon points="190,50 200,-25 210,50" />
+      <polygon points="205,50 215,-5 225,50" />
+      <polygon points="220,50 230,-15 240,50" />
+      <polygon points="235,50 245,5 255,50" />
+      <polygon points="250,50 260,-20 270,50" />
+      <polygon points="265,50 275,-10 285,50" />
+      <polygon points="280,50 290,0 300,50" />
+    </g>
+
+    <!-- Dark Horizon Overlay Bar for Text Placement -->
+    <rect x="-320" y="30" width="640" height="190" fill="#070907" rx="10" opacity="0.95" />
+
+    <!-- BRAND TYPOGRAPHY: "NORTH47" -->
+    <!-- "NORTH" in Olive Green Vintage Slab Font -->
+    <text x="-290" y="180" font-family="'Georgia', 'Times New Roman', serif" font-weight="900" font-size="142" fill="url(#northTextGrad)" stroke="#2d3717" stroke-width="3" letter-spacing="2">
+      NORTH
+    </text>
+
+    <!-- "47" in Deep Red Vintage Slab Font -->
+    <text x="145" y="180" font-family="'Georgia', 'Times New Roman', serif" font-weight="900" font-size="142" fill="url(#fortySevenTextGrad)" stroke="#591210" stroke-width="3" letter-spacing="1">
+      47
+    </text>
+
+    <!-- Bottom Separator Line & Center Star Accent -->
+    <line x1="-220" y1="215" x2="-20" y2="215" stroke="#55662a" stroke-width="2.5" opacity="0.8" />
+    <path d="M 0,203 Q 0,215 12,215 Q 0,215 0,227 Q 0,215 -12,215 Q 0,215 0,203 Z" fill="#8a9e4b" />
+    <line x1="20" y1="215" x2="220" y2="215" stroke="#55662a" stroke-width="2.5" opacity="0.8" />
+  </g>
+</svg>

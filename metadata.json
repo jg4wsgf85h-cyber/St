@@ -1,6 +1,6 @@
 {
-  "name": "HASH'N FLASH MOCRO",
-  "description": "Réserve privée d'élite — HASH'N FLASH MOCRO. Collection de résines et fleurs d'altitude à accès restreint et sécurisé.",
+  "name": "Biscotti Boys Farm",
+  "description": "Biscotti Boys Farm — Réserve Privée: Extractions d'exception, fleurs de prestige et catalogue exclusif.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

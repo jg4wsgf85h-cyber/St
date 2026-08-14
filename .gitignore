@@ -6,5 +6,39 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Large media assets directory
 uploads/
-database-*.json
+uploads/**
+/uploads
+
+# Cloud-synced local state database files
+database-file-mappings.json
+database-products-restored.json
+database-products.json
+database-settings.json
+database-whitelist.json
+database-orders.json
+database-connection-logs.json
+storage_diagnosis.json
+video_audit_report.json
+
+# Test scripts and local helpers
+test_*.ts
+test_*.cjs
+probe_*.cjs
+recover.cjs
+restore_*.cjs
+scan_*.cjs
+apply_*.cjs
+automated_*.cjs
+check_*.cjs
+find_*.cjs
+list_*.cjs
+print_*.cjs
+read_*.cjs
+run_*.cjs
+view_*.cjs
+sync_to_firestore.cjs
+file_sizes.cjs
+

@@ -69,6 +69,38 @@
       },
       "required": ["id", "value", "type"]
     },
+    "connectionLog": {
+      "title": "ConnectionLog",
+      "description": "Log of user access checks and device connections",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "telegramId": { "type": "string" },
+        "username": { "type": "string" },
+        "date": { "type": "string" },
+        "device": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "telegramId", "date", "status"]
+    },
+    "userProfile": {
+      "title": "UserProfile",
+      "description": "Luxurious VIP space user profile record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "telegramId": { "type": "string" },
+        "telegramUsername": { "type": "string" },
+        "pseudo": { "type": "string" },
+        "dateJoined": { "type": "string" },
+        "points": { "type": "number" },
+        "level": { "type": "string" },
+        "totalOrders": { "type": "number" },
+        "totalSpent": { "type": "number" },
+        "unlockedRewards": { "type": "array" }
+      },
+      "required": ["id", "telegramId", "pseudo"]
+    },
     "systemFile": {
       "title": "SystemFile",
       "description": "Metadata for split binary backup files",
@@ -91,6 +123,58 @@
         "data": { "type": "string" }
       },
       "required": ["chunkIndex", "data"]
+    },
+    "promoSent": {
+      "title": "PromoSent",
+      "description": "Tracks users who have been sent the Instagram promotional message",
+      "type": "object",
+      "properties": {
+        "chatId": { "type": "string" },
+        "date": { "type": "string" },
+        "success": { "type": "boolean" }
+      },
+      "required": ["chatId"]
+    },
+    "reward": {
+      "title": "Reward",
+      "description": "Dynamic manageable loyalty reward",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "minOrders": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "promoCode": { "type": "string" }
+      },
+      "required": ["id", "title", "minOrders", "isActive"]
+    },
+    "promoCode": {
+      "title": "PromoCode",
+      "description": "Manageable promotional discount code",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "type": { "type": "string" },
+        "value": { "type": "number" },
+        "maxUses": { "type": "number" },
+        "timesUsed": { "type": "number" },
+        "expiredAt": { "type": "string" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["id", "code", "type", "value", "isActive"]
+    },
+    "lastBroadcast": {
+      "title": "LastBroadcast",
+      "description": "Tracks the last broadcasted Telegram messages for revocation/undo purposes",
+      "type": "object",
+      "properties": {
+        "chatId": { "type": "string" },
+        "messageId": { "type": "number" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["chatId", "messageId", "timestamp"]
     }
   },
   "firestore": {
@@ -110,6 +194,10 @@
       "schema": "whitelist",
       "description": "Telegram access whitelist identifiers"
     },
+    "/connection_logs/{logId}": {
+      "schema": "connectionLog",
+      "description": "Logs of Telegram connection attempts and device identifiers"
+    },
     "/system_files/{filename}": {
       "schema": "systemFile",
       "description": "Metadata references for binary file chunks"
@@ -117,6 +205,26 @@
     "/system_files/{filename}/chunks/{chunkId}": {
       "schema": "systemFileChunk",
       "description": "Data chunks of split files representing raw binary data"
+    },
+    "/promo_sent/{chatId}": {
+      "schema": "promoSent",
+      "description": "Telegram user promo sent tracking"
+    },
+    "/users/{userId}": {
+      "schema": "userProfile",
+      "description": "VIP members and NORTH47 loyalty registers"
+    },
+    "/rewards/{rewardId}": {
+      "schema": "reward",
+      "description": "Loyalty tier rewards customizable"
+    },
+    "/promo_codes/{promoId}": {
+      "schema": "promoCode",
+      "description": "Customizable promotional discount registers"
+    },
+    "/last_broadcast/{chatId}": {
+      "schema": "lastBroadcast",
+      "description": "Telegram individual user broadcast message tracking for undo/deletion"
     }
   }
 }
