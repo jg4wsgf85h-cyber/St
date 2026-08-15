@@ -3886,7 +3886,7 @@ app.post('/api/settings', verifyAdminAuth, async (req, res) => {
   const updated = sanitizeSettings({ ...current, ...body });
   await saveSettingsFirestore(updated);
 
-  // Instantly re-sync Telegram Menu Button and Webhook to active production URL
+  // Instantly re-sync Telegram Menu Button to active production URL
   try {
     const activeUrl = getTelegramAppUrl();
     const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
@@ -3901,16 +3901,6 @@ app.post('/api/settings', verifyAdminAuth, async (req, res) => {
             text: 'Shop 🛍️',
             web_app: { url: activeUrl }
           }
-        })
-      }).catch(e => console.warn('[TELEGRAM SYNC ERR]:', e));
-
-      fetch(`https://api.telegram.org/bot${token}/setWebhook`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          url: `${activeUrl.replace(/\/$/, '')}/api/telegram-webhook`,
-          drop_pending_updates: false,
-          allowed_updates: ['message', 'callback_query']
         })
       }).catch(e => console.warn('[TELEGRAM SYNC ERR]:', e));
     }
@@ -4419,9 +4409,15 @@ app.post('/api/verify-access', async (req, res) => {
 
 // --- TELEGRAM WEBHOOK & BOT COMMANDS INTEGRATION ---
 function getTelegramAppUrl(): string {
+  const isValidHttpsUrl = (urlStr?: string): boolean => {
+    if (!urlStr || typeof urlStr !== 'string') return false;
+    const s = urlStr.trim();
+    return s.startsWith('https://') || s.startsWith('http://');
+  };
+
   try {
     const settings = loadSettingsFromDisk();
-    if (settings && (settings as any).customAppUrl && (settings as any).customAppUrl.trim() !== '') {
+    if (settings && (settings as any).customAppUrl && isValidHttpsUrl((settings as any).customAppUrl)) {
       let u = (settings as any).customAppUrl.trim();
       if (u.includes('ais-pre-')) {
         u = u.replace('ais-pre-', 'ais-dev-');
@@ -4430,17 +4426,19 @@ function getTelegramAppUrl(): string {
     }
   } catch (e) {}
   
-  if (process.env.TELEGRAM_MINI_APP_URL && process.env.TELEGRAM_MINI_APP_URL.trim() !== '') {
-    let u = process.env.TELEGRAM_MINI_APP_URL.trim();
+  if (isValidHttpsUrl(process.env.APP_URL)) {
+    let u = process.env.APP_URL!.trim();
     if (u.includes('ais-pre-')) u = u.replace('ais-pre-', 'ais-dev-');
     return u;
   }
-  if (process.env.APP_URL && process.env.APP_URL.trim() !== '') {
-    let u = process.env.APP_URL.trim();
+
+  if (isValidHttpsUrl(process.env.TELEGRAM_MINI_APP_URL)) {
+    let u = process.env.TELEGRAM_MINI_APP_URL!.trim();
     if (u.includes('ais-pre-')) u = u.replace('ais-pre-', 'ais-dev-');
     return u;
   }
-  return 'https://st-production-a9ae.up.railway.app';
+
+  return 'https://ais-dev-vxlfxvvv6m5qf5k6mzsfkc-858781160855.europe-west2.run.app';
 }
 
 function ensurePublicNginxAndCSP(): void {
@@ -4731,7 +4729,7 @@ async function editTelegramMessage(
 async function sendInstagramPromoMessage(chatId: string | number): Promise<{ success: boolean; messageId?: number }> {
   const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
   
-  const defaultText = `🍇 Biscotti Boys Farm — RÉSERVE PRIVÉE 🍇\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+gLPwu9H2-d4yZWE0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\n🍇 Biscotti Boys Farm — L'Excellence à l'État Pur`;
+  const defaultText = `Biscotti Boys Farm — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+gLPwu9H2-d4yZWE0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nBiscotti Boys Farm — L'Excellence à l'État Pur`;
   let promoMessage = defaultText;
   let promoBtnLabel = "🛒 Ouvrir la Mini-App";
   let promoUrl1 = "";
@@ -4997,7 +4995,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
           console.warn('[TELEGRAM BOT] Failed to load logo settings.', settingsErr);
         }
 
-        const welcomeText = `🍇 Biscotti Boys Farm — RÉSERVE PRIVÉE 🍇\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" en bas à gauche de votre écran pour ouvrir la boutique.`;
+        const welcomeText = `Biscotti Boys Farm — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" en bas à gauche de votre écran pour ouvrir la boutique.`;
 
         // Configure user's personal chat menu button directly to active appUrl
         fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -5126,8 +5124,8 @@ async function startTelegramLongPolling() {
           await processTelegramUpdate(update, 'polling');
         }
       } else if (data && data.error_code === 409) {
-        console.warn('[TELEGRAM POLLING] 409 Conflict (multiple polling instances). Pausing 3s...');
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        // Another instance is polling (e.g. multi-process or production container). Wait 10s.
+        await new Promise(resolve => setTimeout(resolve, 10000));
       } else {
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
@@ -5551,15 +5549,15 @@ async function setupTelegramWebhook() {
     await fetch(`https://api.telegram.org/bot${token}/setMyName`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: 'Biscotti Boys Farm 🍇' })
+      body: JSON.stringify({ name: 'Biscotti Boys Farm' })
     }).catch(e => console.warn('[TELEGRAM] setMyName error:', e));
 
-    // Clear Bot Description (remove pre-start card)
+    // Set Bot Description
     await fetch(`https://api.telegram.org/bot${token}/setMyDescription`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        description: ''
+        description: "Biscotti Boys Farm — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyDescription error:', e));
 
@@ -5568,7 +5566,7 @@ async function setupTelegramWebhook() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        short_description: `🍇 Biscotti Boys Farm — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif.`
+        short_description: "Biscotti Boys Farm — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyShortDescription error:', e));
 

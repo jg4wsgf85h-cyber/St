@@ -13,6 +13,7 @@ import ProductCardMedia from './ProductCardMedia';
 
 interface HomeViewProps {
   branding: BrandingSettings | null;
+  tgUser?: any;
   products: VideoItem[];
   selectedCategory: string;
   setSelectedCategory: (cat: string) => void;
@@ -33,7 +34,12 @@ interface CategoryTab {
   emoji?: string;
 }
 
+const DEFAULT_HERO_VISUAL = 'https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0292552802.firebasestorage.app/o/uploads%2F1bd0db5a-9408-4a5a-8933-6fa38e13a73d.png?alt=media&token=414c8c5d-f457-40fd-af00-07e9e4bf55c4';
+const FALLBACK_LOGO = 'https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0292552802.firebasestorage.app/o/uploads%2Fb3124932-b5e6-4af6-835e-5023475f8f4f.png?alt=media&token=7a9a0439-7fea-4564-a729-8207809afbb7';
+
 export default function HomeView({
+  branding,
+  tgUser,
   products,
   selectedCategory,
   setSelectedCategory,
@@ -45,6 +51,28 @@ export default function HomeView({
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showSearchInput, setShowSearchInput] = useState<boolean>(false);
+
+  // Extract Telegram user first name dynamically
+  const userFirstName = useMemo(() => {
+    if (tgUser?.first_name && tgUser.first_name.trim()) {
+      return tgUser.first_name.trim();
+    }
+    if (tgUser?.username && tgUser.username.trim()) {
+      return tgUser.username.trim();
+    }
+    return 'VIP';
+  }, [tgUser]);
+
+  // Determine Hero image source
+  const heroImageUrl = useMemo(() => {
+    return (
+      branding?.homepageHeroBgUrl ||
+      branding?.introBgUrl ||
+      branding?.launchScreenUrl ||
+      branding?.logoUrl ||
+      DEFAULT_HERO_VISUAL
+    );
+  }, [branding]);
 
   // Luxury Category Tabs with refined icons/emojis
   const categoryTabs = useMemo<CategoryTab[]>(() => {
@@ -143,14 +171,13 @@ export default function HomeView({
   return (
     <div className="space-y-4 pb-28 pt-1 px-3 sm:px-4 max-w-2xl mx-auto" id="home-view">
       
-      {/* 7. REFINED LUXURY HEADER */}
+      {/* 1. COMPACT LUXURY HEADER */}
       <div className="pt-2 pb-2.5 flex items-center justify-between gap-3 border-b border-white/[0.08]">
         <div>
           <h1 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase flex items-center gap-2">
             <span className="bg-gradient-to-r from-[#f5ecd5] via-[#e5c158] to-[#d4af37] bg-clip-text text-transparent font-extrabold tracking-wide">
               Biscotti Boys Farm
             </span>
-            <span className="text-base drop-shadow-sm">🍇</span>
           </h1>
           <p className="text-[10px] sm:text-[11px] font-mono text-zinc-400 uppercase tracking-widest mt-0.5">
             Reserve Collection • Live Menu
@@ -212,8 +239,50 @@ export default function HomeView({
         )}
       </AnimatePresence>
 
-      {/* HORIZONTAL CATEGORY SCROLL TABS */}
-      <div className="relative -mx-3 sm:-mx-4 px-3 sm:px-4">
+      {/* 2. GRANDE IMAGE HERO BISCOTTI BOYS FARM (CINÉMATIQUE & MOBILE-PERFECT) */}
+      <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-amber-400/25 bg-zinc-950 shadow-[0_10px_35px_rgba(0,0,0,0.7)] group">
+        <div className="relative aspect-[16/8.5] sm:aspect-[21/9] w-full max-h-56 sm:max-h-64 overflow-hidden flex items-center justify-center bg-black">
+          <img
+            src={heroImageUrl}
+            alt="Biscotti Boys Farm Visual Hero"
+            className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.08] transition-transform duration-700 ease-out group-hover:scale-105"
+            loading="eager"
+            onError={(e) => {
+              // Graceful fallback to logo if hero URL encounters an error
+              if ((e.currentTarget as HTMLImageElement).src !== FALLBACK_LOGO) {
+                (e.currentTarget as HTMLImageElement).src = FALLBACK_LOGO;
+              }
+            }}
+          />
+
+          {/* Ambient Subtle Golden Backlight Effect */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl sm:rounded-3xl pointer-events-none" />
+        </div>
+      </div>
+
+      {/* 3 & 4. SECTION DE BIENVENUE PERSONNALISÉE TELEGRAM */}
+      <div className="py-2 text-center space-y-1">
+        <motion.h2 
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center justify-center gap-2"
+        >
+          <span>Salut</span>
+          <span className="bg-gradient-to-r from-[#f8f5ee] via-[#e5c158] to-[#d4af37] bg-clip-text text-transparent font-extrabold">
+            {userFirstName}
+          </span>
+          <span className="text-xl sm:text-2xl animate-bounce-subtle">👋</span>
+        </motion.h2>
+
+        <p className="text-xs sm:text-sm text-zinc-400 font-sans tracking-wide">
+          Bienvenue chez Biscotti Boys Farm
+        </p>
+      </div>
+
+      {/* 5. NAVIGATION / CATÉGORIES (HORIZONTALES ET SCROLLABLES) */}
+      <div className="relative -mx-3 sm:-mx-4 px-3 sm:px-4 pt-1">
         <div className="flex items-center gap-2 overflow-x-auto pb-1.5 pt-0.5 no-scrollbar scroll-smooth">
           {categoryTabs.map((tab) => {
             const Icon = tab.icon;
@@ -256,7 +325,7 @@ export default function HomeView({
         </div>
       </div>
 
-      {/* 1. SECTION TITLE & COUNT (IMPACTFUL LUXURY TYPOGRAPHY) */}
+      {/* 6. CATALOGUE PRODUITS : TITRE SECTION & COMPTEUR */}
       <div className="pt-2 pb-1 flex items-center justify-between px-1">
         <div className="flex items-center gap-3">
           <h2 className="text-sm sm:text-base font-black tracking-wider uppercase bg-gradient-to-r from-[#f8f5ee] via-[#e5c158] to-[#d4af37] bg-clip-text text-transparent drop-shadow-[0_1px_8px_rgba(229,193,88,0.25)]">
@@ -280,7 +349,7 @@ export default function HomeView({
         )}
       </div>
 
-      {/* 2 & 4. COMPACT LUXURY PRODUCT GRID (2 PER ROW, PERFECT PROPORTIONS & DIMENSIONS) */}
+      {/* 6. GRILLE DE PRODUITS LUXE (2 PAR LIGNE) */}
       {filteredProducts.length === 0 ? (
         <div className="py-14 text-center space-y-3 bg-zinc-950/70 rounded-2xl sm:rounded-3xl border border-dashed border-white/10 px-4 backdrop-blur-xl">
           <p className="text-zinc-400 font-mono text-xs">
@@ -319,11 +388,11 @@ export default function HomeView({
                   }}
                   className="group relative bg-gradient-to-b from-zinc-900/95 via-zinc-950/95 to-black border border-white/[0.08] hover:border-amber-400/50 rounded-2xl sm:rounded-[20px] overflow-hidden cursor-pointer transition-all duration-300 shadow-[0_8px_24px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_32px_rgba(229,193,88,0.15)] flex flex-col justify-between backdrop-blur-xl h-full"
                 >
-                  {/* 4. Media Thumbnail Container (Balanced Proportions) */}
+                  {/* Media Thumbnail Container */}
                   <div className="relative aspect-[4/3.8] sm:aspect-square w-full bg-zinc-950 overflow-hidden border-b border-white/[0.05]">
                     <ProductCardMedia product={p} hoverScale={true} />
 
-                    {/* 6. UNIFIED HARMONIOUS BADGES */}
+                    {/* Unified Badges */}
                     <div className="absolute top-2 left-2 z-10">
                       <span className="h-5 px-2 rounded-md bg-black/85 border border-[#e5c158]/40 text-[#f3e8c8] text-[8px] font-mono uppercase font-black tracking-wider backdrop-blur-md flex items-center shadow-sm">
                         {p.badge || p.category || 'PREMIUM'}
@@ -346,7 +415,7 @@ export default function HomeView({
                     )}
                   </div>
 
-                  {/* 4. Product Info & Price Bar (High Craft Typography & Layout) */}
+                  {/* Product Info & Price Bar */}
                   <div className="p-3 sm:p-3.5 space-y-2 flex-1 flex flex-col justify-between">
                     <div className="space-y-1">
                       <div className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#e5c158]/90 truncate">
@@ -364,7 +433,7 @@ export default function HomeView({
                       )}
                     </div>
 
-                    {/* 5. PRICE & ELEGANT "VOIR →" CTA PILL */}
+                    {/* Price & CTA "VOIR →" */}
                     <div className="pt-2.5 flex items-center justify-between border-t border-white/[0.06] mt-auto">
                       <div>
                         <span className="text-xs sm:text-sm font-black font-mono text-[#e5c158] tracking-tight">
@@ -372,7 +441,6 @@ export default function HomeView({
                         </span>
                       </div>
 
-                      {/* 5. Clear identifiable CTA: VOIR → */}
                       <div className="px-2 py-1 rounded-lg bg-white/[0.04] group-hover:bg-[#e5c158]/20 border border-white/10 group-hover:border-[#e5c158]/50 text-[#f3e8c8] text-[9px] sm:text-[10px] font-mono font-black uppercase tracking-wider transition-all duration-300 flex items-center gap-1 shadow-sm">
                         <span>VOIR</span>
                         <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />

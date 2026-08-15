@@ -758,6 +758,7 @@ export default function App() {
         {activeTab === 'home' && (
           <HomeView
             branding={branding}
+            tgUser={tgUser}
             products={products}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}

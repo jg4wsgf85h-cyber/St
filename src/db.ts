@@ -886,49 +886,72 @@ export async function getTelegramBroadcastStatus(): Promise<any> {
 
 // 8. MEMBERSHIP & VIP PLATFORM API
 export async function getUserProfile(telegramId: string): Promise<any> {
-  const res = await fetch(`/api/user-profile/${telegramId}`, {
-    headers: getAuthHeaders()
-  });
-  if (!res.ok) {
-    throw new Error('Failed to retrieve member profile');
+  if (!telegramId || typeof telegramId !== 'string') return null;
+  try {
+    const res = await fetch(`/api/user-profile/${encodeURIComponent(telegramId.trim())}`, {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) {
+      return null;
+    }
+    return await res.json();
+  } catch (err) {
+    console.warn('Failed to retrieve member profile:', err);
+    return null;
   }
-  return await res.json();
 }
 
 export async function saveUserProfile(telegramId: string, profile: any): Promise<any> {
-  const res = await fetch(`/api/user-profile/${telegramId}`, {
-    method: 'POST',
-    headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
-    body: JSON.stringify(profile)
-  });
-  if (!res.ok) {
-    throw new Error('Failed to update member profile');
+  if (!telegramId || typeof telegramId !== 'string') return { success: false };
+  try {
+    const res = await fetch(`/api/user-profile/${encodeURIComponent(telegramId.trim())}`, {
+      method: 'POST',
+      headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(profile)
+    });
+    if (!res.ok) {
+      return { success: false };
+    }
+    return await res.json();
+  } catch (err) {
+    console.warn('Failed to update member profile:', err);
+    return { success: false };
   }
-  return await res.json();
 }
 
 export async function getAllUsersProfile(): Promise<any[]> {
-  const res = await fetch(`/api/all-users?t=${Date.now()}`, {
-    cache: 'no-store',
-    headers: getAdminHeaders({
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache'
-    })
-  });
-  if (!res.ok) {
-    throw new Error('Failed to fetch elite members list');
+  try {
+    const res = await fetch(`/api/all-users?t=${Date.now()}`, {
+      cache: 'no-store',
+      headers: getAdminHeaders({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache'
+      })
+    });
+    if (!res.ok) {
+      return [];
+    }
+    return await res.json();
+  } catch (err) {
+    console.warn('Failed to fetch elite members list:', err);
+    return [];
   }
-  return await res.json();
 }
 
 export async function getUserOrders(telegramId: string): Promise<Order[]> {
-  const res = await fetch(`/api/my-orders/${telegramId}`, {
-    headers: getAuthHeaders()
-  });
-  if (!res.ok) {
-    throw new Error('Failed to retrieve personal order history');
+  if (!telegramId || typeof telegramId !== 'string') return [];
+  try {
+    const res = await fetch(`/api/my-orders/${encodeURIComponent(telegramId.trim())}`, {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) {
+      return [];
+    }
+    return await res.json();
+  } catch (err) {
+    console.warn('Failed to retrieve personal order history:', err);
+    return [];
   }
-  return await res.json();
 }
 
 // ==========================================
