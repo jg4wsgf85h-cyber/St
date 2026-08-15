@@ -1,18 +1,11 @@
-import React, { useState, useMemo, MouseEvent } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Sparkles,
-  Plus,
-  Check,
-  CheckCircle2,
-  ChevronRight,
-  Layers,
-  ShoppingBag,
-  Zap,
-  Snowflake,
-  Gem,
-  Flame,
-  Award
+  Heart,
+  Search,
+  ArrowRight,
+  X
 } from 'lucide-react';
 import { VideoItem, BrandingSettings } from '../types';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -32,340 +25,366 @@ interface HomeViewProps {
   showToast?: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
-function getCategoryDisplay(rawCategory?: string): { emoji: string; label: string } {
-  if (!rawCategory) return { emoji: '🏷️', label: 'EXCLUSIF' };
-  const cat = rawCategory.trim().toUpperCase();
-  if (cat.includes('STATIC')) return { emoji: '🧤', label: 'STATIC' };
-  if (cat.includes('FROZEN') || cat.includes('FRESH')) return { emoji: '🧊', label: 'FROZEN SIFT' };
-  if (cat.includes('WPFF') || cat.includes('WPPF')) return { emoji: '💎', label: 'WPFF' };
-  if (cat.includes('DRY')) return { emoji: '🍯', label: 'DRY SIFT' };
-  if (cat.includes('BELD')) return { emoji: '🇲🇦', label: 'BELDIA' };
-  if (cat.includes('ACCESSOIRE') || cat.includes('ACC')) return { emoji: '🎒', label: 'ACCESSOIRES' };
-  if (cat.includes('MEET') || cat.includes('RABAT')) return { emoji: '📍', label: rawCategory.toUpperCase() };
-  if (cat.includes('FILTR')) return { emoji: '🔬', label: rawCategory.toUpperCase() };
-  return { emoji: '🏷️', label: rawCategory.toUpperCase() };
+interface CategoryTab {
+  id: string;
+  label: string;
+  query: string;
+  icon?: any;
+  emoji?: string;
 }
 
 export default function HomeView({
-  branding,
   products,
   selectedCategory,
   setSelectedCategory,
   favorites = [],
   onToggleFavorite,
   onSelectProduct,
-  onQuickAddToCart,
-  onNavigateTab,
-  triggerHaptic,
-  showToast
+  triggerHaptic
 }: HomeViewProps) {
   const { t } = useLanguage();
-  const [activeCollection, setActiveCollection] = useState<string>('All');
-  const [addedToast, setAddedToast] = useState<{ visible: boolean; title: string }>({ visible: false, title: '' });
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showSearchInput, setShowSearchInput] = useState<boolean>(false);
 
-  const collections = [
-    {
-      id: 'All',
-      title: '🌐 CATALOGUE GLOBAL',
-      emoji: '🌐',
-      icon: ShoppingBag,
-      gradient: 'from-amber-500/20 via-yellow-500/15 to-transparent',
-      borderColor: 'border-amber-500/40',
-      activeGlow: 'shadow-[0_0_30px_rgba(245,158,11,0.35)] border-amber-400',
-      badgeBg: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
-      description: 'Découvrez l’ensemble des références disponibles.'
-    },
-    {
-      id: 'Dry Sift',
-      title: 'DRY SIFT 🫙',
-      emoji: '🫙',
-      icon: Layers,
-      gradient: 'from-amber-600/20 via-yellow-600/15 to-transparent',
-      borderColor: 'border-amber-600/40',
-      activeGlow: 'shadow-[0_0_30px_rgba(217,119,6,0.3)] border-amber-500',
-      badgeBg: 'bg-amber-600/20 text-amber-300 border-amber-600/40',
-      description: 'Extraction à sec traditionnelle et arômes purs.'
-    },
-    {
-      id: 'Beldia',
-      title: 'BELDIA 🇲🇦',
-      emoji: '🇲🇦',
-      icon: Award,
-      gradient: 'from-emerald-500/20 via-green-500/15 to-transparent',
-      borderColor: 'border-emerald-500/40',
-      activeGlow: 'shadow-[0_0_30px_rgba(16,185,129,0.3)] border-emerald-400',
-      badgeBg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
-      description: 'Sélection Beldia authentique, terroir d’exception.'
-    },
-    {
-      id: 'Static',
-      title: 'STATIC 🧤',
-      emoji: '🧤',
-      icon: Gem,
-      gradient: 'from-amber-500/20 via-yellow-500/15 to-transparent',
-      borderColor: 'border-amber-500/40',
-      activeGlow: 'shadow-[0_0_30px_rgba(245,158,11,0.3)] border-amber-400',
-      badgeBg: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
-      description: 'Sifting électrostatique d’élite, clarté cristalline.'
-    },
-    {
-      id: 'Frozen',
-      title: 'FROZEN SIFT 🧊',
-      emoji: '🧊',
-      icon: Snowflake,
-      gradient: 'from-blue-500/20 via-cyan-500/15 to-transparent',
-      borderColor: 'border-cyan-500/40',
-      activeGlow: 'shadow-[0_0_30px_rgba(6,182,212,0.3)] border-cyan-400',
-      badgeBg: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
-      description: 'Extractions vivantes et terpènes purs à basse température.'
-    },
-    {
-      id: 'WPFF',
-      title: 'WPFF 🧈',
-      emoji: '🧈',
-      icon: Flame,
-      gradient: 'from-orange-500/20 via-amber-600/15 to-transparent',
-      borderColor: 'border-orange-500/40',
-      activeGlow: 'shadow-[0_0_30px_rgba(249,115,22,0.3)] border-orange-400',
-      badgeBg: 'bg-orange-500/20 text-orange-300 border-orange-500/40',
-      description: 'Whole Plant Fresh Frozen d’exception.'
-    }
-  ];
+  // Luxury Category Tabs with refined icons/emojis
+  const categoryTabs = useMemo<CategoryTab[]>(() => {
+    const baseTabs: CategoryTab[] = [
+      { id: 'all', label: 'TOUS', query: 'Tous', icon: Sparkles },
+      { id: 'drysift', label: 'DRYSIFT 90U', query: 'Dry Sift', emoji: '🍯' },
+      { id: 'frozensift', label: 'FROZEN SIFT PREMIUM', query: 'Frozen', emoji: '🧊' },
+      { id: 'wppf', label: 'WPPF', query: 'WPFF', emoji: '🧈' },
+      { id: 'static', label: 'STATIC', query: 'Static', emoji: '🧤' },
+      { id: 'beldia', label: 'BELDIA', query: 'Beldia', emoji: '🇲🇦' }
+    ];
 
-  const handleQuickAdd = (p: VideoItem, e: MouseEvent) => {
-    e.stopPropagation();
-    triggerHaptic('medium');
-    if (onQuickAddToCart) {
-      onQuickAddToCart(p);
-    }
-    if (showToast) {
-      showToast(`"${p.title}" ${t('productAddedToast')}`, 'success');
-    }
-    setAddedToast({ visible: true, title: p.title });
-    setTimeout(() => {
-      setAddedToast({ visible: false, title: '' });
-    }, 2400);
-  };
+    const knownIds = new Set(['all', 'drysift', 'frozensift', 'wppf', 'static', 'beldia']);
 
-  // Filter products by selected collection
-  const collectionProducts = useMemo(() => {
-    if (!products) return [];
-    return products.filter((p) => {
-      const cat = (p.category || '').toLowerCase();
-      const colId = activeCollection.toLowerCase();
-      if (colId === 'all') return true;
-      if (colId === 'dry sift' || colId.includes('dry')) return cat.includes('dry') || cat.includes('sift');
-      if (colId === 'beldia' || colId.includes('beld')) return cat.includes('beld');
-      if (colId === 'frozen') return cat.includes('frozen') || cat.includes('fresh');
-      if (colId === 'static') return cat.includes('static');
-      if (colId === 'wpff' || colId === 'wppf') return cat.includes('wpff') || cat.includes('wppf');
-      return true;
+    (products || []).forEach((p) => {
+      if (p.category && p.category.trim()) {
+        const cTrim = p.category.trim();
+        const cLower = cTrim.toLowerCase();
+        
+        const isKnown =
+          cLower.includes('dry') ||
+          cLower.includes('sift') ||
+          cLower.includes('frozen') ||
+          cLower.includes('fresh') ||
+          cLower.includes('wppf') ||
+          cLower.includes('wpff') ||
+          cLower.includes('static') ||
+          cLower.includes('beld') ||
+          cLower.includes('rabat') ||
+          cLower.includes('meet up');
+
+        if (!isKnown && !knownIds.has(cLower)) {
+          knownIds.add(cLower);
+          baseTabs.push({
+            id: cLower,
+            label: cTrim.toUpperCase(),
+            query: cTrim,
+            emoji: '🏷️'
+          });
+        }
+      }
     });
-  }, [products, activeCollection]);
+
+    return baseTabs;
+  }, [products]);
+
+  // Filter products by selected category and search query
+  const filteredProducts = useMemo(() => {
+    if (!products) return [];
+    const sel = (selectedCategory || 'Tous').toLowerCase().trim();
+    const query = searchQuery.toLowerCase().trim();
+
+    return products.filter((p) => {
+      const cat = (p.category || '').toLowerCase().trim();
+
+      // Category matching logic
+      let matchesCat = false;
+      if (sel === 'tous' || sel === 'all' || !sel) {
+        matchesCat = true;
+      } else if (sel === 'dry sift' || sel.includes('dry') || sel.includes('90u')) {
+        matchesCat = cat.includes('dry') || cat.includes('sift');
+      } else if (sel === 'frozen' || sel.includes('frozen') || sel.includes('fresh')) {
+        matchesCat = cat.includes('frozen') || cat.includes('fresh');
+      } else if (sel === 'wpff' || sel.includes('wpff') || sel.includes('wppf')) {
+        matchesCat = cat.includes('wpff') || cat.includes('wppf');
+      } else if (sel === 'static' || sel.includes('static')) {
+        matchesCat = cat.includes('static');
+      } else if (sel === 'beldia' || sel.includes('beld')) {
+        matchesCat = cat.includes('beld');
+      } else {
+        matchesCat = cat.includes(sel) || sel.includes(cat);
+      }
+
+      // Search matching logic
+      const matchesSearch =
+        !query ||
+        (p.title || '').toLowerCase().includes(query) ||
+        (p.description || '').toLowerCase().includes(query) ||
+        (p.category || '').toLowerCase().includes(query);
+
+      return matchesCat && matchesSearch;
+    });
+  }, [products, selectedCategory, searchQuery]);
+
+  const activeTabId = useMemo(() => {
+    const sel = (selectedCategory || 'Tous').toLowerCase().trim();
+    if (sel === 'tous' || sel === 'all') return 'all';
+    if (sel.includes('dry') || sel.includes('90u')) return 'drysift';
+    if (sel.includes('frozen') || sel.includes('fresh')) return 'frozensift';
+    if (sel.includes('wpff') || sel.includes('wppf')) return 'wppf';
+    if (sel.includes('static')) return 'static';
+    if (sel.includes('beld')) return 'beldia';
+    return sel;
+  }, [selectedCategory]);
 
   return (
-    <div className="space-y-8 pb-20 pt-1 px-3 sm:px-4 max-w-2xl mx-auto" id="home-view">
+    <div className="space-y-4 pb-28 pt-1 px-3 sm:px-4 max-w-2xl mx-auto" id="home-view">
       
-      {/* QUICK ADD TO CART TOAST */}
-      <AnimatePresence>
-        {addedToast.visible && (
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.9 }}
-            className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 px-4 py-3 rounded-2xl bg-black/90 border border-amber-500/60 text-white font-mono text-xs font-bold shadow-[0_10px_35px_rgba(245,158,11,0.35)] flex items-center gap-3 backdrop-blur-xl pointer-events-none"
+      {/* 7. REFINED LUXURY HEADER */}
+      <div className="pt-2 pb-2.5 flex items-center justify-between gap-3 border-b border-white/[0.08]">
+        <div>
+          <h1 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase flex items-center gap-2">
+            <span className="bg-gradient-to-r from-[#f5ecd5] via-[#e5c158] to-[#d4af37] bg-clip-text text-transparent font-extrabold tracking-wide">
+              Biscotti Boys Farm
+            </span>
+            <span className="text-base drop-shadow-sm">🍇</span>
+          </h1>
+          <p className="text-[10px] sm:text-[11px] font-mono text-zinc-400 uppercase tracking-widest mt-0.5">
+            Reserve Collection • Live Menu
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              triggerHaptic('light');
+              setShowSearchInput(!showSearchInput);
+            }}
+            className={`p-2 rounded-xl border transition-all cursor-pointer ${
+              showSearchInput || searchQuery
+                ? 'bg-amber-400/15 border-amber-400/70 text-amber-200 shadow-[0_0_15px_rgba(229,193,88,0.25)]'
+                : 'bg-zinc-900/80 border-white/10 text-zinc-400 hover:text-zinc-200 hover:border-white/20'
+            }`}
+            title="Rechercher"
           >
-            <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-500 to-orange-400 text-black flex items-center justify-center font-black shadow-md">
-              <Check className="w-4 h-4 stroke-[3]" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-white font-bold text-xs uppercase tracking-wide">Ajouté au panier</span>
-              <span className="text-[10px] text-amber-400 font-mono truncate max-w-[160px]">
-                {addedToast.title}
-              </span>
+            <Search className="w-4 h-4" />
+          </button>
+
+          <div className="px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[10px] font-bold flex items-center gap-1.5 shadow-sm backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="tracking-wider">DISPO</span>
+          </div>
+        </div>
+      </div>
+
+      {/* EXPANDABLE SEARCH BAR */}
+      <AnimatePresence>
+        {showSearchInput && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="relative pt-1">
+              <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Rechercher une variété, un terpène ou un profil..."
+                className="w-full bg-zinc-900/90 border border-amber-400/30 focus:border-amber-400/80 rounded-2xl pl-10 pr-9 py-2.5 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none transition shadow-inner"
+                autoFocus
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white p-1"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* 1. IMMERSIVE HERO BANNER */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative overflow-hidden bg-transparent py-4 text-center"
-      >
-        <div className="relative z-10 py-2">
-          <h1 className="text-3xl sm:text-5xl font-black font-sans tracking-tight text-white leading-tight uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-            <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500 bg-clip-text text-transparent">
-              Biscotti Boys Farm 🍇
-            </span>
-          </h1>
-        </div>
-      </motion.div>
-
-      {/* 2. COLLECTIONS CARDS (STATIC, FROZEN SIFT, WPFF) */}
-      <div className="space-y-4">
-        <div className="grid grid-cols-1 gap-3.5">
-          {collections.map((col) => {
-            const isSelected = activeCollection === col.id;
-            const count = products.filter((p) => {
-              const cat = (p.category || '').toLowerCase();
-              if (col.id === 'All') return true;
-              if (col.id === 'Dry Sift') return cat.includes('dry') || cat.includes('sift');
-              if (col.id === 'Beldia') return cat.includes('beld');
-              if (col.id === 'Frozen') return cat.includes('frozen') || cat.includes('fresh');
-              if (col.id === 'Static') return cat.includes('static');
-              if (col.id === 'WPFF' || col.id === 'WPPF') return cat.includes('wpff') || cat.includes('wppf');
-              return false;
-            }).length;
+      {/* HORIZONTAL CATEGORY SCROLL TABS */}
+      <div className="relative -mx-3 sm:-mx-4 px-3 sm:px-4">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1.5 pt-0.5 no-scrollbar scroll-smooth">
+          {categoryTabs.map((tab) => {
+            const Icon = tab.icon;
+            const isSelected =
+              tab.id === 'all'
+                ? selectedCategory === 'Tous' || selectedCategory === 'All' || !selectedCategory
+                : activeTabId === tab.id;
 
             return (
-              <motion.div
-                key={col.id}
-                whileHover={{ scale: 1.015 }}
-                whileTap={{ scale: 0.98 }}
+              <button
+                key={tab.id}
                 onClick={() => {
                   triggerHaptic('medium');
-                  setActiveCollection(col.id);
+                  setSelectedCategory(tab.query);
                 }}
-                className={`relative overflow-hidden rounded-3xl p-5 border transition-all duration-300 cursor-pointer bg-black/40 backdrop-blur-xl ${
+                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl font-mono text-xs font-black tracking-wider uppercase whitespace-nowrap transition-all duration-300 cursor-pointer shrink-0 border ${
                   isSelected
-                    ? `${col.gradient} ${col.activeGlow}`
-                    : 'border-white/10 hover:border-white/20'
+                    ? 'bg-gradient-to-r from-amber-500/25 via-yellow-500/20 to-amber-600/25 text-[#f3e8c8] border-[#e5c158]/80 shadow-[0_0_18px_rgba(229,193,88,0.3)] ring-1 ring-[#e5c158]/40'
+                    : 'bg-zinc-900/80 hover:bg-zinc-800/90 text-zinc-400 hover:text-zinc-200 border-white/[0.08] hover:border-white/20'
                 }`}
               >
-                <div className="flex items-center justify-between relative z-10">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-black/60 border border-white/10 flex items-center justify-center text-2xl shadow-inner">
-                      {col.emoji}
-                    </div>
+                {Icon ? (
+                  <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#f3e8c8] animate-pulse' : 'text-zinc-400'}`} />
+                ) : tab.emoji ? (
+                  <span className="text-xs">{tab.emoji}</span>
+                ) : null}
 
-                    <div className="space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-mono text-base font-black tracking-wider text-white uppercase">
-                          {col.title}
-                        </h3>
-                        <span className={`px-2 py-0.5 rounded-full text-[9px] font-mono font-bold ${col.badgeBg}`}>
-                          {count} produit{count > 1 ? 's' : ''}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-neutral-400 font-sans leading-tight">
-                        {col.description}
-                      </p>
-                    </div>
-                  </div>
+                <span>{tab.label}</span>
 
-                  <div
-                    className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all ${
-                      isSelected
-                        ? 'bg-amber-400 text-black border-amber-300 shadow-md'
-                        : 'bg-black/40 border-white/10 text-neutral-500'
-                    }`}
-                  >
-                    <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? 'rotate-90' : ''}`} />
-                  </div>
-                </div>
-              </motion.div>
+                {isSelected && (
+                  <motion.div
+                    layoutId="activeCategoryIndicator"
+                    className="absolute inset-0 rounded-xl border border-[#e5c158]/80 pointer-events-none"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+              </button>
             );
           })}
         </div>
       </div>
 
-      {/* 3. PRODUCT GRID FOR SELECTED COLLECTION */}
-      <div className="space-y-4 pt-2">
-        <div className="flex items-center justify-between px-1">
-          <h3 className="text-xs font-mono font-extrabold tracking-widest text-amber-400 uppercase flex items-center gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>
-              {activeCollection === 'All'
-                ? `🌐 CATALOGUE GLOBAL (${collectionProducts.length})`
-                : `COLLECTION ${activeCollection.toUpperCase()} (${collectionProducts.length})`}
-            </span>
-          </h3>
-          <span className="text-[10px] font-mono text-emerald-400 font-bold flex items-center gap-1">
-            <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-            <span>AVAILABLE</span>
+      {/* 1. SECTION TITLE & COUNT (IMPACTFUL LUXURY TYPOGRAPHY) */}
+      <div className="pt-2 pb-1 flex items-center justify-between px-1">
+        <div className="flex items-center gap-3">
+          <h2 className="text-sm sm:text-base font-black tracking-wider uppercase bg-gradient-to-r from-[#f8f5ee] via-[#e5c158] to-[#d4af37] bg-clip-text text-transparent drop-shadow-[0_1px_8px_rgba(229,193,88,0.25)]">
+            {selectedCategory === 'Tous' || !selectedCategory ? 'TOUS LES PRODUITS' : selectedCategory.toUpperCase()}
+          </h2>
+
+          <div className="h-3 w-px bg-white/15" />
+
+          <span className="text-[11px] font-mono text-zinc-400 font-medium tracking-tight">
+            {filteredProducts.length} référence{filteredProducts.length > 1 ? 's' : ''}
           </span>
         </div>
 
-        {collectionProducts.length === 0 ? (
-          <div className="p-8 rounded-3xl bg-black/40 backdrop-blur-xl border border-dashed border-white/10 text-center space-y-2">
-            <p className="text-xs font-mono text-neutral-400">
-              Aucun produit disponible dans cette collection actuellement.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-3.5 sm:gap-4">
-            <AnimatePresence mode="popLayout">
-              {collectionProducts.map((p, idx) => (
+        {searchQuery && (
+          <button
+            onClick={() => setSearchQuery('')}
+            className="text-[11px] font-mono text-amber-300/90 hover:text-amber-200 hover:underline transition"
+          >
+            Effacer
+          </button>
+        )}
+      </div>
+
+      {/* 2 & 4. COMPACT LUXURY PRODUCT GRID (2 PER ROW, PERFECT PROPORTIONS & DIMENSIONS) */}
+      {filteredProducts.length === 0 ? (
+        <div className="py-14 text-center space-y-3 bg-zinc-950/70 rounded-2xl sm:rounded-3xl border border-dashed border-white/10 px-4 backdrop-blur-xl">
+          <p className="text-zinc-400 font-mono text-xs">
+            Aucun produit ne correspond à votre sélection dans cette catégorie.
+          </p>
+          <button
+            onClick={() => {
+              triggerHaptic('light');
+              setSelectedCategory('Tous');
+              setSearchQuery('');
+            }}
+            className="px-4 py-2 rounded-xl bg-amber-400/15 text-amber-200 border border-amber-400/40 font-mono text-xs font-bold hover:bg-amber-400/25 transition cursor-pointer"
+          >
+            Afficher Tous les Produits
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3 sm:gap-3.5 pt-1">
+          <AnimatePresence mode="popLayout">
+            {filteredProducts.map((p, idx) => {
+              const isFav = favorites.includes(p.id);
+
+              return (
                 <motion.div
                   key={p.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                  initial={{ opacity: 0, scale: 0.96, y: 12 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.15 } }}
-                  transition={{ duration: 0.25, delay: idx * 0.04 }}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
+                  exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.15 } }}
+                  transition={{ duration: 0.22, delay: Math.min(idx * 0.03, 0.25) }}
+                  whileHover={{ scale: 1.015, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => {
                     triggerHaptic('medium');
                     onSelectProduct(p);
                   }}
-                  className="group relative bg-black/40 backdrop-blur-xl border border-white/10 hover:border-amber-500/50 rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between"
+                  className="group relative bg-gradient-to-b from-zinc-900/95 via-zinc-950/95 to-black border border-white/[0.08] hover:border-amber-400/50 rounded-2xl sm:rounded-[20px] overflow-hidden cursor-pointer transition-all duration-300 shadow-[0_8px_24px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_32px_rgba(229,193,88,0.15)] flex flex-col justify-between backdrop-blur-xl h-full"
                 >
-                  {/* Large High-Res Image Container */}
-                  <div className="relative aspect-square w-full bg-black/60 overflow-hidden">
+                  {/* 4. Media Thumbnail Container (Balanced Proportions) */}
+                  <div className="relative aspect-[4/3.8] sm:aspect-square w-full bg-zinc-950 overflow-hidden border-b border-white/[0.05]">
                     <ProductCardMedia product={p} hoverScale={true} />
 
-                    {/* "Available" Glow Badge */}
-                    <div className="absolute top-2.5 left-2.5 z-10">
-                      <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 font-mono font-black text-[8px] uppercase tracking-wider backdrop-blur-md shadow-md flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        AVAILABLE
+                    {/* 6. UNIFIED HARMONIOUS BADGES */}
+                    <div className="absolute top-2 left-2 z-10">
+                      <span className="h-5 px-2 rounded-md bg-black/85 border border-[#e5c158]/40 text-[#f3e8c8] text-[8px] font-mono uppercase font-black tracking-wider backdrop-blur-md flex items-center shadow-sm">
+                        {p.badge || p.category || 'PREMIUM'}
                       </span>
                     </div>
+
+                    {/* Top Right Favorite Heart */}
+                    {onToggleFavorite && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          triggerHaptic('light');
+                          onToggleFavorite(p.id);
+                        }}
+                        className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-black/75 border border-white/10 text-white hover:text-red-400 active:scale-90 transition cursor-pointer backdrop-blur-md"
+                        title="Favori"
+                      >
+                        <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-red-500 text-red-500' : ''}`} />
+                      </button>
+                    )}
                   </div>
 
-                  {/* Clean Content Area */}
-                  <div className="p-3.5 space-y-2 flex-1 flex flex-col justify-between">
+                  {/* 4. Product Info & Price Bar (High Craft Typography & Layout) */}
+                  <div className="p-3 sm:p-3.5 space-y-2 flex-1 flex flex-col justify-between">
                     <div className="space-y-1">
-                      {/* Category Badge - visible in TOUS LES PRODUITS / Catalogue Global view */}
-                      {activeCollection === 'All' && (
-                        <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono font-black text-amber-400 uppercase tracking-wider">
-                          <span>{getCategoryDisplay(p.category).emoji}</span>
-                          <span className="truncate">{getCategoryDisplay(p.category).label}</span>
-                        </div>
-                      )}
+                      <div className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#e5c158]/90 truncate">
+                        {p.category || 'BISCOTTI BOYS'}
+                      </div>
 
-                      <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-amber-400 transition truncate uppercase">
+                      <h4 className="text-xs sm:text-[13px] font-extrabold text-zinc-100 group-hover:text-[#f3e8c8] transition-colors uppercase leading-snug line-clamp-2 min-h-[2rem]">
                         {p.title}
                       </h4>
+
+                      {p.description && (
+                        <p className="text-[10px] text-zinc-400 line-clamp-1 font-sans leading-normal">
+                          {p.description}
+                        </p>
+                      )}
                     </div>
 
-                    <div className="flex items-center justify-between pt-1 border-t border-white/5">
+                    {/* 5. PRICE & ELEGANT "VOIR →" CTA PILL */}
+                    <div className="pt-2.5 flex items-center justify-between border-t border-white/[0.06] mt-auto">
                       <div>
-                        <span className="text-[11px] sm:text-xs font-black font-mono text-amber-400">
-                          {(p.category || '').toLowerCase().includes('accessoire') ? `${p.price} €` : `${p.price} €`}
+                        <span className="text-xs sm:text-sm font-black font-mono text-[#e5c158] tracking-tight">
+                          {p.price} €
                         </span>
                       </div>
 
-                      {/* Discrete "+" Button */}
-                      <button
-                        onClick={(e) => handleQuickAdd(p, e)}
-                        className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-400 hover:text-black transition cursor-pointer active:scale-90 shadow-sm"
-                        title="Ajouter au panier"
-                      >
-                        <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-                      </button>
+                      {/* 5. Clear identifiable CTA: VOIR → */}
+                      <div className="px-2 py-1 rounded-lg bg-white/[0.04] group-hover:bg-[#e5c158]/20 border border-white/10 group-hover:border-[#e5c158]/50 text-[#f3e8c8] text-[9px] sm:text-[10px] font-mono font-black uppercase tracking-wider transition-all duration-300 flex items-center gap-1 shadow-sm">
+                        <span>VOIR</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                      </div>
                     </div>
                   </div>
                 </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-        )}
-      </div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+      )}
 
     </div>
   );

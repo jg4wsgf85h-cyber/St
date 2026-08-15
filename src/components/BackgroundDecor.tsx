@@ -178,12 +178,12 @@ export default function BackgroundDecor({ bgUrl, videoUrl, videoWebmUrl, videoMp
         }}
         className="absolute inset-0 w-full h-full"
       >
-        {/* 1. Original static background image */}
+        {/* 1. Original static background image with deeper dark luxury grading */}
         <img
           src={activeImage}
           alt="Biscotti Boys Farm Reserve Background"
-          className={`absolute inset-0 w-full h-full object-cover filter brightness-85 contrast-115 transition-opacity duration-700 ${
-            hasVideo && videoLoaded ? 'opacity-0 pointer-events-none' : 'opacity-85'
+          className={`absolute inset-0 w-full h-full object-cover filter brightness-[0.55] contrast-[1.1] transition-opacity duration-700 ${
+            hasVideo && videoLoaded ? 'opacity-0 pointer-events-none' : 'opacity-70'
           }`}
           loading="eager"
         />
@@ -204,8 +204,8 @@ export default function BackgroundDecor({ bgUrl, videoUrl, videoWebmUrl, videoMp
             onPlaying={() => setVideoLoaded(true)}
             onLoadedData={() => setVideoLoaded(true)}
             onError={() => setVideoLoaded(false)}
-            className={`absolute inset-0 w-full h-full object-cover transform-gpu pointer-events-none filter brightness-90 contrast-110 transition-opacity duration-700 ${
-              videoLoaded ? 'opacity-90' : 'opacity-0'
+            className={`absolute inset-0 w-full h-full object-cover transform-gpu pointer-events-none filter brightness-[0.6] contrast-[1.05] transition-opacity duration-700 ${
+              videoLoaded ? 'opacity-75' : 'opacity-0'
             }`}
           >
             {webmUrl && <source src={webmUrl} type="video/webm" />}
@@ -215,13 +215,13 @@ export default function BackgroundDecor({ bgUrl, videoUrl, videoWebmUrl, videoMp
       </motion.div>
 
       {/* Atmospheric Fog and Floating Particles Canvas Overlay */}
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-60" />
 
-      {/* Top & Bottom Depth Vignettes to ensure 100% crisp readability for all UI elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 pointer-events-none" />
+      {/* Top, Center & Bottom Depth Vignettes to guarantee 100% crisp readability for product cards */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/60 to-black/95 pointer-events-none" />
       
       {/* Subtle Radial Golden Glow at top center */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[220px] bg-gradient-to-b from-amber-500/10 via-orange-500/5 to-transparent blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[200px] bg-gradient-to-b from-amber-500/8 via-yellow-500/4 to-transparent blur-[120px] pointer-events-none" />
     </div>
   );
 }

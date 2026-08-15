@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { VideoItem } from '../types';
 
 interface CategoriesViewProps {
@@ -14,15 +15,15 @@ export default function CategoriesView({
 }: CategoriesViewProps) {
   const categoriesList = useMemo(() => {
     const list = [
-      { name: 'Tous', query: 'Tous' },
-      { name: 'Dry Sift 🍯', query: 'Dry Sift' },
-      { name: 'Beldia 🇲🇦', query: 'Beldia' },
-      { name: 'Static 🧤', query: 'Static' },
-      { name: 'Frozen Sift 🧊', query: 'Frozen' },
-      { name: 'WPFF 🧈', query: 'WPFF' },
+      { name: 'Tous les Produits', query: 'Tous', emoji: '✨' },
+      { name: 'DRYSIFT 90U', query: 'Dry Sift', emoji: '🍯' },
+      { name: 'FROZEN SIFT PREMIUM', query: 'Frozen', emoji: '🧊' },
+      { name: 'WPPF', query: 'WPFF', emoji: '🧈' },
+      { name: 'STATIC', query: 'Static', emoji: '🧤' },
+      { name: 'BELDIA', query: 'Beldia', emoji: '🇲🇦' }
     ];
 
-    const knownQueries = new Set(['tous', 'static', 'frozen', 'wppf', 'wpff']);
+    const knownQueries = new Set(['tous', 'static', 'frozen', 'wppf', 'wpff', 'beldia', 'dry sift']);
     (products || []).forEach((p) => {
       if (p.category && p.category.trim()) {
         const cTrim = p.category.trim();
@@ -35,11 +36,10 @@ export default function CategoriesView({
           !cLower.includes('wppf') &&
           !cLower.includes('wpff') &&
           !cLower.includes('rabat') &&
-          !cLower.includes('meet up') &&
-          !cLower.includes('acc')
+          !cLower.includes('meet up')
         ) {
           knownQueries.add(cLower);
-          list.push({ name: cTrim, query: cTrim });
+          list.push({ name: cTrim.toUpperCase(), query: cTrim, emoji: '🏷️' });
         }
       }
     });
@@ -48,13 +48,15 @@ export default function CategoriesView({
   }, [products]);
 
   return (
-    <div className="space-y-4 pb-24 pt-2 px-4 max-w-2xl mx-auto" id="categories-view">
+    <div className="space-y-4 pb-24 pt-2 px-3 sm:px-4 max-w-2xl mx-auto" id="categories-view">
       <div className="space-y-1">
-        <h2 className="text-lg font-black text-white tracking-tight uppercase">
-          Filtrer par Catégorie
+        <h2 className="text-lg font-black text-white tracking-tight uppercase flex items-center gap-2">
+          <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent">
+            Catégories Reserve
+          </span>
         </h2>
-        <p className="text-xs text-neutral-400 font-mono">
-          Sélectionnez une catégorie pour afficher directement les produits correspondants.
+        <p className="text-xs text-zinc-400 font-mono">
+          Sélectionnez une catégorie pour filtrer instantanément le catalogue.
         </p>
       </div>
 
@@ -65,8 +67,11 @@ export default function CategoriesView({
             : products.filter((p) => {
                 const pCat = (p.category || '').toLowerCase();
                 const qCat = cat.query.toLowerCase();
-                if (qCat === 'accessoires') return pCat.includes('accessoire') || pCat.includes('acc');
-                if (qCat === 'wpff' || qCat === 'wppf' || qCat === 'dry') return pCat.includes('wpff') || pCat.includes('wppf') || pCat.includes('dry');
+                if (qCat === 'dry sift' || qCat.includes('dry')) return pCat.includes('dry') || pCat.includes('sift');
+                if (qCat === 'frozen' || qCat.includes('frozen')) return pCat.includes('frozen') || pCat.includes('fresh');
+                if (qCat === 'wpff' || qCat === 'wppf') return pCat.includes('wpff') || pCat.includes('wppf');
+                if (qCat === 'static') return pCat.includes('static');
+                if (qCat === 'beldia') return pCat.includes('beld');
                 return pCat.includes(qCat);
               }).length;
 
@@ -77,19 +82,20 @@ export default function CategoriesView({
                 triggerHaptic('medium');
                 onSelectCategory(cat.query);
               }}
-              className="p-4 rounded-2xl bg-neutral-900 border border-white/10 hover:border-orange-500/50 text-left transition cursor-pointer flex items-center justify-between group shadow-md"
+              className="p-4 rounded-2xl bg-zinc-900/80 border border-white/10 hover:border-amber-500/60 hover:bg-zinc-800/90 text-left transition-all duration-300 cursor-pointer flex items-center justify-between group shadow-md hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
             >
-              <div>
-                <span className="text-sm font-bold text-white group-hover:text-orange-400 transition block uppercase">
+              <div className="space-y-1">
+                <div className="text-lg">{cat.emoji}</div>
+                <span className="text-xs font-black text-white group-hover:text-amber-300 transition block uppercase font-mono">
                   {cat.name}
                 </span>
-                <span className="text-[10px] text-neutral-500 font-mono">
-                  {count} produit{count > 1 ? 's' : ''}
+                <span className="text-[10px] text-zinc-500 font-mono">
+                  {count} réf{count > 1 ? 's' : ''}
                 </span>
               </div>
-              <span className="text-xs text-orange-500 font-mono font-bold group-hover:translate-x-1 transition">
-                →
-              </span>
+              <div className="w-7 h-7 rounded-xl bg-black/50 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-amber-400 group-hover:border-amber-500/40 transition">
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </div>
             </button>
           );
         })}
