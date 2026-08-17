@@ -28,7 +28,7 @@ if (isProductionRunner && process.env.NODE_ENV !== 'production') {
 }
 
 // Enforce valid active Telegram bot token if the environment variable is unset or contains any old/expired token
-const activeBotToken = '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+const activeBotToken = '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
 
 if (!process.env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN.trim() !== activeBotToken) {
   process.env.TELEGRAM_BOT_TOKEN = activeBotToken;
@@ -1502,8 +1502,8 @@ const DEFAULT_SETTINGS = {
   introBgUrl: '',
   launchScreenUrl: '',
   homepageHeroBgUrl: 'https://images.unsplash.com/photo-1541532713592-79a0317b6b77?q=80&w=1600&auto=format&fit=crop',
-  logoUrl: 'https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0292552802.firebasestorage.app/o/uploads%2Fb3124932-b5e6-4af6-835e-5023475f8f4f.png?alt=media&token=7a9a0439-7fea-4564-a729-8207809afbb7',
-  telegramChannelUrl: 'https://t.me/+gLPwu9H2-d4yZWE0',
+  logoUrl: 'https://st-production-a9ae.up.railway.app/uploads/bot_biscotti_logo.jpg',
+  telegramChannelUrl: 'https://t.me/+ox8xo-KqAk1jYjI0',
   telegramSupportUrl: 'https://t.me/yoru47',
   introStatusLine: 'Biscotti Boys Farm — PRIVATE RESERVE',
   sectionTitles: [
@@ -2125,8 +2125,24 @@ function sanitizeSettings(settings: any): any {
   if (!copy.promoMessageText || copy.promoMessageText.toUpperCase().includes('INSTAGRAM')) {
     copy.promoMessageText = `🛍️ BOUTIQUE\n\nNotre boutique est désormais disponible directement sur Telegram !\n\nVous y retrouverez :\n\n→ Tous nos produits et nouveautés\n→ Commande sécurisée en quelques clics\n→ Vos récompenses de fidélité et codes promos\n\nRejoignez-nous directement dans la Mini App !\n\n🤫 Cercle Privé`;
   }
-  if (!copy.telegramChannelUrl || copy.telegramChannelUrl.includes('jzS4uQkjH3hmYzM0') || copy.telegramChannelUrl.includes('ZOIX0z1yVl84MWI8')) {
-    copy.telegramChannelUrl = 'https://t.me/+gLPwu9H2-d4yZWE0';
+  if (!copy.telegramChannelUrl || copy.telegramChannelUrl.includes('jzS4uQkjH3hmYzM0') || copy.telegramChannelUrl.includes('ZOIX0z1yVl84MWI8') || copy.telegramChannelUrl.includes('gLPwu9H2-d4yZWE0')) {
+    copy.telegramChannelUrl = 'https://t.me/+ox8xo-KqAk1jYjI0';
+  }
+  if (!copy.logoUrl || copy.logoUrl.includes('b3124932-b5e6') || copy.logoUrl.includes('north47') || copy.logoUrl.includes('ais-')) {
+    copy.logoUrl = 'https://st-production-a9ae.up.railway.app/uploads/bot_biscotti_logo.jpg';
+  }
+  // Strip any internal development sandbox URLs from stored custom URLs
+  if (copy.customAppUrl) {
+    const u = String(copy.customAppUrl).trim();
+    if (u.includes('ais-dev-') || u.includes('ais-pre-') || !u.startsWith('http')) {
+      delete copy.customAppUrl;
+    }
+  }
+  if (copy.instagramUrl && (copy.instagramUrl.includes('ais-dev-') || copy.instagramUrl.includes('ais-pre-'))) {
+    copy.instagramUrl = 'https://instagram.com/north47_lab';
+  }
+  if (copy.instagramUrl2 && (copy.instagramUrl2.includes('ais-dev-') || copy.instagramUrl2.includes('ais-pre-'))) {
+    delete copy.instagramUrl2;
   }
   return copy;
 }
@@ -2957,7 +2973,7 @@ async function verifyAdminAuth(req: any, res: any, next: any) {
     // Otherwise check X-Telegram-Init-Data reflecting a valid OWNER role
     const initData = req.headers['x-telegram-init-data'];
     if (initData) {
-      const botToken = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+      const botToken = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
       if (verifyTelegramInitData(initData, botToken)) {
         const params = new URLSearchParams(initData);
         const userStr = params.get('user');
@@ -3021,7 +3037,7 @@ async function verifyUserOrAdminAuth(req: any, res: any, next: any) {
       return next();
     }
 
-    const botToken = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+    const botToken = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
     const isValidSignature = verifyTelegramInitData(initData, botToken);
     
     if (!isValidSignature) {
@@ -3889,7 +3905,7 @@ app.post('/api/settings', verifyAdminAuth, async (req, res) => {
   // Instantly re-sync Telegram Menu Button to active production URL
   try {
     const activeUrl = getTelegramAppUrl();
-    const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+    const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
     if (token && activeUrl) {
       console.log('[SETTINGS UPDATE] Re-syncing Telegram bot menu button with URL:', activeUrl);
       fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -4125,7 +4141,7 @@ app.post('/api/pending-approvals/approve', verifyAdminAuth, async (req, res) => 
     }
     
     // 3. Attempt to notify the user via the Telegram Bot that they are approved!
-    const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+    const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
     try {
       const appUrl = getTelegramAppUrl();
       const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à Biscotti Boys Farm a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
@@ -4171,7 +4187,7 @@ app.post('/api/pending-approvals/reject', verifyAdminAuth, async (req, res) => {
     await deletePendingApprovalFirestore(id);
     
     // Optionally notify the user they were rejected
-    const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+    const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
     if (telegramId) {
       try {
         const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App Biscotti Boys Farm a été refusée par l'administration\\.`;
@@ -4409,36 +4425,65 @@ app.post('/api/verify-access', async (req, res) => {
 
 // --- TELEGRAM WEBHOOK & BOT COMMANDS INTEGRATION ---
 function getTelegramAppUrl(): string {
-  const isValidHttpsUrl = (urlStr?: string): boolean => {
+  const isValidPublicUrl = (urlStr?: string): boolean => {
     if (!urlStr || typeof urlStr !== 'string') return false;
     const s = urlStr.trim();
-    return s.startsWith('https://') || s.startsWith('http://');
+    if (!s.startsWith('https://') && !s.startsWith('http://')) return false;
+    // Disallow internal AI Studio dev/pre sandbox URLs that require Google Auth cookies
+    if (s.includes('ais-dev-') || s.includes('ais-pre-') || s.includes('localhost') || s.includes('127.0.0.1')) return false;
+    // Disallow accidental bot tokens passed as URLs
+    if (s.includes(':AAH') || s.length < 10) return false;
+    return true;
   };
 
   try {
     const settings = loadSettingsFromDisk();
-    if (settings && (settings as any).customAppUrl && isValidHttpsUrl((settings as any).customAppUrl)) {
-      let u = (settings as any).customAppUrl.trim();
-      if (u.includes('ais-pre-')) {
-        u = u.replace('ais-pre-', 'ais-dev-');
-      }
-      return u;
+    if (settings && (settings as any).customAppUrl && isValidPublicUrl((settings as any).customAppUrl)) {
+      return (settings as any).customAppUrl.trim();
     }
   } catch (e) {}
   
-  if (isValidHttpsUrl(process.env.APP_URL)) {
-    let u = process.env.APP_URL!.trim();
-    if (u.includes('ais-pre-')) u = u.replace('ais-pre-', 'ais-dev-');
-    return u;
+  if (isValidPublicUrl(process.env.CUSTOM_APP_URL)) {
+    return process.env.CUSTOM_APP_URL!.trim();
   }
 
-  if (isValidHttpsUrl(process.env.TELEGRAM_MINI_APP_URL)) {
-    let u = process.env.TELEGRAM_MINI_APP_URL!.trim();
-    if (u.includes('ais-pre-')) u = u.replace('ais-pre-', 'ais-dev-');
-    return u;
+  if (isValidPublicUrl(process.env.TELEGRAM_MINI_APP_URL)) {
+    return process.env.TELEGRAM_MINI_APP_URL!.trim();
   }
 
-  return 'https://ais-dev-vxlfxvvv6m5qf5k6mzsfkc-858781160855.europe-west2.run.app';
+  if (isValidPublicUrl(process.env.APP_URL)) {
+    return process.env.APP_URL!.trim();
+  }
+
+  // Official production deployment URL
+  return 'https://st-production-a9ae.up.railway.app';
+}
+
+function formatTelegramButton(label?: string, targetUrl?: string, fallbackLabel = "🛒 Accéder au Shop 🛍️"): any {
+  const appUrl = getTelegramAppUrl();
+  const cleanLabel = (label || '').trim() || fallbackLabel;
+  const cleanUrl = (targetUrl || '').trim();
+
+  // Check if it's an external web link (not an AI Studio internal sandbox, and not the shop app itself)
+  const isInternalSandbox = cleanUrl.includes('ais-dev-') || cleanUrl.includes('ais-pre-') || cleanUrl.includes('localhost');
+  const isExplicitShopUrl = cleanUrl === appUrl || cleanUrl.includes('railway.app');
+  
+  if (cleanUrl.startsWith('http') && !isInternalSandbox && !isExplicitShopUrl) {
+    const isSocialOrExternal = cleanUrl.includes('instagram.com') || 
+                               cleanUrl.includes('t.me') || 
+                               cleanUrl.includes('twitter.com') || 
+                               cleanUrl.includes('x.com') ||
+                               cleanUrl.includes('wa.me') ||
+                               cleanUrl.includes('signal.me') ||
+                               cleanUrl.includes('youtube.com') ||
+                               cleanUrl.includes('tiktok.com');
+    if (isSocialOrExternal) {
+      return { text: cleanLabel, url: cleanUrl };
+    }
+  }
+
+  // Always fallback to standard Telegram WebApp with active production URL
+  return { text: cleanLabel, web_app: { url: appUrl } };
 }
 
 function ensurePublicNginxAndCSP(): void {
@@ -4607,7 +4652,7 @@ interface TelegramOperationResult {
 }
 
 async function deleteTelegramMessage(chatId: string | number, messageId: number): Promise<TelegramOperationResult> {
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/deleteMessage`, {
       method: 'POST',
@@ -4642,25 +4687,14 @@ async function editTelegramMessage(
   url2?: string,
   buttonLabel2?: string
 ): Promise<TelegramOperationResult> {
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
   try {
-    const appUrl = getTelegramAppUrl();
-    
-    const finalUrl1 = (url || '').trim();
-    const isExternalSocial1 = finalUrl1.toLowerCase().startsWith('http') && !finalUrl1.includes('ais-') && !finalUrl1.includes('run.app');
-    const btn1 = isExternalSocial1
-      ? { text: buttonLabel || "🛒 Ouvrir la Mini-App", url: finalUrl1 }
-      : { text: buttonLabel || "🛒 Ouvrir la Mini-App", web_app: { url: appUrl } };
-      
+    const btn1 = formatTelegramButton(buttonLabel, url, "🛒 Accéder au Shop 🛍️");
     const inline_keyboard: any[][] = [[btn1]];
     
-    const finalUrl2 = (url2 || '').trim();
     const btnLabel2 = (buttonLabel2 || '').trim();
     if (btnLabel2) {
-      const isExternalSocial2 = finalUrl2.toLowerCase().startsWith('http') && !finalUrl2.includes('ais-') && !finalUrl2.includes('run.app');
-      const btn2 = isExternalSocial2
-        ? { text: btnLabel2, url: finalUrl2 }
-        : { text: btnLabel2, web_app: { url: appUrl } };
+      const btn2 = formatTelegramButton(btnLabel2, url2, btnLabel2);
       inline_keyboard.push([btn2]);
     }
 
@@ -4727,11 +4761,11 @@ async function editTelegramMessage(
 }
 
 async function sendInstagramPromoMessage(chatId: string | number): Promise<{ success: boolean; messageId?: number }> {
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
   
-  const defaultText = `Biscotti Boys Farm — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+gLPwu9H2-d4yZWE0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nBiscotti Boys Farm — L'Excellence à l'État Pur`;
+  const defaultText = `Biscotti Boys Farm — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nBiscotti Boys Farm — L'Excellence à l'État Pur`;
   let promoMessage = defaultText;
-  let promoBtnLabel = "🛒 Ouvrir la Mini-App";
+  let promoBtnLabel = "🛒 Accéder au Shop 🛍️";
   let promoUrl1 = "";
   let promoBtnLabel2 = "";
   let promoUrl2 = "";
@@ -4772,20 +4806,11 @@ async function sendInstagramPromoMessage(chatId: string | number): Promise<{ suc
     console.error('[SETTINGS LOAD IN PROMO]:', err);
   }
 
-  const appUrl = getTelegramAppUrl();
-
-  const isExternalSocial1 = promoUrl1 && promoUrl1.toLowerCase().startsWith('http') && !promoUrl1.includes('ais-') && !promoUrl1.includes('run.app');
-  const btn1 = isExternalSocial1
-    ? { text: promoBtnLabel || "🛒 Accéder au Shop 🛍️", url: promoUrl1 }
-    : { text: promoBtnLabel || "🛒 Accéder au Shop 🛍️", web_app: { url: appUrl } };
-    
+  const btn1 = formatTelegramButton(promoBtnLabel, promoUrl1, "🛒 Accéder au Shop 🛍️");
   const inline_keyboard: any[][] = [[btn1]];
   
   if (promoBtnLabel2) {
-    const isExternalSocial2 = promoUrl2 && promoUrl2.toLowerCase().startsWith('http') && !promoUrl2.includes('ais-') && !promoUrl2.includes('run.app');
-    const btn2 = isExternalSocial2
-      ? { text: promoBtnLabel2, url: promoUrl2 }
-      : { text: promoBtnLabel2, web_app: { url: appUrl } };
+    const btn2 = formatTelegramButton(promoBtnLabel2, promoUrl2, promoBtnLabel2);
     inline_keyboard.push([btn2]);
   }
 
@@ -4931,7 +4956,7 @@ const activeProcessingChats = new Set<string>();
 
 async function processTelegramUpdate(body: any, source: string = 'polling') {
   try {
-    const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+    const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
     if (!body || !body.message) return;
 
     const chatId = String(body.message.chat?.id || '');
@@ -4979,7 +5004,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
       try {
         const appUrl = getTelegramAppUrl();
         let logoUrl = '';
-        let channelLink = 'https://t.me/+gLPwu9H2-d4yZWE0';
+        let channelLink = 'https://t.me/+ox8xo-KqAk1jYjI0';
         try {
           const settings = loadSettingsFromDisk();
           if (settings && settings.logoUrl && settings.logoUrl.trim() !== '') {
@@ -4987,7 +5012,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
           }
           if (settings && settings.telegramChannelUrl && settings.telegramChannelUrl.trim() !== '') {
             const rawTg = settings.telegramChannelUrl.trim();
-            if (!rawTg.includes('jzS4uQkjH3hmYzM0') && !rawTg.includes('ZOIX0z1yVl84MWI8')) {
+            if (!rawTg.includes('jzS4uQkjH3hmYzM0') && !rawTg.includes('ZOIX0z1yVl84MWI8') && !rawTg.includes('gLPwu9H2-d4yZWE0')) {
               channelLink = rawTg;
             }
           }
@@ -5014,6 +5039,12 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
         const inlineKeyboard = [
           [
             {
+              text: "🛒 Accéder au Shop 🛍️",
+              web_app: { url: appUrl }
+            }
+          ],
+          [
+            {
               text: "📢 Canal Telegram",
               url: channelLink
             }
@@ -5027,14 +5058,43 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
         ];
 
         // Send EXACTLY ONE message: photo if available, or text if not (strictly single message)
-        const isPhotoValid = logoUrl && logoUrl.startsWith('http') && !logoUrl.toLowerCase().includes('.svg');
         let photoSucceeded = false;
 
-        if (isPhotoValid) {
+        // 1. Try sending local bot emblem photo via multipart FormData directly to Telegram
+        const localLogoPath = path.join(process.cwd(), 'uploads', 'bot_biscotti_logo.jpg');
+        if (fs.existsSync(localLogoPath)) {
+          try {
+            const fileBuf = fs.readFileSync(localLogoPath);
+            const blob = new Blob([fileBuf], { type: 'image/jpeg' });
+            const formData = new FormData();
+            formData.append('chat_id', String(chatId));
+            formData.append('photo', blob, 'bot_biscotti_logo.jpg');
+            formData.append('caption', welcomeText);
+            formData.append('reply_markup', JSON.stringify({ inline_keyboard: inlineKeyboard }));
+
+            const uploadRes = await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+              method: 'POST',
+              body: formData
+            });
+            const uploadJson: any = await uploadRes.json();
+            if (uploadJson && uploadJson.ok) {
+              photoSucceeded = true;
+              console.log(`[TELEGRAM BOT] Single welcome photo sent directly via FormData to chat ${chatId}`);
+            } else {
+              console.warn('[TELEGRAM BOT] FormData sendPhoto returned:', uploadJson);
+            }
+          } catch (fdErr) {
+            console.error('[TELEGRAM BOT] FormData sendPhoto error:', fdErr);
+          }
+        }
+
+        // 2. Fallback to URL-based sendPhoto if FormData didn't succeed
+        if (!photoSucceeded) {
+          const fallbackPhotoUrl = (logoUrl && logoUrl.startsWith('http')) ? logoUrl : 'https://st-production-a9ae.up.railway.app/uploads/bot_biscotti_logo.jpg';
           try {
             const photoPayload = {
               chat_id: chatId,
-              photo: logoUrl,
+              photo: fallbackPhotoUrl,
               caption: welcomeText,
               reply_markup: {
                 inline_keyboard: inlineKeyboard
@@ -5049,9 +5109,9 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
             const photoResJson: any = await photoRes.json();
             if (photoResJson && photoResJson.ok) {
               photoSucceeded = true;
-              console.log(`[TELEGRAM BOT] Single welcome photo sent successfully to chat ${chatId}`);
+              console.log(`[TELEGRAM BOT] Single welcome photo sent via URL to chat ${chatId}`);
             } else {
-              console.warn('[TELEGRAM BOT] sendPhoto returned error, attempting text fallback:', photoResJson);
+              console.warn('[TELEGRAM BOT] URL sendPhoto returned error, attempting text fallback:', photoResJson);
             }
           } catch (photoErr) {
             console.error('[TELEGRAM BOT] sendPhoto network error:', photoErr);
@@ -5098,7 +5158,7 @@ async function startTelegramLongPolling() {
   if (isPollingStarted) return;
   isPollingStarted = true;
 
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
 
   try {
     await fetch(`https://api.telegram.org/bot${token}/deleteWebhook`, { method: 'POST' });
@@ -5489,7 +5549,7 @@ async function runBackgroundPromoBroadcast() {
 }
 
 async function setupTelegramWebhook() {
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8879788047:AAHbg32Fzg4gbHQjcja4Kytd5Ecc93bcPIc';
+  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
   const appUrl = getTelegramAppUrl();
   
   try {

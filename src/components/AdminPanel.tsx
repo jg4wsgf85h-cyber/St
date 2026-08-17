@@ -2770,7 +2770,7 @@ export default function AdminPanel({
                         type="text"
                         value={settings.telegramChannelUrl || ''}
                         onChange={(e) => setBrandingSettings({ ...settings, telegramChannelUrl: e.target.value })}
-                        placeholder="Ex: https://t.me/+gLPwu9H2-d4yZWE0"
+                        placeholder="Ex: https://t.me/+ox8xo-KqAk1jYjI0"
                         className="w-full text-[9px] py-1.5 px-2.5 rounded bg-black border border-[#222] focus:border-[#D4AF37] text-white outline-none font-mono"
                       />
                     </div>
@@ -2989,7 +2989,7 @@ export default function AdminPanel({
                       type="text"
                       value={settings.customAppUrl || ''}
                       onChange={(e) => setBrandingSettings({ ...settings, customAppUrl: e.target.value })}
-                      placeholder="Ex: https://votre-app-cloudrun.run.app ou URL de production"
+                      placeholder="https://st-production-a9ae.up.railway.app (par défaut)"
                       className="w-full text-[9px] py-1.5 px-2.5 rounded bg-black border border-[#222] focus:border-[#D4AF37] text-white outline-none font-mono"
                     />
                   </div>

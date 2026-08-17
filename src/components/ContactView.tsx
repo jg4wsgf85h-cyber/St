@@ -12,7 +12,7 @@ interface ContactViewProps {
 export default function ContactView({ branding, triggerHaptic, showToast }: ContactViewProps) {
   const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
 
-  const telegramChannel = branding?.telegramChannelUrl || 'https://t.me/+gLPwu9H2-d4yZWE0';
+  const telegramChannel = branding?.telegramChannelUrl || 'https://t.me/+ox8xo-KqAk1jYjI0';
   const telegramSupport = branding?.telegramSupportUrl || 'https://t.me/yoru47';
   const instagram = branding?.instagramUrl || 'https://instagram.com/biscottiboysfarm';
 
