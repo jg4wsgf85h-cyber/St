@@ -1,210 +1,303 @@
 [
   {
-    "telegramUsername": "guest",
     "dateJoined": "2026-06-19",
+    "telegramUsername": "guest",
+    "pseudo": "LuxMember_00000",
     "id": "000000",
     "unlockedRewards": [],
-    "telegramId": "000000",
-    "pseudo": "LuxMember_00000"
+    "telegramId": "000000"
   },
   {
-    "telegramId": "1360569091",
-    "pseudo": "LuxMember_13605",
+    "firstName": "kogel",
+    "telegramUsername": "morfiene0",
+    "telegramId": "1274989761",
+    "unlockedRewards": [],
+    "pseudo": "LuxMember_12749",
+    "lastActive": "2026-08-18T21:33:51.264Z",
+    "dateJoined": "2026-08-18",
+    "id": "1274989761"
+  },
+  {
     "id": "1360569091",
-    "unlockedRewards": [],
+    "telegramId": "1360569091",
     "telegramUsername": "guest",
-    "dateJoined": "2026-08-03"
+    "pseudo": "LuxMember_13605",
+    "dateJoined": "2026-08-03",
+    "unlockedRewards": []
+  },
+  {
+    "telegramId": "1688065286",
+    "telegramUsername": "nika_order",
+    "lastName": "",
+    "id": "1688065286",
+    "dateJoined": "2026-08-16",
+    "lastActive": "2026-08-16T18:50:53.793Z",
+    "pseudo": "NIKA🏴‍☠️",
+    "firstName": "NIKA🏴‍☠️"
   },
   {
     "telegramUsername": "guest",
-    "unlockedRewards": [],
     "telegramId": "2074112725",
+    "unlockedRewards": [],
     "id": "2074112725",
     "pseudo": "LuxMember_20741",
     "dateJoined": "2026-08-05"
   },
   {
-    "unlockedRewards": [],
-    "telegramId": "5030712170",
-    "pseudo": "LuxMember_50307",
     "id": "5030712170",
+    "unlockedRewards": [],
+    "dateJoined": "2026-08-05",
+    "pseudo": "LuxMember_50307",
     "telegramUsername": "guest",
-    "dateJoined": "2026-08-05"
+    "telegramId": "5030712170"
   },
   {
-    "pseudo": "LuxMember_51265",
     "unlockedRewards": [],
     "dateJoined": "2026-06-24",
-    "telegramId": "5126560352",
+    "id": "5126560352",
     "telegramUsername": "guest",
-    "id": "5126560352"
+    "pseudo": "LuxMember_51265",
+    "telegramId": "5126560352"
   },
   {
-    "telegramId": "5791137044",
-    "id": "5791137044",
-    "telegramUsername": "guest",
-    "pseudo": "LuxMember_57911",
+    "telegramUsername": "cek_47",
+    "id": "5351497672",
+    "pseudo": "LuxMember_53514",
+    "dateJoined": "2026-08-16",
+    "lastActive": "2026-08-16T10:00:46.701Z",
     "unlockedRewards": [],
-    "dateJoined": "2026-06-19"
+    "firstName": "Cek",
+    "telegramId": "5351497672"
   },
   {
-    "id": "5872045142",
+    "pseudo": "LuxMember_55459",
+    "id": "5545918858",
+    "telegramId": "5545918858",
+    "lastName": "Steveen",
+    "lastActive": "2026-08-16T18:36:58.024Z",
+    "unlockedRewards": [],
+    "telegramUsername": "steev3300",
+    "firstName": "Steveen",
+    "dateJoined": "2026-08-16"
+  },
+  {
+    "id": "5791137044",
+    "unlockedRewards": [],
+    "telegramUsername": "guest",
+    "telegramId": "5791137044",
     "dateJoined": "2026-06-19",
+    "pseudo": "LuxMember_57911"
+  },
+  {
+    "telegramUsername": "guest",
+    "dateJoined": "2026-06-19",
+    "pseudo": "LuxMember_58720",
     "unlockedRewards": [],
     "telegramId": "5872045142",
-    "telegramUsername": "guest",
-    "pseudo": "LuxMember_58720"
+    "id": "5872045142"
   },
   {
+    "pseudo": "LuxMember_59123",
+    "lastActive": "2026-08-21T12:44:16.717Z",
+    "id": "5912332745",
+    "telegramId": "5912332745",
+    "firstName": "Renfrewshire ED",
+    "dateJoined": "2026-08-21",
+    "unlockedRewards": [],
+    "lastName": "DROPS 🚗💨",
+    "telegramUsername": "chronic_carts"
+  },
+  {
+    "unlockedRewards": [],
     "dateJoined": "2026-08-04",
     "lastActive": "2026-08-05T20:41:04.991Z",
-    "telegramUsername": "guest",
-    "firstName": "achraf",
     "pseudo": "LuxMember_60629",
     "telegramId": "6062931346",
     "id": "6062931346",
-    "unlockedRewards": []
+    "telegramUsername": "guest",
+    "firstName": "achraf"
   },
   {
+    "id": "6527322538",
+    "dateJoined": "2026-06-25",
+    "telegramId": "6527322538",
     "telegramUsername": "guest",
     "unlockedRewards": [],
-    "pseudo": "LuxMember_65273",
-    "telegramId": "6527322538",
-    "id": "6527322538",
-    "dateJoined": "2026-06-25"
+    "pseudo": "LuxMember_65273"
   },
   {
+    "dateJoined": "2026-08-05",
+    "telegramUsername": "guest",
+    "telegramId": "6922598215",
     "pseudo": "LuxMember_69225",
     "unlockedRewards": [],
-    "id": "6922598215",
-    "telegramId": "6922598215",
-    "dateJoined": "2026-08-05",
-    "telegramUsername": "guest"
+    "id": "6922598215"
   },
   {
+    "id": "7438079274",
+    "unlockedRewards": [],
+    "telegramUsername": "guest",
+    "dateJoined": "2026-08-15",
+    "telegramId": "7438079274",
+    "lastName": "Voisin",
+    "pseudo": "LuxMember_74380",
+    "firstName": "Aiana",
+    "lastActive": "2026-08-15T11:17:58.803Z"
+  },
+  {
+    "unlockedRewards": [],
     "dateJoined": "2026-07-30",
     "id": "77812901",
-    "telegramUsername": "guest",
     "pseudo": "LuxMember_77812",
-    "unlockedRewards": [],
+    "telegramUsername": "guest",
     "telegramId": "77812901"
   },
   {
-    "pseudo": "LuxMember_80193",
-    "telegramId": "8019337449",
     "unlockedRewards": [],
-    "telegramUsername": "guest",
+    "telegramId": "8019337449",
     "id": "8019337449",
+    "pseudo": "LuxMember_80193",
+    "telegramUsername": "guest",
     "dateJoined": "2026-06-23"
   },
   {
+    "pseudo": "LuxMember_82590",
+    "telegramId": "8259053951",
+    "telegramUsername": "frznzn",
     "unlockedRewards": [],
-    "dateJoined": "2026-06-22",
-    "pseudo": "LuxMember_83178",
-    "telegramUsername": "guest",
-    "id": "8317847162",
-    "telegramId": "8317847162"
+    "id": "8259053951",
+    "firstName": "𝙵𝚛𝚘𝚉𝚎𝚗𝚉𝚎𝚗",
+    "lastActive": "2026-08-20T19:00:34.042Z",
+    "dateJoined": "2026-08-20"
   },
   {
+    "unlockedRewards": [],
+    "id": "8317847162",
+    "dateJoined": "2026-06-22",
+    "pseudo": "LuxMember_83178",
+    "telegramId": "8317847162",
+    "telegramUsername": "guest"
+  },
+  {
+    "unlockedRewards": [],
+    "telegramId": "8378659709",
     "pseudo": "LuxMember_83786",
     "telegramUsername": "guest",
-    "dateJoined": "2026-06-21",
     "id": "8378659709",
-    "unlockedRewards": [],
-    "telegramId": "8378659709"
+    "dateJoined": "2026-06-21"
   },
   {
     "pseudo": "BiscottiBoy Morocco",
-    "telegramId": "8429539179",
-    "lastName": "Morocco",
-    "lastActive": "2026-08-14T02:51:01.261Z",
+    "lastActive": "2026-08-16T19:56:43.500Z",
     "dateJoined": "2026-08-12",
     "id": "8429539179",
+    "lastName": "Morocco",
+    "firstName": "BiscottiBoy",
     "telegramUsername": "biscottiboy10",
-    "firstName": "BiscottiBoy"
+    "telegramId": "8429539179"
   },
   {
-    "firstName": "Yory",
-    "unlockedRewards": [],
     "pseudo": "LuxMember_84647",
-    "telegramUsername": "yoru47",
+    "lastName": "🫆",
+    "firstName": "Yory",
     "dateJoined": "2026-07-30",
-    "telegramId": "8464716562",
     "id": "8464716562",
-    "lastActive": "2026-08-14T15:11:08.881Z",
-    "lastName": "🫆"
+    "telegramId": "8464716562",
+    "telegramUsername": "yoru47",
+    "unlockedRewards": [],
+    "lastActive": "2026-08-21T22:38:03.218Z"
   },
   {
-    "telegramId": "8500861597",
     "firstName": "tk9",
-    "pseudo": "LuxMember_85008",
-    "id": "8500861597",
     "unlockedRewards": [],
-    "dateJoined": "2026-08-04",
     "lastActive": "2026-08-06T15:11:53.830Z",
-    "telegramUsername": "tk9stat"
+    "dateJoined": "2026-08-04",
+    "pseudo": "LuxMember_85008",
+    "telegramId": "8500861597",
+    "telegramUsername": "tk9stat",
+    "id": "8500861597"
   },
   {
-    "pseudo": "LuxMember_85332",
-    "telegramUsername": "guest",
     "telegramId": "8533222714",
-    "unlockedRewards": [],
+    "telegramUsername": "guest",
+    "id": "8533222714",
+    "pseudo": "LuxMember_85332",
     "dateJoined": "2026-06-18",
-    "id": "8533222714"
+    "unlockedRewards": []
   },
   {
+    "telegramUsername": "lafosheuse",
+    "lastName": "",
     "pseudo": "John",
     "telegramId": "8552757673",
     "firstName": "John",
-    "lastName": "",
-    "lastActive": "2026-08-06T13:01:54.649Z",
     "dateJoined": "2026-08-06",
-    "telegramUsername": "lafosheuse",
+    "lastActive": "2026-08-06T13:01:54.649Z",
     "id": "8552757673"
   },
   {
-    "unlockedRewards": [],
-    "telegramId": "858781160",
     "telegramUsername": "guest",
-    "dateJoined": "2026-06-18",
     "id": "858781160",
-    "pseudo": "LuxMember_85878"
+    "dateJoined": "2026-06-18",
+    "unlockedRewards": [],
+    "pseudo": "LuxMember_85878",
+    "telegramId": "858781160"
   },
   {
-    "telegramUsername": "familliafirst60",
-    "firstName": "FAMILY",
     "telegramId": "8665813086",
-    "id": "8665813086",
-    "lastName": "FIRST",
-    "pseudo": "FAMILY FIRST",
+    "firstName": "FAMILY",
+    "telegramUsername": "familliafirst60",
+    "lastActive": "2026-08-05T20:24:08.997Z",
     "dateJoined": "2026-08-05",
-    "lastActive": "2026-08-05T20:24:08.997Z"
+    "pseudo": "FAMILY FIRST",
+    "lastName": "FIRST",
+    "id": "8665813086"
   },
   {
-    "telegramId": "8869491992",
-    "pseudo": "LuxMember_88694",
+    "firstName": "Tortleeesift",
+    "telegramUsername": "guest",
+    "lastName": "",
+    "telegramId": "8735949471",
+    "pseudo": "Tortleeesift",
+    "lastActive": "2026-08-21T17:31:57.260Z",
+    "dateJoined": "2026-08-20",
+    "id": "8735949471"
+  },
+  {
+    "id": "8808031198",
+    "telegramId": "8808031198",
+    "telegramUsername": "guest",
+    "firstName": "Samy",
+    "dateJoined": "2026-08-14",
+    "lastActive": "2026-08-15T22:23:32.627Z",
+    "pseudo": "Samy",
+    "lastName": ""
+  },
+  {
+    "dateJoined": "2026-08-04",
     "id": "8869491992",
-    "unlockedRewards": [],
+    "telegramId": "8869491992",
     "telegramUsername": "guest",
-    "dateJoined": "2026-08-04"
+    "pseudo": "LuxMember_88694",
+    "unlockedRewards": []
   },
   {
-    "telegramId": "8915932023",
     "id": "8915932023",
+    "telegramId": "8915932023",
     "pseudo": "LuxMember_89159",
-    "unlockedRewards": [],
     "telegramUsername": "guest",
-    "dateJoined": "2026-06-24"
+    "dateJoined": "2026-06-24",
+    "unlockedRewards": []
   },
   {
-    "pseudo": "LuxMember_89901",
-    "telegramId": "8990164073",
-    "lastActive": "2026-08-09T18:55:12.746Z",
-    "telegramUsername": "perkvibes",
-    "unlockedRewards": [],
-    "id": "8990164073",
-    "dateJoined": "2026-08-07",
     "firstName": "Njr",
-    "lastName": "Nd"
+    "telegramId": "8990164073",
+    "id": "8990164073",
+    "lastActive": "2026-08-09T18:55:12.746Z",
+    "pseudo": "LuxMember_89901",
+    "lastName": "Nd",
+    "unlockedRewards": [],
+    "telegramUsername": "perkvibes",
+    "dateJoined": "2026-08-07"
   }
 ]

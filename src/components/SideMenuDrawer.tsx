@@ -127,7 +127,7 @@ export default function SideMenuDrawer({
                     />
                   ) : (
                     <div className="w-10 h-10 rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/20 via-black to-orange-500/20 flex items-center justify-center font-mono font-black text-amber-400 text-sm shadow-[0_0_15px_rgba(245,158,11,0.3)]">
-                      ST
+                      BB
                     </div>
                   )}
                   <div>

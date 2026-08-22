@@ -27,11 +27,10 @@ if (isProductionRunner && process.env.NODE_ENV !== 'production') {
   process.env.NODE_ENV = 'production';
 }
 
-// Enforce valid active Telegram bot token if the environment variable is unset or contains any old/expired token
-const activeBotToken = '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
-
-if (!process.env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN.trim() !== activeBotToken) {
-  process.env.TELEGRAM_BOT_TOKEN = activeBotToken;
+// Environment variable configuration for Telegram Bot
+if (!process.env.TELEGRAM_BOT_TOKEN) {
+  process.env.TELEGRAM_BOT_TOKEN = '8894939933:AAGKlN1cLyyOn1NZ9RpknoFodH90hNiaRE8';
+  console.log('[ENV CONFIG] TELEGRAM_BOT_TOKEN configured with default token.');
 }
 
 // Auto-pilot safety-valve state to defend against Firebase Spark free-tier daily write quota exhaustions
@@ -1219,10 +1218,10 @@ app.use((req, res, next) => {
 
 // Expose transparent diagnostic endpoint
 app.get('/api/diagnose-logs', (req, res) => {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
   const tokenInfo = token 
-    ? `Configured in env (length: ${token.length}, prefix: ${token.substring(0, 15)}..., suffix: ...${token.substring(token.length - 8)})`
-    : 'Not configured in env, falling back to default hardcoded token.';
+    ? `Configured in env (length: ${token.length})`
+    : 'Not configured in env';
   
   const content = [
     `=== Environment Info ===`,
@@ -2973,8 +2972,8 @@ async function verifyAdminAuth(req: any, res: any, next: any) {
     // Otherwise check X-Telegram-Init-Data reflecting a valid OWNER role
     const initData = req.headers['x-telegram-init-data'];
     if (initData) {
-      const botToken = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
-      if (verifyTelegramInitData(initData, botToken)) {
+      const botToken = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+      if (botToken && verifyTelegramInitData(initData, botToken)) {
         const params = new URLSearchParams(initData);
         const userStr = params.get('user');
         if (userStr) {
@@ -3037,8 +3036,8 @@ async function verifyUserOrAdminAuth(req: any, res: any, next: any) {
       return next();
     }
 
-    const botToken = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
-    const isValidSignature = verifyTelegramInitData(initData, botToken);
+    const botToken = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    const isValidSignature = botToken ? verifyTelegramInitData(initData, botToken) : true;
     
     if (!isValidSignature) {
       console.warn(`[AUTH PASS] Non-fatal Telegram signature check for ${req.path}. Permitting guest/mini-app access.`);
@@ -3905,7 +3904,7 @@ app.post('/api/settings', verifyAdminAuth, async (req, res) => {
   // Instantly re-sync Telegram Menu Button to active production URL
   try {
     const activeUrl = getTelegramAppUrl();
-    const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
+    const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
     if (token && activeUrl) {
       console.log('[SETTINGS UPDATE] Re-syncing Telegram bot menu button with URL:', activeUrl);
       fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -4141,35 +4140,37 @@ app.post('/api/pending-approvals/approve', verifyAdminAuth, async (req, res) => 
     }
     
     // 3. Attempt to notify the user via the Telegram Bot that they are approved!
-    const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
-    try {
-      const appUrl = getTelegramAppUrl();
-      const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à Biscotti Boys Farm a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
-      
-      const payload = {
-        chat_id: telegramId,
-        text: approvalMsg,
-        parse_mode: 'MarkdownV2',
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "🛒 Ouvrir la Mini-App",
-                web_app: { url: appUrl }
-              }
+    const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    if (token) {
+      try {
+        const appUrl = getTelegramAppUrl();
+        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à Biscotti Boys Farm a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
+        
+        const payload = {
+          chat_id: telegramId,
+          text: approvalMsg,
+          parse_mode: 'MarkdownV2',
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "🛒 Ouvrir la Mini-App",
+                  web_app: { url: appUrl }
+                }
+              ]
             ]
-          ]
-        }
-      };
-      
-      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      console.log(`[BOT APPROVAL NOTIFICATION] Sent approval message to Telegram ID: ${telegramId}`);
-    } catch (botErr) {
-      console.error('[BOT APPROVAL NOTIFICATION] Failed to send approval message:', botErr);
+          }
+        };
+        
+        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        console.log(`[BOT APPROVAL NOTIFICATION] Sent approval message to Telegram ID: ${telegramId}`);
+      } catch (botErr) {
+        console.error('[BOT APPROVAL NOTIFICATION] Failed to send approval message:', botErr);
+      }
     }
 
     res.json({ success: true, whitelisted: newWhitelistItem });
@@ -4187,8 +4188,8 @@ app.post('/api/pending-approvals/reject', verifyAdminAuth, async (req, res) => {
     await deletePendingApprovalFirestore(id);
     
     // Optionally notify the user they were rejected
-    const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
-    if (telegramId) {
+    const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    if (token && telegramId) {
       try {
         const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App Biscotti Boys Farm a été refusée par l'administration\\.`;
         await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -4652,7 +4653,10 @@ interface TelegramOperationResult {
 }
 
 async function deleteTelegramMessage(chatId: string | number, messageId: number): Promise<TelegramOperationResult> {
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
+  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  if (!token) {
+    return { success: false, chatId, messageId, error: 'TELEGRAM_BOT_TOKEN is not configured' };
+  }
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/deleteMessage`, {
       method: 'POST',
@@ -4687,7 +4691,10 @@ async function editTelegramMessage(
   url2?: string,
   buttonLabel2?: string
 ): Promise<TelegramOperationResult> {
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
+  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  if (!token) {
+    return { success: false, chatId, messageId, error: 'TELEGRAM_BOT_TOKEN is not configured' };
+  }
   try {
     const btn1 = formatTelegramButton(buttonLabel, url, "🛒 Accéder au Shop 🛍️");
     const inline_keyboard: any[][] = [[btn1]];
@@ -4761,7 +4768,10 @@ async function editTelegramMessage(
 }
 
 async function sendInstagramPromoMessage(chatId: string | number): Promise<{ success: boolean; messageId?: number }> {
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
+  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  if (!token) {
+    return { success: false };
+  }
   
   const defaultText = `Biscotti Boys Farm — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nBiscotti Boys Farm — L'Excellence à l'État Pur`;
   let promoMessage = defaultText;
@@ -4956,8 +4966,8 @@ const activeProcessingChats = new Set<string>();
 
 async function processTelegramUpdate(body: any, source: string = 'polling') {
   try {
-    const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
-    if (!body || !body.message) return;
+    const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    if (!token || !body || !body.message) return;
 
     const chatId = String(body.message.chat?.id || '');
     const messageId = body.message.message_id ? String(body.message.message_id) : '';
@@ -5158,7 +5168,11 @@ async function startTelegramLongPolling() {
   if (isPollingStarted) return;
   isPollingStarted = true;
 
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
+  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  if (!token) {
+    console.log('[TELEGRAM POLLING] TELEGRAM_BOT_TOKEN is not configured. Polling listener skipped.');
+    return;
+  }
 
   try {
     await fetch(`https://api.telegram.org/bot${token}/deleteWebhook`, { method: 'POST' });
@@ -5549,7 +5563,11 @@ async function runBackgroundPromoBroadcast() {
 }
 
 async function setupTelegramWebhook() {
-  const token = process.env.TELEGRAM_BOT_TOKEN || '8866748435:AAEcxxW_UW5_bLP3CzUYC852V8dTZaoGPKY';
+  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  if (!token) {
+    console.log('[TELEGRAM] TELEGRAM_BOT_TOKEN is not configured. Menu button / webhook skipped.');
+    return;
+  }
   const appUrl = getTelegramAppUrl();
   
   try {

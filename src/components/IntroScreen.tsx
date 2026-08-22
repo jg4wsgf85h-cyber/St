@@ -298,7 +298,7 @@ export default function IntroScreen({
               ) : (
                 <div className="flex flex-col items-center justify-center">
                   <span className="font-mono text-2xl md:text-3xl font-black text-orange-400 tracking-wider">
-                    ST
+                    BB
                   </span>
                   <Sparkles className="w-4 h-4 text-amber-300 animate-pulse -mt-0.5" />
                 </div>
