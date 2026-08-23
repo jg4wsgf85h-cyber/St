@@ -14,7 +14,7 @@ export default function ContactView({ branding, triggerHaptic, showToast }: Cont
 
   const telegramChannel = branding?.telegramChannelUrl || 'https://t.me/+ox8xo-KqAk1jYjI0';
   const telegramSupport = branding?.telegramSupportUrl || 'https://t.me/yoru47';
-  const instagram = branding?.instagramUrl || 'https://instagram.com/biscottiboysfarm';
+  const instagram = branding?.instagramUrl || 'https://instagram.com/north47_lab';
 
   const contacts = [
     {
@@ -48,7 +48,7 @@ export default function ContactView({ branding, triggerHaptic, showToast }: Cont
       title: 'Instagram Officiel',
       subtitle: 'Stories exclusives, coulisses et présentations de récoltes',
       handle: instagram,
-      displayHandle: '@biscottiboysfarm',
+      displayHandle: '@shelfterps',
       badge: 'COMMUNAUTÉ',
       badgeColor: 'bg-pink-500/10 border-pink-500/30 text-pink-400',
       icon: Instagram,

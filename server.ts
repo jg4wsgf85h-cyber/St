@@ -1,5 +1,5 @@
 /**
- * BISCOTTI BOYS FARM - Production Server Engine v2.0
+ * SHELF TERPS - Production Server Engine v2.0
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -28,9 +28,22 @@ if (isProductionRunner && process.env.NODE_ENV !== 'production') {
 }
 
 // Environment variable configuration for Telegram Bot
-if (!process.env.TELEGRAM_BOT_TOKEN) {
-  process.env.TELEGRAM_BOT_TOKEN = '8894939933:AAGKlN1cLyyOn1NZ9RpknoFodH90hNiaRE8';
-  console.log('[ENV CONFIG] TELEGRAM_BOT_TOKEN configured with default token.');
+const OFFICIAL_TELEGRAM_BOT_TOKEN = '8861193131:AAEQkGPxWaP0AuuZ5lisvkraiZlBwjnNmYM';
+if (!process.env.TELEGRAM_BOT_TOKEN || 
+    process.env.TELEGRAM_BOT_TOKEN.includes('8894939933') ||
+    process.env.TELEGRAM_BOT_TOKEN.includes('8954112249') || 
+    process.env.TELEGRAM_BOT_TOKEN.includes('8879788047') ||
+    process.env.TELEGRAM_BOT_TOKEN.length < 20) {
+  process.env.TELEGRAM_BOT_TOKEN = OFFICIAL_TELEGRAM_BOT_TOKEN;
+  console.log('[ENV CONFIG] TELEGRAM_BOT_TOKEN configured with official bot token (@ShelfTerps_bot).');
+}
+
+function getTelegramBotToken(): string {
+  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  if (!token || token.includes('8894939933') || token.includes('8954112249') || token.includes('8879788047') || token.length < 20) {
+    return OFFICIAL_TELEGRAM_BOT_TOKEN;
+  }
+  return token;
 }
 
 // Auto-pilot safety-valve state to defend against Firebase Spark free-tier daily write quota exhaustions
@@ -1155,6 +1168,45 @@ const app = express();
 app.enable('trust proxy');
 const PORT = 3000;
 
+// Decommission guard: Permanently block the old deprecated Cloud Run URL
+app.use((req, res, next) => {
+  const host = (req.headers.host || '').toLowerCase();
+  const forwardedHost = (req.headers['x-forwarded-host'] as string || '').toLowerCase();
+  if (
+    host.includes('valoir-luxe') || 
+    host.includes('1059042182497') || 
+    forwardedHost.includes('valoir-luxe') || 
+    forwardedHost.includes('1059042182497')
+  ) {
+    res.status(410).send(`
+      <!DOCTYPE html>
+      <html lang="fr">
+      <head>
+        <meta charset="UTF-8">
+        <title>Accès Désactivé</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #ededed; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; text-align: center; }
+          .card { background: #141414; border: 1px solid #2a2a2a; border-radius: 16px; padding: 32px 24px; max-width: 440px; width: 100%; }
+          h1 { font-size: 20px; color: #ef4444; margin-bottom: 12px; font-weight: 600; }
+          p { font-size: 14px; color: #888; line-height: 1.6; margin-bottom: 24px; }
+          .btn { display: inline-block; background: #d4af37; color: #000; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 9999px; font-size: 14px; }
+        </style>
+      </head>
+      <body>
+        <div class="card">
+          <h1>⚠️ Lien obsolète & désactivé</h1>
+          <p>Cette ancienne adresse Cloud Run a été définitivement fermée.<br>Veuillez utiliser l'accès officiel du projet ou le bot Telegram.</p>
+          <a href="https://t.me/ShelfTerps_bot" class="btn">Ouvrir le Bot Officiel 🤖</a>
+        </div>
+      </body>
+      </html>
+    `);
+    return;
+  }
+  next();
+});
+
 // Global middleware for Telegram WebApp embedding permissions and CORS
 app.use((req, res, next) => {
   // Strip X-Frame-Options completely to allow iframe embedding in Telegram Desktop and Web
@@ -1218,10 +1270,10 @@ app.use((req, res, next) => {
 
 // Expose transparent diagnostic endpoint
 app.get('/api/diagnose-logs', (req, res) => {
-  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  const token = getTelegramBotToken();
   const tokenInfo = token 
-    ? `Configured in env (length: ${token.length})`
-    : 'Not configured in env';
+    ? `Configured (length: ${token.length})`
+    : 'Not configured';
   
   const content = [
     `=== Environment Info ===`,
@@ -1500,11 +1552,11 @@ const DEFAULT_PRODUCTS: any[] = [];
 const DEFAULT_SETTINGS = {
   introBgUrl: '',
   launchScreenUrl: '',
-  homepageHeroBgUrl: 'https://images.unsplash.com/photo-1541532713592-79a0317b6b77?q=80&w=1600&auto=format&fit=crop',
-  logoUrl: 'https://st-production-a9ae.up.railway.app/uploads/bot_biscotti_logo.jpg',
+  homepageHeroBgUrl: '/shelfterps_hero.png',
+  logoUrl: '/uploads/bot_shelfterps_logo.png',
   telegramChannelUrl: 'https://t.me/+ox8xo-KqAk1jYjI0',
   telegramSupportUrl: 'https://t.me/yoru47',
-  introStatusLine: 'Biscotti Boys Farm — PRIVATE RESERVE',
+  introStatusLine: 'SHELF TERPS — PRIVATE RESERVE',
   sectionTitles: [
     { id: '1', text: 'LA RÉSERVE PRIVÉE', category: 'All', size: 'L', color: '#D4AF37', enabled: true, order: 1 },
     { id: '2', text: 'SELECTION DRY SIFT', category: 'DRY SIFT', size: 'L', color: '#D4AF37', enabled: true, order: 2 },
@@ -2127,8 +2179,8 @@ function sanitizeSettings(settings: any): any {
   if (!copy.telegramChannelUrl || copy.telegramChannelUrl.includes('jzS4uQkjH3hmYzM0') || copy.telegramChannelUrl.includes('ZOIX0z1yVl84MWI8') || copy.telegramChannelUrl.includes('gLPwu9H2-d4yZWE0')) {
     copy.telegramChannelUrl = 'https://t.me/+ox8xo-KqAk1jYjI0';
   }
-  if (!copy.logoUrl || copy.logoUrl.includes('b3124932-b5e6') || copy.logoUrl.includes('north47') || copy.logoUrl.includes('ais-')) {
-    copy.logoUrl = 'https://st-production-a9ae.up.railway.app/uploads/bot_biscotti_logo.jpg';
+  if (!copy.logoUrl || copy.logoUrl.includes('b3124932-b5e6') || copy.logoUrl.includes('north47') || copy.logoUrl.includes('ais-') || copy.logoUrl.includes('bot_biscotti')) {
+    copy.logoUrl = '/uploads/bot_shelfterps_logo.png';
   }
   // Strip any internal development sandbox URLs from stored custom URLs
   if (copy.customAppUrl) {
@@ -2676,9 +2728,10 @@ async function syncLocalToFirestoreIfNeeded() {
           !data.introStatusLine ||
           data.introStatusLine.includes('VELUNA') || 
           data.introStatusLine.includes('pyjama') || 
-          (!data.introStatusLine.includes('Biscotti Boys Farm') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
+          data.introStatusLine.includes('Biscotti') ||
+          (!data.introStatusLine.includes('SHELF TERPS') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
         ) {
-          data.introStatusLine = 'Biscotti Boys Farm — PRIVATE RESERVE';
+          data.introStatusLine = 'SHELF TERPS — PRIVATE RESERVE';
           needsUpdate = true;
         }
         
@@ -2719,10 +2772,10 @@ async function syncLocalToFirestoreIfNeeded() {
         const targetSettings = {
           introBgUrl: '',
           launchScreenUrl: '',
-          homepageHeroBgUrl: 'https://images.unsplash.com/photo-1541532713592-79a0317b6b77?q=80&w=1600&auto=format&fit=crop',
-          logoUrl: '',
+          homepageHeroBgUrl: '/shelfterps_hero.png',
+          logoUrl: '/uploads/bot_shelfterps_logo.png',
           adminPassword: 'omerta2026',
-          introStatusLine: 'Biscotti Boys Farm — PRIVATE RESERVE',
+          introStatusLine: 'SHELF TERPS — PRIVATE RESERVE',
           sectionTitles: [
             { id: '1', text: 'LA RÉSERVE PRIVÉE', category: 'All', size: 'L', color: '#D4AF37', enabled: true, order: 1 },
             { id: '2', text: 'SELECTION DRY SIFT', category: 'DRY SIFT', size: 'L', color: '#D4AF37', enabled: true, order: 2 },
@@ -2972,7 +3025,7 @@ async function verifyAdminAuth(req: any, res: any, next: any) {
     // Otherwise check X-Telegram-Init-Data reflecting a valid OWNER role
     const initData = req.headers['x-telegram-init-data'];
     if (initData) {
-      const botToken = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+      const botToken = getTelegramBotToken();
       if (botToken && verifyTelegramInitData(initData, botToken)) {
         const params = new URLSearchParams(initData);
         const userStr = params.get('user');
@@ -3036,7 +3089,7 @@ async function verifyUserOrAdminAuth(req: any, res: any, next: any) {
       return next();
     }
 
-    const botToken = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    const botToken = getTelegramBotToken();
     const isValidSignature = botToken ? verifyTelegramInitData(initData, botToken) : true;
     
     if (!isValidSignature) {
@@ -3904,7 +3957,7 @@ app.post('/api/settings', verifyAdminAuth, async (req, res) => {
   // Instantly re-sync Telegram Menu Button to active production URL
   try {
     const activeUrl = getTelegramAppUrl();
-    const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    const token = getTelegramBotToken();
     if (token && activeUrl) {
       console.log('[SETTINGS UPDATE] Re-syncing Telegram bot menu button with URL:', activeUrl);
       fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -4140,11 +4193,11 @@ app.post('/api/pending-approvals/approve', verifyAdminAuth, async (req, res) => 
     }
     
     // 3. Attempt to notify the user via the Telegram Bot that they are approved!
-    const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    const token = getTelegramBotToken();
     if (token) {
       try {
         const appUrl = getTelegramAppUrl();
-        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à Biscotti Boys Farm a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
+        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à SHELF TERPS a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
         
         const payload = {
           chat_id: telegramId,
@@ -4188,10 +4241,10 @@ app.post('/api/pending-approvals/reject', verifyAdminAuth, async (req, res) => {
     await deletePendingApprovalFirestore(id);
     
     // Optionally notify the user they were rejected
-    const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    const token = getTelegramBotToken();
     if (token && telegramId) {
       try {
-        const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App Biscotti Boys Farm a été refusée par l'administration\\.`;
+        const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App SHELF TERPS a été refusée par l'administration\\.`;
         await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -4430,10 +4483,10 @@ function getTelegramAppUrl(): string {
     if (!urlStr || typeof urlStr !== 'string') return false;
     const s = urlStr.trim();
     if (!s.startsWith('https://') && !s.startsWith('http://')) return false;
-    // Disallow internal AI Studio dev/pre sandbox URLs that require Google Auth cookies
-    if (s.includes('ais-dev-') || s.includes('ais-pre-') || s.includes('localhost') || s.includes('127.0.0.1')) return false;
+    // Disallow internal AI Studio dev/pre sandbox URLs and Cloud Run ephemeral instances that require Google Auth cookies
+    if (s.includes('valoir-luxe') || s.includes('1059042182497') || s.includes('ais-dev-') || s.includes('ais-pre-') || s.includes('.run.app') || s.includes('localhost') || s.includes('127.0.0.1')) return false;
     // Disallow accidental bot tokens passed as URLs
-    if (s.includes(':AAH') || s.length < 10) return false;
+    if (s.includes(':AAH') || s.includes(':AAG') || s.length < 10) return false;
     return true;
   };
 
@@ -4653,7 +4706,7 @@ interface TelegramOperationResult {
 }
 
 async function deleteTelegramMessage(chatId: string | number, messageId: number): Promise<TelegramOperationResult> {
-  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  const token = getTelegramBotToken();
   if (!token) {
     return { success: false, chatId, messageId, error: 'TELEGRAM_BOT_TOKEN is not configured' };
   }
@@ -4691,7 +4744,7 @@ async function editTelegramMessage(
   url2?: string,
   buttonLabel2?: string
 ): Promise<TelegramOperationResult> {
-  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  const token = getTelegramBotToken();
   if (!token) {
     return { success: false, chatId, messageId, error: 'TELEGRAM_BOT_TOKEN is not configured' };
   }
@@ -4768,12 +4821,12 @@ async function editTelegramMessage(
 }
 
 async function sendInstagramPromoMessage(chatId: string | number): Promise<{ success: boolean; messageId?: number }> {
-  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  const token = getTelegramBotToken();
   if (!token) {
     return { success: false };
   }
   
-  const defaultText = `Biscotti Boys Farm — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nBiscotti Boys Farm — L'Excellence à l'État Pur`;
+  const defaultText = `SHELF TERPS — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nSHELF TERPS — L'Excellence à l'État Pur`;
   let promoMessage = defaultText;
   let promoBtnLabel = "🛒 Accéder au Shop 🛍️";
   let promoUrl1 = "";
@@ -4966,7 +5019,7 @@ const activeProcessingChats = new Set<string>();
 
 async function processTelegramUpdate(body: any, source: string = 'polling') {
   try {
-    const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    const token = getTelegramBotToken();
     if (!token || !body || !body.message) return;
 
     const chatId = String(body.message.chat?.id || '');
@@ -4976,10 +5029,10 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
 
     if (!chatId) return;
 
-    // Ignore stale messages older than 5 minutes (300 seconds)
+    // Allow processing of all recent messages (within 24 hours) without dropping due to clock skew
     const msgDate = body.message.date;
     const nowSec = Math.floor(Date.now() / 1000);
-    if (msgDate && (nowSec - msgDate > 300)) {
+    if (msgDate && (nowSec - msgDate > 86400)) {
       return;
     }
 
@@ -4997,13 +5050,27 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
       saveProcessedUpdates(processedUpdateIds);
     }
 
-    // Only react to /start
-    if (text.startsWith('/start')) {
+    const isPrivate = body.message.chat?.type === 'private';
+    const lowerText = text.toLowerCase();
+    const isStartOrInteraction = 
+      text.startsWith('/start') ||
+      lowerText === 'star' ||
+      lowerText === 'start' ||
+      lowerText === 'menu' ||
+      lowerText === '/menu' ||
+      lowerText === 'shop' ||
+      lowerText === '/shop' ||
+      lowerText === 'catalogue' ||
+      lowerText === '/catalogue' ||
+      isPrivate;
+
+    // React to /start, 'star', 'start', 'menu' or any private chat interaction
+    if (isStartOrInteraction) {
       const nowMs = Date.now();
       const lastReply = lastStartReplyTimes.get(chatId) || 0;
       
-      // Strict debounce: 1 start response per chat within 4 seconds, and strict mutex
-      if (nowMs - lastReply < 4000 || activeProcessingChats.has(chatId)) {
+      // Strict debounce: 1 start response per chat within 2.5 seconds, and strict mutex
+      if (nowMs - lastReply < 2500 || activeProcessingChats.has(chatId)) {
         console.log(`[BOT /start DEBOUNCE] Blocked duplicate message from ${source} for chat ${chatId}`);
         return;
       }
@@ -5030,7 +5097,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
           console.warn('[TELEGRAM BOT] Failed to load logo settings.', settingsErr);
         }
 
-        const welcomeText = `Biscotti Boys Farm — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" en bas à gauche de votre écran pour ouvrir la boutique.`;
+        const welcomeText = `SHELF TERPS — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" en bas à gauche de votre écran pour ouvrir la boutique.`;
 
         // Configure user's personal chat menu button directly to active appUrl
         fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -5057,11 +5124,9 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
             {
               text: "📢 Canal Telegram",
               url: channelLink
-            }
-          ],
-          [
+            },
             {
-              text: "💬 Contact Privé (@yoru47)",
+              text: "💬 Contact Privé",
               url: "https://t.me/yoru47"
             }
           ]
@@ -5071,14 +5136,22 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
         let photoSucceeded = false;
 
         // 1. Try sending local bot emblem photo via multipart FormData directly to Telegram
-        const localLogoPath = path.join(process.cwd(), 'uploads', 'bot_biscotti_logo.jpg');
-        if (fs.existsSync(localLogoPath)) {
+        const candidateLogoPaths = [
+          path.join(process.cwd(), 'uploads', 'bot_shelfterps_logo.png'),
+          path.join(process.cwd(), 'uploads', 'shelfterps_logo.png'),
+          path.join(process.cwd(), 'public', 'shelfterps_logo.png'),
+          path.join(process.cwd(), 'uploads', 'bot_biscotti_logo.jpg')
+        ];
+        const localLogoPath = candidateLogoPaths.find(p => fs.existsSync(p));
+        if (localLogoPath) {
           try {
             const fileBuf = fs.readFileSync(localLogoPath);
-            const blob = new Blob([fileBuf], { type: 'image/jpeg' });
+            const ext = path.extname(localLogoPath).toLowerCase();
+            const mimeType = ext === '.png' ? 'image/png' : 'image/jpeg';
+            const blob = new Blob([fileBuf], { type: mimeType });
             const formData = new FormData();
             formData.append('chat_id', String(chatId));
-            formData.append('photo', blob, 'bot_biscotti_logo.jpg');
+            formData.append('photo', blob, path.basename(localLogoPath));
             formData.append('caption', welcomeText);
             formData.append('reply_markup', JSON.stringify({ inline_keyboard: inlineKeyboard }));
 
@@ -5100,7 +5173,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
 
         // 2. Fallback to URL-based sendPhoto if FormData didn't succeed
         if (!photoSucceeded) {
-          const fallbackPhotoUrl = (logoUrl && logoUrl.startsWith('http')) ? logoUrl : 'https://st-production-a9ae.up.railway.app/uploads/bot_biscotti_logo.jpg';
+          const fallbackPhotoUrl = (logoUrl && logoUrl.startsWith('http')) ? logoUrl : 'https://st-production-a9ae.up.railway.app/uploads/shelfterps_logo.png';
           try {
             const photoPayload = {
               chat_id: chatId,
@@ -5168,7 +5241,7 @@ async function startTelegramLongPolling() {
   if (isPollingStarted) return;
   isPollingStarted = true;
 
-  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  const token = getTelegramBotToken();
   if (!token) {
     console.log('[TELEGRAM POLLING] TELEGRAM_BOT_TOKEN is not configured. Polling listener skipped.');
     return;
@@ -5186,7 +5259,7 @@ async function startTelegramLongPolling() {
 
   while (true) {
     try {
-      const url = `https://api.telegram.org/bot${token}/getUpdates?offset=${offset}&timeout=20`;
+      const url = `https://api.telegram.org/bot${token}/getUpdates?offset=${offset}&timeout=5`;
       const res = await fetch(url);
       const data: any = await res.json();
 
@@ -5195,17 +5268,18 @@ async function startTelegramLongPolling() {
           if (update.update_id) {
             offset = Math.max(offset, update.update_id + 1);
           }
+          console.log(`[TELEGRAM POLLING] Received update #${update.update_id} from ${update.message?.chat?.id}`);
           await processTelegramUpdate(update, 'polling');
         }
       } else if (data && data.error_code === 409) {
-        // Another instance is polling (e.g. multi-process or production container). Wait 10s.
-        await new Promise(resolve => setTimeout(resolve, 10000));
+        console.warn('[TELEGRAM POLLING] Conflict 409 (another polling instance active). Retrying in 5s...');
+        await new Promise(resolve => setTimeout(resolve, 5000));
       } else {
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 500));
       }
     } catch (err) {
       console.error('[TELEGRAM POLLING LOOP ERROR]:', err);
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise(resolve => setTimeout(resolve, 2000));
     }
   }
 }
@@ -5563,11 +5637,15 @@ async function runBackgroundPromoBroadcast() {
 }
 
 async function setupTelegramWebhook() {
-  const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+  const token = getTelegramBotToken();
   if (!token) {
     console.log('[TELEGRAM] TELEGRAM_BOT_TOKEN is not configured. Menu button / webhook skipped.');
     return;
   }
+
+  // Start polling immediately so user /start messages are processed without any delay
+  startTelegramLongPolling().catch(pollErr => console.error('[TELEGRAM POLLING LAUNCH ERROR]:', pollErr));
+
   const appUrl = getTelegramAppUrl();
   
   try {
@@ -5592,64 +5670,30 @@ async function setupTelegramWebhook() {
       console.warn('[TELEGRAM] Chat Menu Button configuration response:', menuResult);
     }
 
-    // Proactively update all known user chat IDs with the exact appUrl
-    try {
-      const knownIds = new Set<string>();
-      try {
-        const logs = await loadConnectionLogsFirestore();
-        if (Array.isArray(logs)) logs.forEach((l: any) => { if (l.telegramId && /^\d+$/.test(l.telegramId)) knownIds.add(l.telegramId); });
-      } catch (e) {}
-      try {
-        const users = await loadUserProfilesFirestore();
-        if (Array.isArray(users)) users.forEach((u: any) => { if (u.telegramId && /^\d+$/.test(u.telegramId)) knownIds.add(u.telegramId); });
-      } catch (e) {}
-
-      for (const cid of knownIds) {
-        fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: Number(cid),
-            menu_button: {
-              type: 'web_app',
-              text: 'Shop 🛍️',
-              web_app: { url: appUrl }
-            }
-          })
-        }).catch(() => {});
-      }
-      console.log(`[TELEGRAM] Proactively updated Menu Button for ${knownIds.size} known users.`);
-    } catch (usersErr) {
-      console.warn('[TELEGRAM] Note during user menu button batch sync:', usersErr);
-    }
-
     // Set Bot Name
-    await fetch(`https://api.telegram.org/bot${token}/setMyName`, {
+    fetch(`https://api.telegram.org/bot${token}/setMyName`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: 'Biscotti Boys Farm' })
+      body: JSON.stringify({ name: 'SHELF TERPS' })
     }).catch(e => console.warn('[TELEGRAM] setMyName error:', e));
 
     // Set Bot Description
-    await fetch(`https://api.telegram.org/bot${token}/setMyDescription`, {
+    fetch(`https://api.telegram.org/bot${token}/setMyDescription`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        description: "Biscotti Boys Farm — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
+        description: "SHELF TERPS — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyDescription error:', e));
 
     // Set Bot Short Description
-    await fetch(`https://api.telegram.org/bot${token}/setMyShortDescription`, {
+    fetch(`https://api.telegram.org/bot${token}/setMyShortDescription`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        short_description: "Biscotti Boys Farm — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
+        short_description: "SHELF TERPS — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyShortDescription error:', e));
-
-    // Start Real-time Long Polling message listener
-    startTelegramLongPolling().catch(pollErr => console.error('[TELEGRAM POLLING LAUNCH ERROR]:', pollErr));
   } catch (err) {
     console.warn('[TELEGRAM] Error during webhook/bot setup:', err);
   }
@@ -6082,7 +6126,10 @@ async function startServer() {
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`[VELUNA LUXURY SERVER] Active on http://0.0.0.0:${PORT}`);
     
-    // Run background initialization and webhook setup cleanly
+    // Launch Telegram Bot polling immediately so /start and commands are instantly responsive
+    setupTelegramWebhook().catch(err => console.error('[SERVER BOOT] Telegram Bot setup error:', err));
+
+    // Run background initialization and DB maintenance in parallel
     (async () => {
       try {
         console.log('[SERVER BOOT] Ensuring Nginx CSP and public Lua bypass...');
@@ -6093,8 +6140,6 @@ async function startServer() {
         await cleanupAutoWhitelistedOnBoot();
         console.log('[SERVER BOOT] Starting background DB healing pipeline...');
         await healDatabase();
-        console.log('[SERVER BOOT] Configuring Telegram Bot Webhook & Chat Menu Button...');
-        await setupTelegramWebhook();
         console.log('[SERVER BOOT] Background startup pipeline completed successfully.');
       } catch (err: any) {
         console.error('[SERVER BOOT] Background startup pipeline encountered an error:', err.message || err);

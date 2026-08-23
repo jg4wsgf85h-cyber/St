@@ -295,7 +295,7 @@ export default function VipSpace({
                 {profile.level}
               </div>
               <p className="text-zinc-400 text-xs leading-relaxed font-sans mt-2">
-                Votre loyauté active sur Biscotti Boys Farm vient de vous propulser au rang suprême de <strong className="text-white uppercase">{profile.level}</strong>. De nouveaux privilèges sont désormais gravés sur votre carte d'accès VIP.
+                Votre loyauté active sur SHELF TERPS vient de vous propulser au rang suprême de <strong className="text-white uppercase">{profile.level}</strong>. De nouveaux privilèges sont désormais gravés sur votre carte d'accès VIP.
               </p>
             </div>
 
@@ -325,7 +325,7 @@ export default function VipSpace({
           <div className="flex items-center gap-2">
             <Award className="w-4 h-4 text-[#D4AF37]" />
             <span className="font-mono text-xs font-black tracking-[0.2em] text-neutral-100 uppercase">
-              ESPACE MEMBRE VIP — Biscotti Boys Farm
+              ESPACE MEMBRE VIP — SHELF TERPS
             </span>
           </div>
           <button 
@@ -394,7 +394,7 @@ export default function VipSpace({
                       PRIVATE RESERVE
                     </span>
                     <span className="font-display text-lg font-light tracking-[0.22em] text-white uppercase leading-tight mt-1">
-                      Biscotti Boys Farm
+                      SHELF TERPS
                     </span>
                   </div>
                   
@@ -714,7 +714,7 @@ export default function VipSpace({
             <div className="p-3 border border-zinc-900 bg-zinc-950/20 rounded-2xl opacity-65 flex gap-2.5 items-start text-[8px] font-mono text-zinc-500 leading-relaxed uppercase">
               <QrCode className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
               <p>
-                Espace Cryptographique Biscotti Boys Farm. Les informations d'expédition et les statistiques de fidélité sont stockées de manière pseudonymisée et chiffrée de bout en bout.
+                Espace Cryptographique SHELF TERPS. Les informations d'expédition et les statistiques de fidélité sont stockées de manière pseudonymisée et chiffrée de bout en bout.
               </p>
             </div>
 
