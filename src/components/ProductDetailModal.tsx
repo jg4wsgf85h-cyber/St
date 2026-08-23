@@ -222,7 +222,7 @@ export default function ProductDetailModal({
                   <span className="relative z-10">N/A</span>
                 </div>
                 <span className="text-[10px] uppercase font-black tracking-[0.25em] text-orange-400 mb-1">
-                  BISCOTTI BOYS FARMZ
+                  SHELF TERPS
                 </span>
                 <span className="text-[8px] uppercase font-bold text-neutral-400 tracking-[0.12em] block">
                   Média indisponible
@@ -234,7 +234,7 @@ export default function ProductDetailModal({
           {/* Premium tag overlay */}
           <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5 pointer-events-none">
             <span className="bg-black/90 backdrop-blur-md border border-orange-500/50 text-orange-400 text-[8px] font-mono font-extrabold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full shadow-md">
-              BISCOTTI BOYS FARMZ — PRIVATE RESERVE
+              SHELF TERPS — PRIVATE RESERVE
             </span>
           </div>
 
@@ -278,7 +278,7 @@ export default function ProductDetailModal({
               <div className="flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-orange-400" />
                 <span className="text-[10px] font-mono text-orange-400 tracking-[0.2em] uppercase font-bold">
-                  {product.category} • BISCOTTI BOYS FARMZ
+                  {product.category} • SHELF TERPS
                 </span>
               </div>
               {isOutOfStock && (

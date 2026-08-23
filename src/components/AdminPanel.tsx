@@ -2964,7 +2964,7 @@ export default function AdminPanel({
                         const newId = 'm_' + Date.now();
                         const newItem: MarqueeItem = {
                           id: newId,
-                          text: '✨ Nouveau message 👽⛰️ALIENS FARMS OFFICIEL⛰️👽 Private Reserve',
+                          text: '✨ Nouveau message SHELF TERPS Private Reserve',
                           active: true,
                           order: cfg.items.length + 1
                         };

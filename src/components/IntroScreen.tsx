@@ -294,11 +294,11 @@ export default function IntroScreen({
             {/* Logo Badge Container */}
             <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-full border border-orange-500/60 bg-gradient-to-br from-neutral-900 via-black to-neutral-950 flex items-center justify-center shadow-[0_0_50px_rgba(245,158,11,0.45)]">
               {settings?.logoUrl ? (
-                <img src={settings.logoUrl} alt="BISCOTTI BOYS FARMZ Logo" className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover" />
+                <img src={settings.logoUrl} alt="SHELF TERPS Logo" className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover" />
               ) : (
                 <div className="flex flex-col items-center justify-center">
                   <span className="font-mono text-2xl md:text-3xl font-black text-orange-400 tracking-wider">
-                    BBF
+                    ST
                   </span>
                   <Sparkles className="w-4 h-4 text-amber-300 animate-pulse -mt-0.5" />
                 </div>

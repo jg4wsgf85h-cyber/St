@@ -1550,10 +1550,10 @@ const DEFAULT_PRODUCTS: any[] = [];
 
 // Default application visual branding customizations
 const DEFAULT_SETTINGS = {
-  introBgUrl: '',
-  launchScreenUrl: '',
+  introBgUrl: '/shelfterps_hero.png',
+  launchScreenUrl: '/shelfterps_hero.png',
   homepageHeroBgUrl: '/shelfterps_hero.png',
-  logoUrl: '/uploads/bot_shelfterps_logo.png',
+  logoUrl: '/shelfterps_logo.png',
   telegramChannelUrl: 'https://t.me/+ox8xo-KqAk1jYjI0',
   telegramSupportUrl: 'https://t.me/yoru47',
   introStatusLine: 'SHELF TERPS — PRIVATE RESERVE',
@@ -2729,6 +2729,7 @@ async function syncLocalToFirestoreIfNeeded() {
           data.introStatusLine.includes('VELUNA') || 
           data.introStatusLine.includes('pyjama') || 
           data.introStatusLine.includes('Biscotti') ||
+          data.introStatusLine.includes('BISCOTTI') ||
           (!data.introStatusLine.includes('SHELF TERPS') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
         ) {
           data.introStatusLine = 'SHELF TERPS — PRIVATE RESERVE';
@@ -2770,10 +2771,10 @@ async function syncLocalToFirestoreIfNeeded() {
       } else {
         // Document does not exist in Firestore but we successfully queried it, so seed default settings
         const targetSettings = {
-          introBgUrl: '',
-          launchScreenUrl: '',
+          introBgUrl: '/shelfterps_hero.png',
+          launchScreenUrl: '/shelfterps_hero.png',
           homepageHeroBgUrl: '/shelfterps_hero.png',
-          logoUrl: '/uploads/bot_shelfterps_logo.png',
+          logoUrl: '/shelfterps_logo.png',
           adminPassword: 'omerta2026',
           introStatusLine: 'SHELF TERPS — PRIVATE RESERVE',
           sectionTitles: [
@@ -5137,10 +5138,11 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
 
         // 1. Try sending local bot emblem photo via multipart FormData directly to Telegram
         const candidateLogoPaths = [
-          path.join(process.cwd(), 'uploads', 'bot_shelfterps_logo.png'),
-          path.join(process.cwd(), 'uploads', 'shelfterps_logo.png'),
           path.join(process.cwd(), 'public', 'shelfterps_logo.png'),
-          path.join(process.cwd(), 'uploads', 'bot_biscotti_logo.jpg')
+          path.join(process.cwd(), 'uploads', '4ceb0055-0eb8-41de-803a-2abf721e2bef.jpg'),
+          path.join(process.cwd(), 'public', 'shelfterps_hero.png'),
+          path.join(process.cwd(), 'uploads', 'bot_shelfterps_logo.png'),
+          path.join(process.cwd(), 'public', 'bot_shelfterps_logo.png')
         ];
         const localLogoPath = candidateLogoPaths.find(p => fs.existsSync(p));
         if (localLogoPath) {
