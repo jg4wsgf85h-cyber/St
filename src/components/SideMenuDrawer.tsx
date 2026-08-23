@@ -127,12 +127,12 @@ export default function SideMenuDrawer({
                     />
                   ) : (
                     <div className="w-10 h-10 rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/20 via-black to-orange-500/20 flex items-center justify-center font-mono font-black text-amber-400 text-sm shadow-[0_0_15px_rgba(245,158,11,0.3)]">
-                      AF
+                      BBF
                     </div>
                   )}
                   <div>
                     <h3 className="font-mono text-sm font-black tracking-widest text-white uppercase flex items-center gap-1">
-                      👽⛰️ALIENS FARMS OFFICIEL⛰️👽
+                      BISCOTTI BOYS FARMZ
                       <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
                     </h3>
                     <span className="text-[8px] font-mono tracking-widest text-amber-400/80 uppercase font-bold block">
@@ -210,7 +210,7 @@ export default function SideMenuDrawer({
             <div className="pt-6 border-t border-white/10 text-center space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[9px] font-mono text-emerald-400 font-bold uppercase tracking-widest">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                <span>👽⛰️ALIENS FARMS OFFICIEL⛰️👽 — VERIFIED</span>
+                <span>BISCOTTI BOYS FARMZ — VERIFIED</span>
               </div>
               <p className="text-[8px] font-mono text-neutral-500 uppercase tracking-widest">
                 0-LOG SECURE LIAISON

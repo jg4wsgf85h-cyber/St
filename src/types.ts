@@ -93,7 +93,7 @@ export const DEFAULT_MARQUEE_CONFIG: MarqueeConfig = {
   enabled: true,
   speed: 'medium',
   items: [
-    { id: 'm1', text: '✨ Bienvenue dans 👽⛰️ALIENS FARMS OFFICIEL⛰️👽 Private Reserve', active: true, order: 1 },
+    { id: 'm1', text: '✨ Bienvenue dans BISCOTTI BOYS FARMZ Private Reserve', active: true, order: 1 },
     { id: 'm2', text: '🚀 Livraison Express 24h/48h Discrète & Sécurisée', active: true, order: 2 },
     { id: 'm3', text: '🔒 Accès Privé Vérifié • Réserve Exclusive', active: true, order: 3 },
     { id: 'm4', text: '💎 Produits 100% Authentiques & Qualité Supérieure', active: true, order: 4 },

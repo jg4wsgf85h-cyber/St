@@ -92,14 +92,14 @@ export default function CartDrawer({
         emailValue = user.username ? `${user.username}@t.me` : `client_${user.id}@secmail.co`;
       }
       
-      if (!nameValue) nameValue = 'Client 👽⛰️ALIENS FARMS OFFICIEL⛰️👽';
-      if (!emailValue) emailValue = 'client-aliensfarms@secmail.co';
+      if (!nameValue) nameValue = 'Client BISCOTTI BOYS FARMZ';
+      if (!emailValue) emailValue = 'client-biscottiboys@secmail.co';
       
       setCustomerName(nameValue);
       setEmailAddress(emailValue);
     } catch (e) {
-      setCustomerName('Client 👽⛰️ALIENS FARMS OFFICIEL⛰️👽');
-      setEmailAddress('client-aliensfarms@secmail.co');
+      setCustomerName('Client BISCOTTI BOYS FARMZ');
+      setEmailAddress('client-biscottiboys@secmail.co');
     }
   }, []);
 
@@ -171,13 +171,13 @@ export default function CartDrawer({
   const validateForm = (): boolean => {
     let name = customerName.trim();
     if (!name) {
-      name = 'Client 👽⛰️ALIENS FARMS OFFICIEL⛰️👽';
+      name = 'Client BISCOTTI BOYS FARMZ';
       setCustomerName(name);
     }
     
     let email = emailAddress.trim();
     if (!email || !email.includes('@')) {
-      email = 'client-aliensfarms@secmail.co';
+      email = 'client-biscottiboys@secmail.co';
       setEmailAddress(email);
     }
 
@@ -272,12 +272,12 @@ export default function CartDrawer({
       return `${qtyStr}${i.title}${sizeStr}`;
     }).join(', ');
 
-    const txt = `🏔️ 👽⛰️ALIENS FARMS OFFICIEL⛰️👽 — ${t('orderSuccessTitle')} ${createdOrder.id} 🏔️\n` +
+    const txt = `🏔️ BISCOTTI BOYS FARMZ — ${t('orderSuccessTitle')} ${createdOrder.id} 🏔️\n` +
                 `Client : ${createdOrder.customerName}\n` +
                 `Articles : ${articlesFormatted}\n` +
                 `Total : ${createdOrder.totalAmount} €\n` +
                 `Livrable à : ${createdOrder.address}, ${createdOrder.city}\n` +
-                `Liaison sécurisée 👽⛰️ALIENS FARMS OFFICIEL⛰️👽.`;
+                `Liaison sécurisée BISCOTTI BOYS FARMZ.`;
     try {
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(txt);
@@ -446,7 +446,7 @@ export default function CartDrawer({
               >
                 <div className="text-center pb-1">
                   <h4 className="font-mono text-xs tracking-widest text-orange-400 uppercase font-bold">{t('checkoutTitle')}</h4>
-                  <p className="text-[9px] text-orange-400/80 font-mono uppercase tracking-widest mt-1">👽⛰️ALIENS FARMS OFFICIEL⛰️👽 — Liaison Sécurisée 0-Log</p>
+                  <p className="text-[9px] text-orange-400/80 font-mono uppercase tracking-widest mt-1">BISCOTTI BOYS FARMZ — Liaison Sécurisée 0-Log</p>
                 </div>
 
                 {validationError && (
@@ -720,7 +720,7 @@ export default function CartDrawer({
                 <div className="p-5 rounded-2xl bg-black/60 border border-white/5 text-left text-xs leading-relaxed space-y-2.5 relative font-mono shadow-xl">
                   <div className="flex justify-between items-center pb-2 border-b border-white/5">
                     <span className="font-bold text-orange-400">{createdOrder.id}</span>
-                    <span className="text-[8px] text-neutral-400 uppercase tracking-wider">👽⛰️ALIENS FARMS OFFICIEL⛰️👽 PRIVATE RESERVE</span>
+                    <span className="text-[8px] text-neutral-400 uppercase tracking-wider">BISCOTTI BOYS FARMZ PRIVATE RESERVE</span>
                   </div>
 
                   <div className="text-neutral-300 text-[10.5px]">{t('nameLabel')} : <span className="text-white font-semibold uppercase">{createdOrder.customerName}</span></div>
@@ -761,12 +761,12 @@ export default function CartDrawer({
                           return `${qtyStr}${i.title}${sizeStr}`;
                         }).join(', ');
 
-                        const txt = `🏔️ 👽⛰️ALIENS FARMS OFFICIEL⛰️👽 — ${t('orderSuccessTitle')} ${createdOrder.id} 🏔️\n` +
+                        const txt = `🏔️ BISCOTTI BOYS FARMZ — ${t('orderSuccessTitle')} ${createdOrder.id} 🏔️\n` +
                                     `Client : ${createdOrder.customerName}\n` +
                                     `Articles : ${articlesFormatted}\n` +
                                     `Total : ${createdOrder.totalAmount} €\n` +
                                     `Livrable à : ${createdOrder.address}, ${createdOrder.city}\n` +
-                                    `👽⛰️ALIENS FARMS OFFICIEL⛰️👽 @yoru47.`;
+                                    `BISCOTTI BOYS FARMZ.`;
                         
                         try {
                            if (navigator.clipboard) {

@@ -172,7 +172,7 @@ export default function HomeView({
       <div className="pt-2.5 pb-3 flex flex-col items-center justify-center text-center border-b border-white/[0.08]">
         <h1 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase flex items-center justify-center gap-2">
           <span className="bg-gradient-to-r from-[#f5ecd5] via-[#e5c158] to-[#d4af37] bg-clip-text text-transparent font-extrabold tracking-wide text-center">
-            👽⛰️ALIENS FARMS OFFICIEL⛰️👽
+            BISCOTTI BOYS FARMZ
           </span>
         </h1>
         <p className="text-[10px] sm:text-[11px] font-mono text-zinc-400 uppercase tracking-widest mt-1 text-center">
@@ -180,12 +180,12 @@ export default function HomeView({
         </p>
       </div>
 
-      {/* 2. GRANDE IMAGE HERO 👽⛰️ALIENS FARMS OFFICIEL⛰️👽 (CINÉMATIQUE & MOBILE-PERFECT) */}
+      {/* 2. GRANDE IMAGE HERO BISCOTTI BOYS FARMZ (CINÉMATIQUE & MOBILE-PERFECT) */}
       <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-amber-400/25 bg-zinc-950 shadow-[0_10px_35px_rgba(0,0,0,0.7)] group">
         <div className="relative aspect-[16/8.5] sm:aspect-[21/9] w-full max-h-56 sm:max-h-64 overflow-hidden flex items-center justify-center bg-black">
           <img
             src={heroImageUrl}
-            alt="👽⛰️ALIENS FARMS OFFICIEL⛰️👽 Visual Hero"
+            alt="BISCOTTI BOYS FARMZ Visual Hero"
             className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.08] transition-transform duration-700 ease-out group-hover:scale-105"
             loading="eager"
             onError={(e) => {
@@ -218,7 +218,7 @@ export default function HomeView({
         </motion.h2>
 
         <p className="text-xs sm:text-sm text-zinc-400 font-sans tracking-wide">
-          Bienvenue chez 👽⛰️ALIENS FARMS OFFICIEL⛰️👽
+          Bienvenue chez BISCOTTI BOYS FARMZ
         </p>
       </div>
 
@@ -360,7 +360,7 @@ export default function HomeView({
                   <div className="p-3 sm:p-3.5 space-y-2 flex-1 flex flex-col justify-between">
                     <div className="space-y-1">
                       <div className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#e5c158]/90 truncate">
-                        {p.category || 'ALIENS FARMS'}
+                        {p.category || 'BISCOTTI BOYS'}
                       </div>
 
                       <h4 className="text-xs sm:text-[13px] font-extrabold text-zinc-100 group-hover:text-[#f3e8c8] transition-colors uppercase leading-snug line-clamp-2 min-h-[2rem]">
