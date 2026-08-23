@@ -3,9 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   Sparkles,
   Heart,
-  Search,
-  ArrowRight,
-  X
+  ArrowRight
 } from 'lucide-react';
 import { VideoItem, BrandingSettings } from '../types';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -50,7 +48,6 @@ export default function HomeView({
 }: HomeViewProps) {
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [showSearchInput, setShowSearchInput] = useState<boolean>(false);
 
   // Extract Telegram user first name dynamically
   const userFirstName = useMemo(() => {
@@ -171,80 +168,24 @@ export default function HomeView({
   return (
     <div className="space-y-4 pb-28 pt-1 px-3 sm:px-4 max-w-2xl mx-auto" id="home-view">
       
-      {/* 1. COMPACT LUXURY HEADER */}
-      <div className="pt-2 pb-2.5 flex items-center justify-between gap-3 border-b border-white/[0.08]">
-        <div>
-          <h1 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase flex items-center gap-2">
-            <span className="bg-gradient-to-r from-[#f5ecd5] via-[#e5c158] to-[#d4af37] bg-clip-text text-transparent font-extrabold tracking-wide">
-              SHELF TERPS
-            </span>
-          </h1>
-          <p className="text-[10px] sm:text-[11px] font-mono text-zinc-400 uppercase tracking-widest mt-0.5">
-            Reserve Collection • Live Menu
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => {
-              triggerHaptic('light');
-              setShowSearchInput(!showSearchInput);
-            }}
-            className={`p-2 rounded-xl border transition-all cursor-pointer ${
-              showSearchInput || searchQuery
-                ? 'bg-amber-400/15 border-amber-400/70 text-amber-200 shadow-[0_0_15px_rgba(229,193,88,0.25)]'
-                : 'bg-zinc-900/80 border-white/10 text-zinc-400 hover:text-zinc-200 hover:border-white/20'
-            }`}
-            title="Rechercher"
-          >
-            <Search className="w-4 h-4" />
-          </button>
-
-          <div className="px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[10px] font-bold flex items-center gap-1.5 shadow-sm backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="tracking-wider">DISPO</span>
-          </div>
-        </div>
+      {/* 1. COMPACT LUXURY HEADER - CENTERED */}
+      <div className="pt-2.5 pb-3 flex flex-col items-center justify-center text-center border-b border-white/[0.08]">
+        <h1 className="text-lg sm:text-xl font-black tracking-tight text-white uppercase flex items-center justify-center gap-2">
+          <span className="bg-gradient-to-r from-[#f5ecd5] via-[#e5c158] to-[#d4af37] bg-clip-text text-transparent font-extrabold tracking-wide text-center">
+            👽⛰️ALIENS FARMS OFFICIEL⛰️👽
+          </span>
+        </h1>
+        <p className="text-[10px] sm:text-[11px] font-mono text-zinc-400 uppercase tracking-widest mt-1 text-center">
+          Reserve Collection • Live Menu
+        </p>
       </div>
 
-      {/* EXPANDABLE SEARCH BAR */}
-      <AnimatePresence>
-        {showSearchInput && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden"
-          >
-            <div className="relative pt-1">
-              <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Rechercher une variété, un terpène ou un profil..."
-                className="w-full bg-zinc-900/90 border border-amber-400/30 focus:border-amber-400/80 rounded-2xl pl-10 pr-9 py-2.5 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none transition shadow-inner"
-                autoFocus
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white p-1"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* 2. GRANDE IMAGE HERO SHELF TERPS (CINÉMATIQUE & MOBILE-PERFECT) */}
+      {/* 2. GRANDE IMAGE HERO 👽⛰️ALIENS FARMS OFFICIEL⛰️👽 (CINÉMATIQUE & MOBILE-PERFECT) */}
       <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-amber-400/25 bg-zinc-950 shadow-[0_10px_35px_rgba(0,0,0,0.7)] group">
         <div className="relative aspect-[16/8.5] sm:aspect-[21/9] w-full max-h-56 sm:max-h-64 overflow-hidden flex items-center justify-center bg-black">
           <img
             src={heroImageUrl}
-            alt="SHELF TERPS Visual Hero"
+            alt="👽⛰️ALIENS FARMS OFFICIEL⛰️👽 Visual Hero"
             className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.08] transition-transform duration-700 ease-out group-hover:scale-105"
             loading="eager"
             onError={(e) => {
@@ -277,7 +218,7 @@ export default function HomeView({
         </motion.h2>
 
         <p className="text-xs sm:text-sm text-zinc-400 font-sans tracking-wide">
-          Bienvenue chez SHELF TERPS
+          Bienvenue chez 👽⛰️ALIENS FARMS OFFICIEL⛰️👽
         </p>
       </div>
 
@@ -419,7 +360,7 @@ export default function HomeView({
                   <div className="p-3 sm:p-3.5 space-y-2 flex-1 flex flex-col justify-between">
                     <div className="space-y-1">
                       <div className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#e5c158]/90 truncate">
-                        {p.category || 'SHELF TERPS'}
+                        {p.category || 'ALIENS FARMS'}
                       </div>
 
                       <h4 className="text-xs sm:text-[13px] font-extrabold text-zinc-100 group-hover:text-[#f3e8c8] transition-colors uppercase leading-snug line-clamp-2 min-h-[2rem]">

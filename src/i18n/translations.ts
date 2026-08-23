@@ -25,7 +25,7 @@ export const translations = {
 
     // Hero & Home
     welcomeTo: "WELCOME TO",
-    heroBadge: "SHELF TERPS — PRIVATE RESERVE",
+    heroBadge: "👽⛰️ALIENS FARMS OFFICIEL⛰️👽 — PRIVATE RESERVE",
     heroSubtitle: "Extractions d'exception & fleurs de prestige issues des meilleures récoltes certifiées 100% 0-Log.",
     exploreCatalog: "Explorer le Catalogue",
     usefulInfoBtn: "Informations",
@@ -206,7 +206,7 @@ export const translations = {
 
     // Hero & Home
     welcomeTo: "WELCOME TO",
-    heroBadge: "SHELF TERPS — PRIVATE RESERVE",
+    heroBadge: "👽⛰️ALIENS FARMS OFFICIEL⛰️👽 — PRIVATE RESERVE",
     heroSubtitle: "Exceptional extractions & prestige flowers from top harvests 100% 0-Log certified.",
     exploreCatalog: "Explore Catalog",
     usefulInfoBtn: "Information",
@@ -387,7 +387,7 @@ export const translations = {
 
     // Hero & Home
     welcomeTo: "BIENVENIDO A",
-    heroBadge: "SHELF TERPS — RESERVA PRIVADA",
+    heroBadge: "👽⛰️ALIENS FARMS OFFICIEL⛰️👽 — RESERVA PRIVADA",
     heroSubtitle: "Extracciones de excepción y flores de prestigio de cosechas top 100% certificadas 0-Log.",
     exploreCatalog: "Explorar Catálogo",
     usefulInfoBtn: "Información",

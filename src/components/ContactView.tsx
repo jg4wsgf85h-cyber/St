@@ -48,7 +48,7 @@ export default function ContactView({ branding, triggerHaptic, showToast }: Cont
       title: 'Instagram Officiel',
       subtitle: 'Stories exclusives, coulisses et présentations de récoltes',
       handle: instagram,
-      displayHandle: '@shelfterps',
+      displayHandle: '@aliensfarms',
       badge: 'COMMUNAUTÉ',
       badgeColor: 'bg-pink-500/10 border-pink-500/30 text-pink-400',
       icon: Instagram,

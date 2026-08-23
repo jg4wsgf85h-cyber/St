@@ -25,7 +25,7 @@ export default function ProfileView({
   const [selectedOrderDetails, setSelectedOrderDetails] = useState<Order | null>(null);
 
   // User Stats
-  const firstName = tgUser?.first_name || userProfile?.pseudo || 'Membre SHELF TERPS';
+  const firstName = tgUser?.first_name || userProfile?.pseudo || 'Membre 👽⛰️ALIENS FARMS OFFICIEL⛰️👽';
   const username = tgUser?.username ? `@${tgUser.username}` : '@non_specifie';
   const telegramId = tgUser?.id ? String(tgUser.id) : (userProfile?.telegramId || '77812901');
   const dateJoined = userProfile?.dateJoined || '2026-07-28';

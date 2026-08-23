@@ -31,7 +31,7 @@ export default function ProductCardMedia({
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center text-neutral-600 font-mono text-xs select-none">
-          SHELF TERPS
+          ALIENS FARMS
         </div>
       )}
 
