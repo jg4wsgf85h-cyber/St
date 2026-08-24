@@ -64,11 +64,11 @@ export default function InfoView({ triggerHaptic, onNavigateTab }: InfoViewProps
       <div className="p-5 rounded-2xl bg-gradient-to-b from-neutral-900 to-black border border-white/10 space-y-3 shadow-lg">
         <div className="flex items-center gap-2 text-orange-400 font-mono text-xs font-extrabold uppercase">
           <Sparkles className="w-4 h-4 text-orange-500" />
-          <span>À Propos de SHELF TERPS</span>
+          <span>À Propos de BISCOTTI BOYS FARMZ</span>
         </div>
         <p className="text-xs text-neutral-300 leading-relaxed font-sans">
-          SHELF TERPS est une réserve privée sélective dédiée aux passionnés d'extractions d'exception et de fleurs d'artisanat.
-          Nous travaillons en direct avec des producteurs certifiés pour garantir une pureté totale, zéro solvant et un profil terpénique conservé dans des conditions de froid optimales.
+          BISCOTTI BOYS FARMZ est une réserve privée sélective dédiée aux passionnés d'extractions d'exception et de fleurs d'artisanat.
+          Nous travaillons en direct avec des maîtres producteurs certifiés pour garantir une pureté totale, un profil terpénique exceptionnel et une conservation optimale.
         </p>
         <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/5 text-center">
           <div className="p-2 rounded-xl bg-black/40 border border-white/5">

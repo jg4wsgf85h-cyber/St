@@ -1,6 +1,6 @@
 {
-  "name": "SHELF TERPS",
-  "description": "SHELF TERPS — Réserve Privée: Extractions d'exception, fleurs de prestige et catalogue exclusif.",
+  "name": "BISCOTTI BOYS",
+  "description": "BISCOTTI BOYS — Réserve Privée: Extractions d'exception, fleurs de prestige et catalogue exclusif.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -416,7 +416,7 @@ export async function getBrandingSettings(): Promise<BrandingSettings> {
       launchScreenUrl: '',
       homepageHeroBgUrl: '',
       logoUrl: '',
-      introStatusLine: 'SHELF TERPS — PRIVATE RESERVE',
+      introStatusLine: '🍪🌾 BISCOTTI BOYS FARMZ 🌾🍪 — PRIVATE RESERVE',
       sectionTitles: defaultTitles
     };
   }

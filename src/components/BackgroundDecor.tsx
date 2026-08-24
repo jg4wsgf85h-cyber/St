@@ -181,7 +181,7 @@ export default function BackgroundDecor({ bgUrl, videoUrl, videoWebmUrl, videoMp
         {/* 1. Original static background image with deeper dark luxury grading */}
         <img
           src={activeImage}
-          alt="SHELF TERPS Reserve Background"
+          alt="BISCOTTI BOYS FARMZ Background"
           className={`absolute inset-0 w-full h-full object-cover filter brightness-[0.55] contrast-[1.1] transition-opacity duration-700 ${
             hasVideo && videoLoaded ? 'opacity-0 pointer-events-none' : 'opacity-70'
           }`}

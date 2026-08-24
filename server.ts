@@ -28,19 +28,29 @@ if (isProductionRunner && process.env.NODE_ENV !== 'production') {
 }
 
 // Environment variable configuration for Telegram Bot
-const OFFICIAL_TELEGRAM_BOT_TOKEN = '8861193131:AAEQkGPxWaP0AuuZ5lisvkraiZlBwjnNmYM';
+const OFFICIAL_TELEGRAM_BOT_TOKEN = '8729455542:AAGQhs00bgakXfVTZ4RfipKsTQOpBmDmf3c';
 if (!process.env.TELEGRAM_BOT_TOKEN || 
     process.env.TELEGRAM_BOT_TOKEN.includes('8894939933') ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8954112249') || 
     process.env.TELEGRAM_BOT_TOKEN.includes('8879788047') ||
+    process.env.TELEGRAM_BOT_TOKEN.includes('8861193131') ||
+    process.env.TELEGRAM_BOT_TOKEN.includes('8990600342') ||
+    process.env.TELEGRAM_BOT_TOKEN.includes('8616749340') ||
     process.env.TELEGRAM_BOT_TOKEN.length < 20) {
   process.env.TELEGRAM_BOT_TOKEN = OFFICIAL_TELEGRAM_BOT_TOKEN;
-  console.log('[ENV CONFIG] TELEGRAM_BOT_TOKEN configured with official bot token (@ShelfTerps_bot).');
+  console.log('[ENV CONFIG] TELEGRAM_BOT_TOKEN configured with official bot token.');
 }
 
 function getTelegramBotToken(): string {
   const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
-  if (!token || token.includes('8894939933') || token.includes('8954112249') || token.includes('8879788047') || token.length < 20) {
+  if (!token || 
+      token.includes('8894939933') || 
+      token.includes('8954112249') || 
+      token.includes('8879788047') || 
+      token.includes('8861193131') || 
+      token.includes('8990600342') || 
+      token.includes('8616749340') || 
+      token.length < 20) {
     return OFFICIAL_TELEGRAM_BOT_TOKEN;
   }
   return token;
@@ -1550,13 +1560,13 @@ const DEFAULT_PRODUCTS: any[] = [];
 
 // Default application visual branding customizations
 const DEFAULT_SETTINGS = {
-  introBgUrl: '/shelfterps_hero.png',
-  launchScreenUrl: '/shelfterps_hero.png',
-  homepageHeroBgUrl: '/shelfterps_hero.png',
-  logoUrl: '/shelfterps_logo.png',
+  introBgUrl: '/biscotti_boys_farmz_hero.png',
+  launchScreenUrl: '/biscotti_boys_farmz_hero.png',
+  homepageHeroBgUrl: '/biscotti_boys_farmz_hero.png',
+  logoUrl: '/biscotti_boys_farmz_logo.png',
   telegramChannelUrl: 'https://t.me/+ox8xo-KqAk1jYjI0',
   telegramSupportUrl: 'https://t.me/yoru47',
-  introStatusLine: 'SHELF TERPS — PRIVATE RESERVE',
+  introStatusLine: 'BISCOTTI BOYS FARMZ — PRIVATE RESERVE',
   sectionTitles: [
     { id: '1', text: 'LA RÉSERVE PRIVÉE', category: 'All', size: 'L', color: '#D4AF37', enabled: true, order: 1 },
     { id: '2', text: 'SELECTION DRY SIFT', category: 'DRY SIFT', size: 'L', color: '#D4AF37', enabled: true, order: 2 },
@@ -2179,8 +2189,17 @@ function sanitizeSettings(settings: any): any {
   if (!copy.telegramChannelUrl || copy.telegramChannelUrl.includes('jzS4uQkjH3hmYzM0') || copy.telegramChannelUrl.includes('ZOIX0z1yVl84MWI8') || copy.telegramChannelUrl.includes('gLPwu9H2-d4yZWE0')) {
     copy.telegramChannelUrl = 'https://t.me/+ox8xo-KqAk1jYjI0';
   }
-  if (!copy.logoUrl || copy.logoUrl.includes('b3124932-b5e6') || copy.logoUrl.includes('north47') || copy.logoUrl.includes('ais-') || copy.logoUrl.includes('bot_biscotti')) {
-    copy.logoUrl = '/uploads/bot_shelfterps_logo.png';
+  if (!copy.logoUrl || copy.logoUrl.includes('firebasestorage') || copy.logoUrl.includes('b3124932') || copy.logoUrl.includes('north47') || copy.logoUrl.includes('ais-') || copy.logoUrl.includes('shelfterps') || copy.logoUrl.includes('aliens')) {
+    copy.logoUrl = '/biscotti_boys_logo.png';
+  }
+  if (!copy.bgLogoUrl || copy.bgLogoUrl.includes('firebasestorage') || copy.bgLogoUrl.includes('shelfterps') || copy.bgLogoUrl.includes('aliens')) {
+    copy.bgLogoUrl = '/biscotti_boys_logo.png';
+  }
+  if (!copy.promoImageUrl || copy.promoImageUrl.includes('firebasestorage') || copy.promoImageUrl.includes('shelfterps') || copy.promoImageUrl.includes('aliens')) {
+    copy.promoImageUrl = '/biscotti_boys_logo.png';
+  }
+  if (!copy.launchScreenUrl || copy.launchScreenUrl.includes('firebasestorage') || copy.launchScreenUrl.includes('shelfterps') || copy.launchScreenUrl.includes('aliens')) {
+    copy.launchScreenUrl = '/biscotti_boys_logo.png';
   }
   // Strip any internal development sandbox URLs from stored custom URLs
   if (copy.customAppUrl) {
@@ -2728,11 +2747,11 @@ async function syncLocalToFirestoreIfNeeded() {
           !data.introStatusLine ||
           data.introStatusLine.includes('VELUNA') || 
           data.introStatusLine.includes('pyjama') || 
-          data.introStatusLine.includes('Biscotti') ||
-          data.introStatusLine.includes('BISCOTTI') ||
-          (!data.introStatusLine.includes('SHELF TERPS') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
+          data.introStatusLine.includes('ALIENS') ||
+          data.introStatusLine.includes('SHELF TERPS') ||
+          (!data.introStatusLine.includes('BISCOTTI BOYS FARMZ') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
         ) {
-          data.introStatusLine = 'SHELF TERPS — PRIVATE RESERVE';
+          data.introStatusLine = 'BISCOTTI BOYS FARMZ — PRIVATE RESERVE';
           needsUpdate = true;
         }
         
@@ -2771,12 +2790,12 @@ async function syncLocalToFirestoreIfNeeded() {
       } else {
         // Document does not exist in Firestore but we successfully queried it, so seed default settings
         const targetSettings = {
-          introBgUrl: '/shelfterps_hero.png',
-          launchScreenUrl: '/shelfterps_hero.png',
-          homepageHeroBgUrl: '/shelfterps_hero.png',
-          logoUrl: '/shelfterps_logo.png',
+          introBgUrl: '/biscotti_boys_farmz_hero.png',
+          launchScreenUrl: '/biscotti_boys_farmz_hero.png',
+          homepageHeroBgUrl: '/biscotti_boys_farmz_hero.png',
+          logoUrl: '/biscotti_boys_farmz_logo.png',
           adminPassword: 'omerta2026',
-          introStatusLine: 'SHELF TERPS — PRIVATE RESERVE',
+          introStatusLine: 'BISCOTTI BOYS FARMZ — PRIVATE RESERVE',
           sectionTitles: [
             { id: '1', text: 'LA RÉSERVE PRIVÉE', category: 'All', size: 'L', color: '#D4AF37', enabled: true, order: 1 },
             { id: '2', text: 'SELECTION DRY SIFT', category: 'DRY SIFT', size: 'L', color: '#D4AF37', enabled: true, order: 2 },
@@ -4198,7 +4217,7 @@ app.post('/api/pending-approvals/approve', verifyAdminAuth, async (req, res) => 
     if (token) {
       try {
         const appUrl = getTelegramAppUrl();
-        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à SHELF TERPS a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
+        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à BISCOTTI BOYS FARMZ a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
         
         const payload = {
           chat_id: telegramId,
@@ -4245,7 +4264,7 @@ app.post('/api/pending-approvals/reject', verifyAdminAuth, async (req, res) => {
     const token = getTelegramBotToken();
     if (token && telegramId) {
       try {
-        const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App SHELF TERPS a été refusée par l'administration\\.`;
+        const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App BISCOTTI BOYS FARMZ a été refusée par l'administration\\.`;
         await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -4827,13 +4846,13 @@ async function sendInstagramPromoMessage(chatId: string | number): Promise<{ suc
     return { success: false };
   }
   
-  const defaultText = `SHELF TERPS — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nSHELF TERPS — L'Excellence à l'État Pur`;
+  const defaultText = `💎 BISCOTTI BOYS FARMZ — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nBISCOTTI BOYS FARMZ — L'Excellence à l'État Pur ✨`;
   let promoMessage = defaultText;
   let promoBtnLabel = "🛒 Accéder au Shop 🛍️";
   let promoUrl1 = "";
   let promoBtnLabel2 = "";
   let promoUrl2 = "";
-  let promoImageUrl = "";
+  let promoImageUrl = "/biscotti_boys_farmz_hero.png";
 
   try {
     const freshSettings = loadSettingsFromDisk();
@@ -5098,7 +5117,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
           console.warn('[TELEGRAM BOT] Failed to load logo settings.', settingsErr);
         }
 
-        const welcomeText = `SHELF TERPS — RÉSERVE PRIVÉE\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" en bas à gauche de votre écran pour ouvrir la boutique.`;
+        const welcomeText = `💎 BISCOTTI BOYS FARMZ — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" en bas à gauche de votre écran pour ouvrir la boutique.`;
 
         // Configure user's personal chat menu button directly to active appUrl
         fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -5138,11 +5157,13 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
 
         // 1. Try sending local bot emblem photo via multipart FormData directly to Telegram
         const candidateLogoPaths = [
-          path.join(process.cwd(), 'public', 'shelfterps_logo.png'),
-          path.join(process.cwd(), 'uploads', '4ceb0055-0eb8-41de-803a-2abf721e2bef.jpg'),
-          path.join(process.cwd(), 'public', 'shelfterps_hero.png'),
-          path.join(process.cwd(), 'uploads', 'bot_shelfterps_logo.png'),
-          path.join(process.cwd(), 'public', 'bot_shelfterps_logo.png')
+          path.join(process.cwd(), 'public', 'biscotti_boys_logo.png'),
+          path.join(process.cwd(), 'public', 'biscotti_boys_logo.jpg'),
+          path.join(process.cwd(), 'public', 'biscotti_boys_farmz_logo.png'),
+          path.join(process.cwd(), 'public', 'biscotti_boys_farmz_hero.png'),
+          path.join(process.cwd(), 'public', 'bot_biscotti_logo.jpg'),
+          path.join(process.cwd(), 'public', 'bot_biscotti_logo.png'),
+          path.join(process.cwd(), 'public', 'logo.png')
         ];
         const localLogoPath = candidateLogoPaths.find(p => fs.existsSync(p));
         if (localLogoPath) {
@@ -5175,7 +5196,9 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
 
         // 2. Fallback to URL-based sendPhoto if FormData didn't succeed
         if (!photoSucceeded) {
-          const fallbackPhotoUrl = (logoUrl && logoUrl.startsWith('http')) ? logoUrl : 'https://st-production-a9ae.up.railway.app/uploads/shelfterps_logo.png';
+          const fallbackPhotoUrl = (logoUrl && logoUrl.startsWith('http') && !logoUrl.includes('firebasestorage') && !logoUrl.includes('shelfterps') && !logoUrl.includes('aliens')) 
+            ? logoUrl 
+            : 'https://st-production-a9ae.up.railway.app/biscotti_boys_logo.png';
           try {
             const photoPayload = {
               chat_id: chatId,
@@ -5676,7 +5699,7 @@ async function setupTelegramWebhook() {
     fetch(`https://api.telegram.org/bot${token}/setMyName`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: 'SHELF TERPS' })
+      body: JSON.stringify({ name: 'BISCOTTI BOYS FARMZ' })
     }).catch(e => console.warn('[TELEGRAM] setMyName error:', e));
 
     // Set Bot Description
@@ -5684,7 +5707,7 @@ async function setupTelegramWebhook() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        description: "SHELF TERPS — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
+        description: "BISCOTTI BOYS FARMZ — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyDescription error:', e));
 
@@ -5693,7 +5716,7 @@ async function setupTelegramWebhook() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        short_description: "SHELF TERPS — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
+        short_description: "BISCOTTI BOYS FARMZ — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyShortDescription error:', e));
   } catch (err) {
