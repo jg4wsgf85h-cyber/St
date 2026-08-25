@@ -61,45 +61,42 @@ export default function IntroScreen({
     return false;
   }, []);
 
-  // Smooth loading progress bar simulation (0% -> 100% in ~1.2s)
+  // Smooth loading progress bar simulation (0% -> 100% in ~500ms) and direct entry
   useEffect(() => {
     let start = Date.now();
-    const duration = 1200;
+    const duration = 500;
 
     const interval = setInterval(() => {
       const elapsed = Date.now() - start;
       const currentProgress = Math.min(100, Math.floor((elapsed / duration) * 100));
       setProgress(currentProgress);
 
-      if (currentProgress < 30) {
-        setLoadingText('Initialisation du système...');
-      } else if (currentProgress < 70) {
-        setLoadingText('Synchronisation de la réserve...');
-      } else if (currentProgress < 99) {
-        setLoadingText('Connexion privée certifiée...');
+      if (currentProgress < 40) {
+        setLoadingText('Initialisation de la réserve...');
+      } else if (currentProgress < 85) {
+        setLoadingText('Chargement du catalogue...');
       } else {
-        setLoadingText('Accès autorisé');
+        setLoadingText('Accès autorisé...');
       }
 
       if (currentProgress >= 100) {
         clearInterval(interval);
-      }
-    }, 25);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Automatic entry when loading progress reaches 100%
-  useEffect(() => {
-    if (progress >= 100 && !hasTriggeredAutoEnter) {
-      setHasTriggeredAutoEnter(true);
-      const timer = setTimeout(() => {
-        triggerHaptic('success', 'Bienvenue dans la réserve');
+        triggerHaptic('success', 'Bienvenue');
         onEnter();
-      }, 250);
-      return () => clearTimeout(timer);
-    }
-  }, [progress, hasTriggeredAutoEnter, onEnter, triggerHaptic]);
+      }
+    }, 20);
+
+    // Hard fallback: guarantees entering even if intervals are delayed by browser throttling
+    const fallbackTimer = setTimeout(() => {
+      triggerHaptic('success', 'Bienvenue');
+      onEnter();
+    }, 600);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(fallbackTimer);
+    };
+  }, [onEnter, triggerHaptic]);
 
   // Subtle animated canvas mist & particle overlay over the mountain background
   useEffect(() => {
@@ -277,51 +274,49 @@ export default function IntroScreen({
       <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center px-4 w-full max-w-sm mx-auto">
         <div className="w-full bg-transparent p-4 space-y-8 flex flex-col items-center relative overflow-hidden">
           
-          {/* Animated Brand Logo Badge with Radiant Backlight Halo */}
+          {/* Luxury Brand Title (No round logo as requested) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="relative group cursor-pointer inline-block"
-            onClick={() => {
-              triggerHaptic('medium');
-              onEnter();
-            }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="space-y-2 text-center"
           >
-            {/* Radiant Backlight Halo behind the logo */}
-            <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-amber-500/40 via-orange-500/50 to-amber-600/40 blur-2xl animate-pulse scale-125 pointer-events-none" />
-
-            {/* Logo Badge Container */}
-            <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-full border border-orange-500/60 bg-gradient-to-br from-neutral-900 via-black to-neutral-950 flex items-center justify-center shadow-[0_0_50px_rgba(245,158,11,0.45)]">
-              {settings?.logoUrl ? (
-                <img src={settings.logoUrl} alt="BISCOTTI BOYS FARMZ Logo" className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover" />
-              ) : (
-                <div className="flex flex-col items-center justify-center">
-                  <span className="font-mono text-2xl md:text-3xl font-black text-orange-400 tracking-wider">
-                    BBF
-                  </span>
-                  <Sparkles className="w-4 h-4 text-amber-300 animate-pulse -mt-0.5" />
-                </div>
-              )}
-              <div className="absolute inset-1 rounded-full border border-orange-500/30 border-dashed animate-[spin_20s_linear_infinite]" />
-            </div>
+            <h1 className="font-mono text-xl md:text-2xl font-black tracking-[0.25em] text-white uppercase flex items-center justify-center gap-2">
+              <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(245,158,11,0.5)]">
+                BISCOTTI BOYS FARMZ
+              </span>
+              <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
+            </h1>
+            <p className="text-[10px] md:text-xs font-mono tracking-[0.3em] uppercase text-amber-400/90 font-bold">
+              {settings?.introStatusLine || 'PRIVATE RESERVE — BOUTIQUE OFFICIELLE'}
+            </p>
           </motion.div>
 
-          {/* Clean 'ACCÉDER À LA RÉSERVE' Button */}
-          <motion.button
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.95 }}
+          {/* Automatic Luxury Loading Progress Bar (Enters directly) */}
+          <div 
             onClick={() => {
-              triggerHaptic('heavy', 'Bienvenue dans la réserve');
+              triggerHaptic('success', 'Bienvenue');
               onEnter();
             }}
-            className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 text-black font-black font-mono text-xs md:text-sm tracking-[0.2em] uppercase shadow-[0_0_35px_rgba(245,158,11,0.6)] hover:shadow-[0_0_50px_rgba(245,158,11,0.8)] transition duration-200 cursor-pointer"
+            className="w-full max-w-xs space-y-3 pt-2 cursor-pointer"
           >
-            Accéder à la Réserve
-          </motion.button>
+            <div className="flex items-center justify-between text-[11px] font-mono tracking-widest text-neutral-400">
+              <span className="flex items-center gap-1.5 text-amber-400 font-bold uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+                {loadingText}
+              </span>
+              <span className="text-amber-300/90 font-bold">{progress}%</span>
+            </div>
+
+            {/* Glowing Track & Fill Bar */}
+            <div className="relative w-full h-1.5 bg-black/60 border border-white/10 rounded-full overflow-hidden backdrop-blur-md shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+              <motion.div
+                className="h-full bg-gradient-to-r from-orange-500 via-amber-400 to-amber-300 rounded-full shadow-[0_0_12px_rgba(245,158,11,0.8)]"
+                style={{ width: `${progress}%` }}
+                transition={{ ease: 'easeOut', duration: 0.1 }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

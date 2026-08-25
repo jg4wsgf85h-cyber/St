@@ -2189,18 +2189,6 @@ function sanitizeSettings(settings: any): any {
   if (!copy.telegramChannelUrl || copy.telegramChannelUrl.includes('jzS4uQkjH3hmYzM0') || copy.telegramChannelUrl.includes('ZOIX0z1yVl84MWI8') || copy.telegramChannelUrl.includes('gLPwu9H2-d4yZWE0')) {
     copy.telegramChannelUrl = 'https://t.me/+ox8xo-KqAk1jYjI0';
   }
-  if (!copy.logoUrl || copy.logoUrl.includes('firebasestorage') || copy.logoUrl.includes('b3124932') || copy.logoUrl.includes('north47') || copy.logoUrl.includes('ais-') || copy.logoUrl.includes('shelfterps') || copy.logoUrl.includes('aliens')) {
-    copy.logoUrl = '/biscotti_boys_logo.png';
-  }
-  if (!copy.bgLogoUrl || copy.bgLogoUrl.includes('firebasestorage') || copy.bgLogoUrl.includes('shelfterps') || copy.bgLogoUrl.includes('aliens')) {
-    copy.bgLogoUrl = '/biscotti_boys_logo.png';
-  }
-  if (!copy.promoImageUrl || copy.promoImageUrl.includes('firebasestorage') || copy.promoImageUrl.includes('shelfterps') || copy.promoImageUrl.includes('aliens')) {
-    copy.promoImageUrl = '/biscotti_boys_logo.png';
-  }
-  if (!copy.launchScreenUrl || copy.launchScreenUrl.includes('firebasestorage') || copy.launchScreenUrl.includes('shelfterps') || copy.launchScreenUrl.includes('aliens')) {
-    copy.launchScreenUrl = '/biscotti_boys_logo.png';
-  }
   // Strip any internal development sandbox URLs from stored custom URLs
   if (copy.customAppUrl) {
     const u = String(copy.customAppUrl).trim();
@@ -5196,7 +5184,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
 
         // 2. Fallback to URL-based sendPhoto if FormData didn't succeed
         if (!photoSucceeded) {
-          const fallbackPhotoUrl = (logoUrl && logoUrl.startsWith('http') && !logoUrl.includes('firebasestorage') && !logoUrl.includes('shelfterps') && !logoUrl.includes('aliens')) 
+          const fallbackPhotoUrl = (logoUrl && logoUrl.startsWith('http')) 
             ? logoUrl 
             : 'https://st-production-a9ae.up.railway.app/biscotti_boys_logo.png';
           try {

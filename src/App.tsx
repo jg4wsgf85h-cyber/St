@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useRef, useMemo, FormEvent } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ShoppingBag, 
@@ -356,7 +356,7 @@ export default function App() {
     }
   };
 
-  const handleEnter = () => {
+  const handleEnter = useCallback(() => {
     setHasEntered(true);
     // Auto-trigger ambience audio if toggle state was enabled
     if (audioPlaying && audioRef.current) {
@@ -367,7 +367,7 @@ export default function App() {
         .then(() => setAudioPlaying(true))
         .catch(() => setAudioPlaying(false));
     }
-  };
+  }, [audioPlaying]);
 
   // Add to cart with price calculation
   const handleAddToCart = (product: VideoItem, size: string, color: { name: string; hex: string; imageUrl: string }) => {
