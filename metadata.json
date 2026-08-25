@@ -1,6 +1,6 @@
 {
-  "name": "BISCOTTI BOYS",
-  "description": "BISCOTTI BOYS — Réserve Privée: Extractions d'exception, fleurs de prestige et catalogue exclusif.",
+  "name": "SECRET FARMZ",
+  "description": "SECRET FARMZ — Réserve Privée: Extractions d'exception, fleurs de prestige et catalogue exclusif.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -28,8 +28,9 @@ if (isProductionRunner && process.env.NODE_ENV !== 'production') {
 }
 
 // Environment variable configuration for Telegram Bot
-const OFFICIAL_TELEGRAM_BOT_TOKEN = '8729455542:AAGQhs00bgakXfVTZ4RfipKsTQOpBmDmf3c';
+const OFFICIAL_TELEGRAM_BOT_TOKEN = '8739923893:AAG0ZyEbVBzMXFXv6JOjPoQgF30ddCMNO-c';
 if (!process.env.TELEGRAM_BOT_TOKEN || 
+    process.env.TELEGRAM_BOT_TOKEN.includes('8729455542') ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8894939933') ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8954112249') || 
     process.env.TELEGRAM_BOT_TOKEN.includes('8879788047') ||
@@ -44,6 +45,7 @@ if (!process.env.TELEGRAM_BOT_TOKEN ||
 function getTelegramBotToken(): string {
   const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
   if (!token || 
+      token.includes('8729455542') ||
       token.includes('8894939933') || 
       token.includes('8954112249') || 
       token.includes('8879788047') || 
@@ -1188,26 +1190,30 @@ app.use((req, res, next) => {
     forwardedHost.includes('valoir-luxe') || 
     forwardedHost.includes('1059042182497')
   ) {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
     res.status(410).send(`
       <!DOCTYPE html>
       <html lang="fr">
       <head>
         <meta charset="UTF-8">
         <title>Accès Désactivé</title>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
           body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #ededed; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; text-align: center; }
           .card { background: #141414; border: 1px solid #2a2a2a; border-radius: 16px; padding: 32px 24px; max-width: 440px; width: 100%; }
           h1 { font-size: 20px; color: #ef4444; margin-bottom: 12px; font-weight: 600; }
-          p { font-size: 14px; color: #888; line-height: 1.6; margin-bottom: 24px; }
-          .btn { display: inline-block; background: #d4af37; color: #000; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 9999px; font-size: 14px; }
+          p { font-size: 14px; color: #888; line-height: 1.6; margin: 0; }
         </style>
       </head>
       <body>
         <div class="card">
           <h1>⚠️ Lien obsolète & désactivé</h1>
-          <p>Cette ancienne adresse Cloud Run a été définitivement fermée.<br>Veuillez utiliser l'accès officiel du projet ou le bot Telegram.</p>
-          <a href="https://t.me/ShelfTerps_bot" class="btn">Ouvrir le Bot Officiel 🤖</a>
+          <p>Cette ancienne adresse Cloud Run a été définitivement fermée.<br>Veuillez utiliser l'accès officiel du projet.</p>
         </div>
       </body>
       </html>
@@ -1560,13 +1566,13 @@ const DEFAULT_PRODUCTS: any[] = [];
 
 // Default application visual branding customizations
 const DEFAULT_SETTINGS = {
-  introBgUrl: '/biscotti_boys_farmz_hero.png',
-  launchScreenUrl: '/biscotti_boys_farmz_hero.png',
-  homepageHeroBgUrl: '/biscotti_boys_farmz_hero.png',
-  logoUrl: '/biscotti_boys_farmz_logo.png',
+  introBgUrl: '/secret_farmz_hero.jpg',
+  launchScreenUrl: '/secret_farmz_hero.jpg',
+  homepageHeroBgUrl: '/secret_farmz_hero.jpg',
+  logoUrl: '/secret_farmz_logo.jpg',
   telegramChannelUrl: 'https://t.me/+ox8xo-KqAk1jYjI0',
   telegramSupportUrl: 'https://t.me/yoru47',
-  introStatusLine: 'BISCOTTI BOYS FARMZ — PRIVATE RESERVE',
+  introStatusLine: 'SECRET FARMZ — PRIVATE RESERVE',
   sectionTitles: [
     { id: '1', text: 'LA RÉSERVE PRIVÉE', category: 'All', size: 'L', color: '#D4AF37', enabled: true, order: 1 },
     { id: '2', text: 'SELECTION DRY SIFT', category: 'DRY SIFT', size: 'L', color: '#D4AF37', enabled: true, order: 2 },
@@ -2737,9 +2743,9 @@ async function syncLocalToFirestoreIfNeeded() {
           data.introStatusLine.includes('pyjama') || 
           data.introStatusLine.includes('ALIENS') ||
           data.introStatusLine.includes('SHELF TERPS') ||
-          (!data.introStatusLine.includes('BISCOTTI BOYS FARMZ') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
+          (!data.introStatusLine.includes('SECRET FARMZ') && !data.introStatusLine.includes('BISCOTTI BOYS FARMZ') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
         ) {
-          data.introStatusLine = 'BISCOTTI BOYS FARMZ — PRIVATE RESERVE';
+          data.introStatusLine = 'SECRET FARMZ — PRIVATE RESERVE';
           needsUpdate = true;
         }
         
@@ -2783,7 +2789,7 @@ async function syncLocalToFirestoreIfNeeded() {
           homepageHeroBgUrl: '/biscotti_boys_farmz_hero.png',
           logoUrl: '/biscotti_boys_farmz_logo.png',
           adminPassword: 'omerta2026',
-          introStatusLine: 'BISCOTTI BOYS FARMZ — PRIVATE RESERVE',
+          introStatusLine: 'SECRET FARMZ — PRIVATE RESERVE',
           sectionTitles: [
             { id: '1', text: 'LA RÉSERVE PRIVÉE', category: 'All', size: 'L', color: '#D4AF37', enabled: true, order: 1 },
             { id: '2', text: 'SELECTION DRY SIFT', category: 'DRY SIFT', size: 'L', color: '#D4AF37', enabled: true, order: 2 },
@@ -4205,7 +4211,7 @@ app.post('/api/pending-approvals/approve', verifyAdminAuth, async (req, res) => 
     if (token) {
       try {
         const appUrl = getTelegramAppUrl();
-        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à BISCOTTI BOYS FARMZ a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
+        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à SECRET FARMZ a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
         
         const payload = {
           chat_id: telegramId,
@@ -4252,7 +4258,7 @@ app.post('/api/pending-approvals/reject', verifyAdminAuth, async (req, res) => {
     const token = getTelegramBotToken();
     if (token && telegramId) {
       try {
-        const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App BISCOTTI BOYS FARMZ a été refusée par l'administration\\.`;
+        const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App SECRET FARMZ a été refusée par l'administration\\.`;
         await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -4834,13 +4840,13 @@ async function sendInstagramPromoMessage(chatId: string | number): Promise<{ suc
     return { success: false };
   }
   
-  const defaultText = `💎 BISCOTTI BOYS FARMZ — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nBISCOTTI BOYS FARMZ — L'Excellence à l'État Pur ✨`;
+  const defaultText = `💎 SECRET FARMZ — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nSECRET FARMZ — L'Excellence à l'État Pur ✨`;
   let promoMessage = defaultText;
   let promoBtnLabel = "🛒 Accéder au Shop 🛍️";
   let promoUrl1 = "";
   let promoBtnLabel2 = "";
   let promoUrl2 = "";
-  let promoImageUrl = "/biscotti_boys_farmz_hero.png";
+  let promoImageUrl = "/secret_farmz_logo.jpg";
 
   try {
     const freshSettings = loadSettingsFromDisk();
@@ -5105,7 +5111,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
           console.warn('[TELEGRAM BOT] Failed to load logo settings.', settingsErr);
         }
 
-        const welcomeText = `💎 BISCOTTI BOYS FARMZ — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" en bas à gauche de votre écran pour ouvrir la boutique.`;
+        const welcomeText = `💎 SECRET FARMZ — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" en bas à gauche de votre écran pour ouvrir la boutique.`;
 
         // Configure user's personal chat menu button directly to active appUrl
         fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -5145,12 +5151,13 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
 
         // 1. Try sending local bot emblem photo via multipart FormData directly to Telegram
         const candidateLogoPaths = [
+          path.join(process.cwd(), 'public', 'secret_farmz_logo.jpg'),
+          path.join(process.cwd(), 'public', 'secret_farmz_hero.jpg'),
+          path.join(process.cwd(), 'public', 'bot_secretfarmz_logo.jpg'),
           path.join(process.cwd(), 'public', 'biscotti_boys_logo.png'),
           path.join(process.cwd(), 'public', 'biscotti_boys_logo.jpg'),
           path.join(process.cwd(), 'public', 'biscotti_boys_farmz_logo.png'),
           path.join(process.cwd(), 'public', 'biscotti_boys_farmz_hero.png'),
-          path.join(process.cwd(), 'public', 'bot_biscotti_logo.jpg'),
-          path.join(process.cwd(), 'public', 'bot_biscotti_logo.png'),
           path.join(process.cwd(), 'public', 'logo.png')
         ];
         const localLogoPath = candidateLogoPaths.find(p => fs.existsSync(p));
@@ -5186,7 +5193,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
         if (!photoSucceeded) {
           const fallbackPhotoUrl = (logoUrl && logoUrl.startsWith('http')) 
             ? logoUrl 
-            : 'https://st-production-a9ae.up.railway.app/biscotti_boys_logo.png';
+            : 'https://st-production-a9ae.up.railway.app/secret_farmz_logo.jpg';
           try {
             const photoPayload = {
               chat_id: chatId,
@@ -5687,7 +5694,7 @@ async function setupTelegramWebhook() {
     fetch(`https://api.telegram.org/bot${token}/setMyName`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: 'BISCOTTI BOYS FARMZ' })
+      body: JSON.stringify({ name: 'SECRET FARMZ' })
     }).catch(e => console.warn('[TELEGRAM] setMyName error:', e));
 
     // Set Bot Description
@@ -5695,7 +5702,7 @@ async function setupTelegramWebhook() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        description: "BISCOTTI BOYS FARMZ — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
+        description: "SECRET FARMZ — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyDescription error:', e));
 
@@ -5704,7 +5711,7 @@ async function setupTelegramWebhook() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        short_description: "BISCOTTI BOYS FARMZ — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
+        short_description: "SECRET FARMZ — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyShortDescription error:', e));
   } catch (err) {
