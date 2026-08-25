@@ -571,9 +571,6 @@ export default function App() {
         <div className="w-16 h-16 rounded-full border border-dashed border-[#D4AF37]/35 flex items-center justify-center animate-spin relative">
           <div className="w-12 h-12 rounded-full border border-dashed border-[#D4AF37]/20 flex items-center justify-center animate-spin [animation-direction:reverse]" />
         </div>
-        <h2 className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#D4AF37] mt-8 animate-pulse">
-          SECRET FARMZ — SYNCHRONISATION SECURE
-        </h2>
       </div>
     );
   }

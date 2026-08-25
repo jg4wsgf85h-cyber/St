@@ -2743,7 +2743,7 @@ async function syncLocalToFirestoreIfNeeded() {
           data.introStatusLine.includes('pyjama') || 
           data.introStatusLine.includes('ALIENS') ||
           data.introStatusLine.includes('SHELF TERPS') ||
-          (!data.introStatusLine.includes('SECRET FARMZ') && !data.introStatusLine.includes('BISCOTTI BOYS FARMZ') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
+          (!data.introStatusLine.includes('SECRET FARMZ') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
         ) {
           data.introStatusLine = 'SECRET FARMZ — PRIVATE RESERVE';
           needsUpdate = true;
@@ -2784,10 +2784,10 @@ async function syncLocalToFirestoreIfNeeded() {
       } else {
         // Document does not exist in Firestore but we successfully queried it, so seed default settings
         const targetSettings = {
-          introBgUrl: '/biscotti_boys_farmz_hero.png',
-          launchScreenUrl: '/biscotti_boys_farmz_hero.png',
-          homepageHeroBgUrl: '/biscotti_boys_farmz_hero.png',
-          logoUrl: '/biscotti_boys_farmz_logo.png',
+          introBgUrl: '/secret_farmz_hero.jpg',
+          launchScreenUrl: '/secret_farmz_hero.jpg',
+          homepageHeroBgUrl: '/secret_farmz_hero.jpg',
+          logoUrl: '/secret_farmz_logo.jpg',
           adminPassword: 'omerta2026',
           introStatusLine: 'SECRET FARMZ — PRIVATE RESERVE',
           sectionTitles: [
@@ -5154,10 +5154,6 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
           path.join(process.cwd(), 'public', 'secret_farmz_logo.jpg'),
           path.join(process.cwd(), 'public', 'secret_farmz_hero.jpg'),
           path.join(process.cwd(), 'public', 'bot_secretfarmz_logo.jpg'),
-          path.join(process.cwd(), 'public', 'biscotti_boys_logo.png'),
-          path.join(process.cwd(), 'public', 'biscotti_boys_logo.jpg'),
-          path.join(process.cwd(), 'public', 'biscotti_boys_farmz_logo.png'),
-          path.join(process.cwd(), 'public', 'biscotti_boys_farmz_hero.png'),
           path.join(process.cwd(), 'public', 'logo.png')
         ];
         const localLogoPath = candidateLogoPaths.find(p => fs.existsSync(p));

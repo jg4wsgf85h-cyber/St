@@ -298,16 +298,8 @@ export default function IntroScreen({
               triggerHaptic('success', 'Bienvenue');
               onEnter();
             }}
-            className="w-full max-w-xs space-y-3 pt-2 cursor-pointer"
+            className="w-full max-w-xs space-y-2 pt-2 cursor-pointer"
           >
-            <div className="flex items-center justify-between text-[11px] font-mono tracking-widest text-neutral-400">
-              <span className="flex items-center gap-1.5 text-amber-400 font-bold uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
-                {loadingText}
-              </span>
-              <span className="text-amber-300/90 font-bold">{progress}%</span>
-            </div>
-
             {/* Glowing Track & Fill Bar */}
             <div className="relative w-full h-1.5 bg-black/60 border border-white/10 rounded-full overflow-hidden backdrop-blur-md shadow-[0_0_15px_rgba(0,0,0,0.5)]">
               <motion.div
