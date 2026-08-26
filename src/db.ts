@@ -416,7 +416,7 @@ export async function getBrandingSettings(): Promise<BrandingSettings> {
       launchScreenUrl: '',
       homepageHeroBgUrl: '',
       logoUrl: '',
-      introStatusLine: '🌿💎 SECRET FARMZ 💎🌿 — PRIVATE RESERVE',
+      introStatusLine: '🌿💎 DRYTECH 💎🌿 — PRIVATE RESERVE',
       sectionTitles: defaultTitles
     };
   }

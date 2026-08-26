@@ -28,7 +28,7 @@ if (isProductionRunner && process.env.NODE_ENV !== 'production') {
 }
 
 // Environment variable configuration for Telegram Bot
-const OFFICIAL_TELEGRAM_BOT_TOKEN = '8739923893:AAG0ZyEbVBzMXFXv6JOjPoQgF30ddCMNO-c';
+const OFFICIAL_TELEGRAM_BOT_TOKEN = '8992894169:AAG-RniN9kAT7mX1jlKv9dX0jlWqZQ7gjdI';
 if (!process.env.TELEGRAM_BOT_TOKEN || 
     process.env.TELEGRAM_BOT_TOKEN.includes('8729455542') ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8894939933') ||
@@ -37,6 +37,7 @@ if (!process.env.TELEGRAM_BOT_TOKEN ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8861193131') ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8990600342') ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8616749340') ||
+    process.env.TELEGRAM_BOT_TOKEN.includes('8739923893') ||
     process.env.TELEGRAM_BOT_TOKEN.length < 20) {
   process.env.TELEGRAM_BOT_TOKEN = OFFICIAL_TELEGRAM_BOT_TOKEN;
   console.log('[ENV CONFIG] TELEGRAM_BOT_TOKEN configured with official bot token.');
@@ -52,6 +53,7 @@ function getTelegramBotToken(): string {
       token.includes('8861193131') || 
       token.includes('8990600342') || 
       token.includes('8616749340') || 
+      token.includes('8739923893') ||
       token.length < 20) {
     return OFFICIAL_TELEGRAM_BOT_TOKEN;
   }
@@ -1572,7 +1574,7 @@ const DEFAULT_SETTINGS = {
   logoUrl: '/secret_farmz_logo.jpg',
   telegramChannelUrl: 'https://t.me/+ox8xo-KqAk1jYjI0',
   telegramSupportUrl: 'https://t.me/yoru47',
-  introStatusLine: 'SECRET FARMZ — PRIVATE RESERVE',
+  introStatusLine: 'DRYTECH — PRIVATE RESERVE',
   sectionTitles: [
     { id: '1', text: 'LA RÉSERVE PRIVÉE', category: 'All', size: 'L', color: '#D4AF37', enabled: true, order: 1 },
     { id: '2', text: 'SELECTION DRY SIFT', category: 'DRY SIFT', size: 'L', color: '#D4AF37', enabled: true, order: 2 },
@@ -2743,9 +2745,9 @@ async function syncLocalToFirestoreIfNeeded() {
           data.introStatusLine.includes('pyjama') || 
           data.introStatusLine.includes('ALIENS') ||
           data.introStatusLine.includes('SHELF TERPS') ||
-          (!data.introStatusLine.includes('SECRET FARMZ') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
+          (!data.introStatusLine.includes('DRYTECH') && !data.introStatusLine.includes('NORTH47') && !data.introStatusLine.includes('OMERTA') && !data.introStatusLine.includes('HASH LUXE'))
         ) {
-          data.introStatusLine = 'SECRET FARMZ — PRIVATE RESERVE';
+          data.introStatusLine = 'DRYTECH — PRIVATE RESERVE';
           needsUpdate = true;
         }
         
@@ -2789,7 +2791,7 @@ async function syncLocalToFirestoreIfNeeded() {
           homepageHeroBgUrl: '/secret_farmz_hero.jpg',
           logoUrl: '/secret_farmz_logo.jpg',
           adminPassword: 'omerta2026',
-          introStatusLine: 'SECRET FARMZ — PRIVATE RESERVE',
+          introStatusLine: 'DRYTECH — PRIVATE RESERVE',
           sectionTitles: [
             { id: '1', text: 'LA RÉSERVE PRIVÉE', category: 'All', size: 'L', color: '#D4AF37', enabled: true, order: 1 },
             { id: '2', text: 'SELECTION DRY SIFT', category: 'DRY SIFT', size: 'L', color: '#D4AF37', enabled: true, order: 2 },
@@ -4211,7 +4213,7 @@ app.post('/api/pending-approvals/approve', verifyAdminAuth, async (req, res) => 
     if (token) {
       try {
         const appUrl = getTelegramAppUrl();
-        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à SECRET FARMZ a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
+        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à DRYTECH a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
         
         const payload = {
           chat_id: telegramId,
@@ -4258,7 +4260,7 @@ app.post('/api/pending-approvals/reject', verifyAdminAuth, async (req, res) => {
     const token = getTelegramBotToken();
     if (token && telegramId) {
       try {
-        const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App SECRET FARMZ a été refusée par l'administration\\.`;
+        const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App DRYTECH a été refusée par l'administration\\.`;
         await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -4840,13 +4842,13 @@ async function sendInstagramPromoMessage(chatId: string | number): Promise<{ suc
     return { success: false };
   }
   
-  const defaultText = `💎 SECRET FARMZ — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nSECRET FARMZ — L'Excellence à l'État Pur ✨`;
+  const defaultText = `💎 DRYTECH — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nDRYTECH — L'Excellence à l'État Pur ✨`;
   let promoMessage = defaultText;
   let promoBtnLabel = "🛒 Accéder au Shop 🛍️";
   let promoUrl1 = "";
   let promoBtnLabel2 = "";
   let promoUrl2 = "";
-  let promoImageUrl = "/secret_farmz_logo.jpg";
+  let promoImageUrl = "/drytech_logo.png";
 
   try {
     const freshSettings = loadSettingsFromDisk();
@@ -5111,7 +5113,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
           console.warn('[TELEGRAM BOT] Failed to load logo settings.', settingsErr);
         }
 
-        const welcomeText = `💎 SECRET FARMZ — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" en bas à gauche de votre écran pour ouvrir la boutique.`;
+        const welcomeText = `💎 DRY TECH — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" ci-dessous pour ouvrir la boutique.`;
 
         // Configure user's personal chat menu button directly to active appUrl
         fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -5151,10 +5153,13 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
 
         // 1. Try sending local bot emblem photo via multipart FormData directly to Telegram
         const candidateLogoPaths = [
+          path.join(process.cwd(), 'public', 'drytech_logo.png'),
+          path.join(process.cwd(), 'public', 'bot_drytech_logo.png'),
+          path.join(process.cwd(), 'public', 'drytech_hero.png'),
+          path.join(process.cwd(), 'public', 'logo.png'),
           path.join(process.cwd(), 'public', 'secret_farmz_logo.jpg'),
           path.join(process.cwd(), 'public', 'secret_farmz_hero.jpg'),
-          path.join(process.cwd(), 'public', 'bot_secretfarmz_logo.jpg'),
-          path.join(process.cwd(), 'public', 'logo.png')
+          path.join(process.cwd(), 'public', 'bot_secretfarmz_logo.jpg')
         ];
         const localLogoPath = candidateLogoPaths.find(p => fs.existsSync(p));
         if (localLogoPath) {
@@ -5690,7 +5695,7 @@ async function setupTelegramWebhook() {
     fetch(`https://api.telegram.org/bot${token}/setMyName`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: 'SECRET FARMZ' })
+      body: JSON.stringify({ name: 'DRYTECH' })
     }).catch(e => console.warn('[TELEGRAM] setMyName error:', e));
 
     // Set Bot Description
@@ -5698,7 +5703,7 @@ async function setupTelegramWebhook() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        description: "SECRET FARMZ — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
+        description: "DRYTECH — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyDescription error:', e));
 
@@ -5707,7 +5712,7 @@ async function setupTelegramWebhook() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        short_description: "SECRET FARMZ — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
+        short_description: "DRYTECH — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyShortDescription error:', e));
   } catch (err) {
