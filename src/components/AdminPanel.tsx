@@ -496,7 +496,7 @@ export default function AdminPanel({
     launchScreenUrl: '',
     homepageHeroBgUrl: '',
     logoUrl: '',
-    introStatusLine: 'SECRET FARMZ — PRIVATE RESERVE'
+    introStatusLine: 'BISCOTTI BOYS FARMZ — PRIVATE RESERVE'
   });
 
   // States for adding product (Morocco MAD strictly)
@@ -506,7 +506,7 @@ export default function AdminPanel({
   const [newWholesalePrice, setNewWholesalePrice] = useState<number>(0);
   const [newCategory, setNewCategory] = useState<string>('WPFF');
   const [newDisplayZone, setNewDisplayZone] = useState<string>(''); // Optional storefront placement (e.g. MEET UP RABAT)
-  const [newAuthor, setNewAuthor] = useState<string>('SECRET FARMZ');
+  const [newAuthor, setNewAuthor] = useState<string>('BISCOTTI BOYS FARMZ');
   const [isFeatured, setIsFeatured] = useState<boolean>(true);
   const [newBadgeType, setNewBadgeType] = useState<string>('NONE');
   const [newBadgePromo, setNewBadgePromo] = useState<string>('-10%');
@@ -1196,7 +1196,7 @@ export default function AdminPanel({
             )}
             <div className="h-[1px] bg-neutral-900 my-2" />
             <div className="text-[8px] text-zinc-500 leading-normal uppercase">
-              ⚠️ Cet ID n'est pas enregistré dans l'infrastructure de la réserve SECRET FARMZ. Veuillez demander au propriétaire principal d'ajouter votre ID Telegram ci-dessus à la Whitelist pour accorder l'accès complet instantanément.
+              ⚠️ Cet ID n'est pas enregistré dans l'infrastructure de la réserve BISCOTTI BOYS FARMZ. Veuillez demander au propriétaire principal d'ajouter votre ID Telegram ci-dessus à la Whitelist pour accorder l'accès complet instantanément.
             </div>
           </div>
 
@@ -1204,7 +1204,7 @@ export default function AdminPanel({
             onClick={onClose}
             className="w-full py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-gray-400 text-[9px] font-mono tracking-widest uppercase transition duration-300 cursor-pointer shadow-md"
           >
-            RETOUR AU STORE SECRET FARMZ
+            RETOUR AU STORE BISCOTTI BOYS FARMZ
           </button>
         </div>
       </div>
@@ -2753,7 +2753,7 @@ export default function AdminPanel({
                     type="text"
                     value={settings.introStatusLine || ''}
                     onChange={(e) => setBrandingSettings({ ...settings, introStatusLine: e.target.value })}
-                    placeholder="DRYTECH — PRIVATE RESERVE"
+                    placeholder="BISCOTTI BOYS FARMZ — PRIVATE RESERVE"
                     className="w-full text-[9px] py-1.5 px-2.5 rounded bg-black border border-[#222] focus:border-[#D4AF37] text-white outline-none"
                   />
                 </div>
@@ -2964,7 +2964,7 @@ export default function AdminPanel({
                         const newId = 'm_' + Date.now();
                         const newItem: MarqueeItem = {
                           id: newId,
-                          text: '✨ Nouveau message SECRET FARMZ',
+                          text: '✨ Nouveau message BISCOTTI BOYS FARMZ',
                           active: true,
                           order: cfg.items.length + 1
                         };
@@ -4266,7 +4266,7 @@ export default function AdminPanel({
                         return (
                           <tr key={user.telegramId} className="hover:bg-white/5 transition-colors">
                             <td className="py-2.5 pr-2">
-                              <span className="block text-white font-bold">{user.pseudo || "Membre SECRET FARMZ"}</span>
+                              <span className="block text-white font-bold">{user.pseudo || "Membre BISCOTTI BOYS FARMZ"}</span>
                               <span className="text-[7.5px] text-zinc-500">ID: {user.telegramId} @{user.username || 'N/A'}</span>
                             </td>
                             <td className="py-2.5">
@@ -4423,7 +4423,7 @@ export default function AdminPanel({
             {/* LIST ACTIVE REWARDS */}
             <div className="bg-[#111] p-3.5 rounded-xl border border-white/5 space-y-3">
               <span className="block text-[9px] font-mono text-zinc-500 font-extrabold uppercase tracking-widest pl-1">
-                📋 CATALOGUE DES RÉCOMPENSES SECRET FARMZ DELUXE
+                📋 CATALOGUE DES RÉCOMPENSES BISCOTTI BOYS FARMZ DELUXE
               </span>
 
               {loadingRewards ? (

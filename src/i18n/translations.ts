@@ -1,6 +1,187 @@
-export type Language = 'FR' | 'EN' | 'ES';
+export type Language = 'DE' | 'FR' | 'EN' | 'ES';
 
 export const translations = {
+  DE: {
+    // Header & Ticker
+    privateAccessVerified: "Verifizierter VIP-Zugang",
+    expressDelivery: "Expressversand 24/48h",
+    premiumProducts: "100% Premium Qualität",
+    vipSpace: "VIP-BEREICH",
+    privateReserve: "Private Reserve",
+    cart: "Warenkorb",
+    contactQuick: "Kontaktkanäle",
+    audioToggle: "Hintergrundmusik",
+    adminDashboard: "Admin-Dashboard",
+
+    // Navigation Tabs
+    navHome: "Startseite",
+    navCatalog: "Katalog",
+    navCategories: "Kategorien",
+    navContact: "Kontakt",
+    navInfo: "Infos & FAQ",
+    navFavorites: "Favoriten",
+    navReviews: "Bewertungen",
+    navProfile: "Profil",
+
+    // Hero & Home
+    welcomeTo: "WILLKOMMEN BEI",
+    heroBadge: "BISCOTTI BOYS GER — PRIVATE RESERVE",
+    heroSubtitle: "Exklusive Extraktionen & erstklassige Blüten aus handverlesenen Spitzen-Ernten. 100% 0-Log zertifiziert.",
+    exploreCatalog: "Katalog Entdecken",
+    usefulInfoBtn: "Informationen",
+    featuredProductsTitle: "Highlights & Neue Drops",
+    allCategoriesTitle: "Alle Kategorien",
+    searchPlaceholder: "Produkt, Sorte, Extrakt suchen...",
+    categoryAll: "Alle",
+    viewDetails: "Details ansehen",
+    productAddedToast: "Produkt zum Warenkorb hinzugefügt 🛒",
+    prevBtn: "Zurück",
+    nextBtn: "Weiter",
+
+    // Catalog & Products
+    inStock: "Auf Lager",
+    outOfStock: "Ausverkauft",
+    priceFrom: "Preis",
+    addToCart: "In den Warenkorb",
+    buyNow: "Sofort Kaufen",
+    noProductsFound: "Keine Produkte gefunden",
+    noProductsDesc: "Passe deine Suchbegriffe an oder wähle eine andere Kategorie.",
+    resetFilters: "Filter zurücksetzen",
+    filterByCategory: "Nach Kategorie filtern",
+    pricePerGram: "€/g",
+    priceUnit: "€",
+
+    // Product Detail Modal
+    productSheet: "Produktübersicht",
+    selectQuantity: "Menge / Format auswählen",
+    totalPrice: "Gesamtpreis",
+    descriptionAndGenetics: "Beschreibung & Genetik",
+    specifications: "Eigenschaften",
+    origin: "Herkunft",
+    texture: "Textur / Typ",
+    thcContent: "Reinheit & Potenz",
+    customerReviewsCount: "Kundenbewertungen",
+    close: "Schließen",
+    reserveInCart: "In den Warenkorb",
+    instantCheckout: "Schnellbestellung (Telegram)",
+
+    // Cart Drawer
+    yourCart: "Dein Warenkorb",
+    itemsCount: "Artikel",
+    emptyCartTitle: "Dein Warenkorb ist leer",
+    emptyCartDesc: "Entdecke unsere exklusiven Produkte und füge deine Favoriten hinzu.",
+    discoverCatalog: "Katalog durchstöbern",
+    subtotal: "Zwischensumme",
+    deliveryFee: "Versand",
+    freeDelivery: "Kostenlos",
+    totalToPay: "Gesamtsumme",
+    clearCartBtn: "Warenkorb leeren",
+    proceedToTelegramOrder: "Bestellung absenden (Telegram)",
+    quantityLabel: "Menge",
+    formatLabel: "Format",
+
+    // Contact Page
+    contactSupportTitle: "Kontakt & Support",
+    officialChannels: "Unsere Offiziellen Kanäle",
+    telegramChannel: "Offizieller Telegram-Kanal",
+    telegramSupport: "Telegram Support 24/7",
+    instagramOfficial: "Offizielles Instagram",
+    signalSecured: "Sicheres Signal",
+    whatsappBusiness: "WhatsApp Business / VIP Line",
+    copyLink: "Link kopieren",
+    openLink: "Öffnen",
+    linkCopiedToast: "Link in die Zwischenablage kopiert!",
+    supportNotice: "Ein Berater beantwortet deine Fragen innerhalb von 15 Minuten – 7 Tage die Woche.",
+
+    // Info Page
+    infoAndFaqTitle: "Nützliche Informationen & FAQ",
+    securityAndPrivacy: "Sicherheit & Datenschutz",
+    securityDesc: "0-Log Garantie & Ende-zu-Ende-Verschlüsselung. Keine sensiblen Daten werden gespeichert.",
+    deliveryMethods: "Versandmethoden",
+    deliveryDesc: "Ultra-diskretes, doppelt vakuumversiegeltes Paket. Versand innerhalb von 24h mit Sendungsverfolgung.",
+    paymentMethods: "Zahlungsmethoden",
+    paymentDesc: "Kryptowährungen (BTC, USDT, XMR) & aufladbare Gutscheine für absolute Diskretion akzeptiert.",
+    faqSectionTitle: "Häufig Gestellte Fragen",
+    faqQ1: "Wie erfolgt der Versand?",
+    faqA1: "Deine Produkte werden geruchsdicht und neutral doppelt vakuumverpackt und mit Prioritäts-Tracking versendet.",
+    faqQ2: "Welche Zahlungsmethoden werden akzeptiert?",
+    faqA2: "Wir bevorzugen Kryptowährungen (USDT, Bitcoin, Monero) sowie Guthabenkarten für maximale Sicherheit.",
+    faqQ3: "Was ist die Qualitätsgarantie?",
+    faqA3: "Jede Charge stammt direkt von ausgewählten Meister-Farmern und wird strengen Reinheitstests unterzogen.",
+
+    // Profile Page
+    memberProfile: "Mitgliederprofil",
+    chooseLanguage: "Sprache Wählen",
+    orderHistory: "Bestellhistorie",
+    noOrdersYet: "Noch keine Bestellungen",
+    noOrdersDesc: "Deine bestätigten Bestellungen werden hier aufgelistet.",
+    registrationDate: "Registrierung",
+    ordersCount: "Bestellungen",
+    deliveredOrders: "Zugestellt",
+    vipLevelLabel: "VIP-Stufe",
+    loyaltyPoints: "Treuepunkte",
+    telegramIdLabel: "Telegram ID",
+    languageChangedToast: "Sprache geändert zu",
+    orderDetailsModal: "Bestelldetails",
+    statusCompleted: "Zugestellt",
+    statusPending: "Ausstehend",
+    statusProcessing: "In Bearbeitung",
+    statusCancelled: "Storniert",
+    refreshOrders: "Aktualisieren",
+
+    // Reviews Page
+    reviewsTitle: "Bewertungen & Feedback",
+    averageRating: "Durchschnittsbewertung",
+    verifiedReviews: "Verifizierte Erfahrungsberichte",
+    leaveReviewBtn: "Bewertung Abgeben",
+    yourRating: "Deine Bewertung",
+    yourComment: "Dein Kommentar",
+    commentPlaceholder: "Teile deine Erfahrung mit der Community...",
+    submitReviewBtn: "Bewertung Veröffentlichen",
+    reviewSuccessToast: "Vielen Dank! Deine Bewertung wurde erfolgreich veröffentlicht.",
+
+    // Favorites Page
+    favoriteProductsTitle: "Deine Favoriten",
+    noFavoritesTitle: "Keine Favoriten gespeichert",
+    noFavoritesDesc: "Klicke auf das Herz-Symbol bei einem Produkt, um es in deiner Merkliste zu speichern.",
+
+    // Intro Screen
+    enterReserveBtn: "ZUGANG ZUR RESERVE",
+    introDisclaimer: "Zugang streng reserviert für verifizierte volljährige Mitglieder 18+.",
+
+    // VIP Space Modal
+    vipSpaceTitle: "VIP-BEREICH & VORTEILE",
+    currentLevel: "Deine Aktuelle Stufe",
+    pointsToNextLevel: "PTS bis zur nächsten Stufe",
+    vipPerksTitle: "Deine Exklusiven Vorteile",
+    vipBronzePerk: "Standardzugang zum Katalog & schneller Support.",
+    vipGoldPerk: "Dauerhaft 5% Rabatt + Early Access zu neuen Drops.",
+    vipPlatinumPerk: "10% Rabatt + kostenloser Expressversand + exklusive Geschenke.",
+    vipDiamondPerk: "Persönlicher VIP-Manager + seltene Proben + Einladungen zu privaten Events.",
+
+    // Toast & Admin Passcode
+    adminPasscodeTitle: "Entwickler- / Admin-Zugang",
+    passcodePlaceholder: "Sicherheitscode...",
+    submitPasscode: "Bestätigen",
+    incorrectPasscode: "Falscher Sicherheitscode.",
+
+    // Cart Checkout & Modal
+    checkoutTitle: "Liefer- und Bestellinformationen",
+    nameLabel: "Name / Pseudonym",
+    phoneLabel: "Telefonnummer / Telegram",
+    cityLabel: "Lieferstadt",
+    zipLabel: "Postleitzahl",
+    addressLabel: "Lieferadresse",
+    paymentMethodLabel: "Zahlungsart",
+    total: "Gesamtsumme",
+    confirmOrderBtn: "Bestellung Bestätigen",
+    orderSuccessTitle: "Bestellung Erfolgreich Übermittelt!",
+    orderSuccessMsg: "Dein Ticket wurde generiert. Bitte leite es an den Support weiter für die sofortige Bearbeitung.",
+    sendTicketTelegram: "Ticket an Telegram Support senden",
+    chooseSize: "Format wählen",
+    checkoutBtn: "Bestellen"
+  },
+
   FR: {
     // Header & Ticker
     privateAccessVerified: "Accès Privé Vérifié",
@@ -25,7 +206,7 @@ export const translations = {
 
     // Hero & Home
     welcomeTo: "WELCOME TO",
-    heroBadge: "DRYTECH — PRIVATE RESERVE",
+    heroBadge: "BISCOTTI BOYS GER — PRIVATE RESERVE",
     heroSubtitle: "Extractions d'exception & fleurs de prestige issues des meilleures récoltes certifiées 100% 0-Log.",
     exploreCatalog: "Explorer le Catalogue",
     usefulInfoBtn: "Informations",
@@ -206,7 +387,7 @@ export const translations = {
 
     // Hero & Home
     welcomeTo: "WELCOME TO",
-    heroBadge: "DRYTECH — PRIVATE RESERVE",
+    heroBadge: "BISCOTTI BOYS GER — PRIVATE RESERVE",
     heroSubtitle: "Exceptional extractions & prestige flowers from top harvests 100% 0-Log certified.",
     exploreCatalog: "Explore Catalog",
     usefulInfoBtn: "Information",
@@ -228,13 +409,13 @@ export const translations = {
     noProductsFound: "No products found",
     noProductsDesc: "Adjust your search terms or pick another category.",
     resetFilters: "Reset Filters",
-    filterByCategory: "Filter by category",
+    filterByCategory: "Filter by Category",
     pricePerGram: "€/g",
     priceUnit: "€",
 
     // Product Detail Modal
-    productSheet: "Product Details",
-    selectQuantity: "Select quantity / size",
+    productSheet: "Product Sheet",
+    selectQuantity: "Select Quantity / Format",
     totalPrice: "Total Price",
     descriptionAndGenetics: "Description & Genetics",
     specifications: "Specifications",
@@ -244,22 +425,22 @@ export const translations = {
     customerReviewsCount: "Customer Reviews",
     close: "Close",
     reserveInCart: "Add to Cart",
-    instantCheckout: "Quick Order (Telegram)",
+    instantCheckout: "Instant Order (Telegram)",
 
     // Cart Drawer
     yourCart: "Your Cart",
     itemsCount: "items",
     emptyCartTitle: "Your cart is empty",
-    emptyCartDesc: "Discover our premium selections and add your favorites.",
-    discoverCatalog: "Discover Catalog",
+    emptyCartDesc: "Explore our exclusive drops and add items to your cart.",
+    discoverCatalog: "Browse Catalog",
     subtotal: "Subtotal",
-    deliveryFee: "Shipping",
+    deliveryFee: "Delivery",
     freeDelivery: "Free",
-    totalToPay: "Total to pay",
+    totalToPay: "Total to Pay",
     clearCartBtn: "Clear Cart",
     proceedToTelegramOrder: "Proceed to Order (Telegram)",
     quantityLabel: "Quantity",
-    formatLabel: "Size",
+    formatLabel: "Format",
 
     // Contact Page
     contactSupportTitle: "Contact & Support",
@@ -269,24 +450,24 @@ export const translations = {
     instagramOfficial: "Official Instagram",
     signalSecured: "Secured Signal",
     whatsappBusiness: "WhatsApp Business / VIP Line",
-    copyLink: "Copy link",
+    copyLink: "Copy Link",
     openLink: "Open",
     linkCopiedToast: "Link copied to clipboard!",
-    supportNotice: "An advisor replies to your questions in under 15 minutes 7/7.",
+    supportNotice: "An advisor answers all your questions in under 15 minutes 7/7.",
 
     // Info Page
-    infoAndFaqTitle: "Useful Info & FAQ",
+    infoAndFaqTitle: "Useful Information & FAQ",
     securityAndPrivacy: "Security & Privacy",
-    securityDesc: "0-Log Guarantee & End-to-End Encryption. No sensitive data stored.",
+    securityDesc: "0-Log Guarantee & End-to-end encryption. No sensitive data is kept.",
     deliveryMethods: "Delivery Methods",
-    deliveryDesc: "Ultra-discreet double-vacuum sealed package. Shipped within 24h with tracking number.",
+    deliveryDesc: "Ultra-discreet double vacuum-sealed package. Dispatched within 24h with tracking number.",
     paymentMethods: "Payment Methods",
-    paymentDesc: "Crypto (BTC, USDT, XMR) & Reloadable vouchers accepted for total discretion.",
+    paymentDesc: "Cryptocurrencies (BTC, USDT, XMR) & reloadable vouchers accepted for total discretion.",
     faqSectionTitle: "Frequently Asked Questions",
-    faqQ1: "How is delivery handled?",
-    faqA1: "Your items are sealed in odourless neutral vacuum packages, then shipped with priority tracking.",
+    faqQ1: "How does delivery work?",
+    faqA1: "Your items are vacuum packed in neutral packaging with no smell, and shipped via priority tracking.",
     faqQ2: "What payment methods are accepted?",
-    faqA2: "We prioritize Cryptocurrencies (USDT, Bitcoin, Monero) and reloadable gift cards for your safety.",
+    faqA2: "We prefer Cryptocurrencies (USDT, Bitcoin, Monero) as well as prepaid cards for your security.",
     faqQ3: "What is the quality guarantee?",
     faqA3: "Each batch comes directly from selected artisan producers and undergoes strict purity tests.",
 
@@ -295,7 +476,7 @@ export const translations = {
     chooseLanguage: "Choose Language",
     orderHistory: "Order History",
     noOrdersYet: "No orders yet",
-    noOrdersDesc: "Your future validated orders will appear here.",
+    noOrdersDesc: "Your future verified orders will be displayed here.",
     registrationDate: "Joined",
     ordersCount: "Orders",
     deliveredOrders: "Delivered",
@@ -306,52 +487,52 @@ export const translations = {
     orderDetailsModal: "Order Details",
     statusCompleted: "Delivered",
     statusPending: "Pending",
-    statusProcessing: "In Progress",
+    statusProcessing: "Processing",
     statusCancelled: "Cancelled",
     refreshOrders: "Refresh",
 
     // Reviews Page
-    reviewsTitle: "Reviews & Testimonials",
+    reviewsTitle: "Reviews & Feedback",
     averageRating: "Average Rating",
-    verifiedReviews: "Verified Testimonials",
+    verifiedReviews: "Verified Reviews",
     leaveReviewBtn: "Leave a Review",
     yourRating: "Your Rating",
     yourComment: "Your Comment",
     commentPlaceholder: "Share your experience with the community...",
-    submitReviewBtn: "Submit Review",
-    reviewSuccessToast: "Thank you! Your review has been published.",
+    submitReviewBtn: "Post Review",
+    reviewSuccessToast: "Thank you! Your review has been posted successfully.",
 
     // Favorites Page
     favoriteProductsTitle: "Your Favorite Products",
     noFavoritesTitle: "No favorites saved",
-    noFavoritesDesc: "Tap the heart icon on any product to save it to this list.",
+    noFavoritesDesc: "Tap the heart icon on any product to save it here.",
 
     // Intro Screen
-    enterReserveBtn: "ENTER THE RESERVE",
-    introDisclaimer: "Access strictly reserved for verified adult members 18+.",
+    enterReserveBtn: "ACCESS THE RESERVE",
+    introDisclaimer: "Access strictly restricted to certified adult members 18+.",
 
     // VIP Space Modal
-    vipSpaceTitle: "VIP SPACE & BENEFITS",
-    currentLevel: "Your Current Level",
-    pointsToNextLevel: "PTS to next level",
+    vipSpaceTitle: "VIP SPACE & PRIVILEGES",
+    currentLevel: "Your Current Tier",
+    pointsToNextLevel: "PTS to next tier",
     vipPerksTitle: "Your Exclusive Benefits",
-    vipBronzePerk: "Standard catalog access & responsive support.",
-    vipGoldPerk: "5% permanent discount + early access to new drops.",
-    vipPlatinumPerk: "10% discount + free express shipping + exclusive gifts.",
+    vipBronzePerk: "Standard access to catalog & responsive support.",
+    vipGoldPerk: "Permanent 5% discount + early access to drops.",
+    vipPlatinumPerk: "10% discount + free express delivery + exclusive gifts.",
     vipDiamondPerk: "Dedicated VIP manager + rare samples + private event invites.",
 
     // Toast & Admin Passcode
     adminPasscodeTitle: "Developer / Admin Access",
-    passcodePlaceholder: "Passcode...",
+    passcodePlaceholder: "Secret passcode...",
     submitPasscode: "Submit",
-    incorrectPasscode: "Incorrect access code.",
+    incorrectPasscode: "Incorrect passcode.",
 
     // Cart Checkout & Modal
-    checkoutTitle: "Delivery Information & Order",
+    checkoutTitle: "Delivery & Order Details",
     nameLabel: "Name / Pseudonym",
     phoneLabel: "Phone Number / Telegram",
     cityLabel: "Delivery City",
-    zipLabel: "Zip Code",
+    zipLabel: "Postal Code",
     addressLabel: "Delivery Address",
     paymentMethodLabel: "Payment Method",
     total: "Total",
@@ -360,20 +541,20 @@ export const translations = {
     orderSuccessMsg: "Your ticket has been generated. Please forward it to support for immediate processing.",
     sendTicketTelegram: "Send ticket to Telegram support",
     chooseSize: "Choose a size",
-    checkoutBtn: "Checkout"
+    checkoutBtn: "Order Now"
   },
 
   ES: {
     // Header & Ticker
     privateAccessVerified: "Acceso Privado Verificado",
-    expressDelivery: "Envío Exprès 24/48h",
+    expressDelivery: "Envío Express 24/48h",
     premiumProducts: "Productos 100% Premium",
     vipSpace: "ESPACIO VIP",
     privateReserve: "Reserva Privada",
     cart: "Carrito",
     contactQuick: "Canales de Contacto",
-    audioToggle: "Música de Fondo",
-    adminDashboard: "Panel de Admin",
+    audioToggle: "Música de fondo",
+    adminDashboard: "Panel de Administración",
 
     // Navigation Tabs
     navHome: "Inicio",
@@ -387,7 +568,7 @@ export const translations = {
 
     // Hero & Home
     welcomeTo: "BIENVENIDO A",
-    heroBadge: "DRYTECH — PRIVATE RESERVE",
+    heroBadge: "BISCOTTI BOYS GER — PRIVATE RESERVE",
     heroSubtitle: "Extracciones de excepción y flores de prestigio de cosechas top 100% certificadas 0-Log.",
     exploreCatalog: "Explorar Catálogo",
     usefulInfoBtn: "Información",
@@ -545,4 +726,4 @@ export const translations = {
   }
 };
 
-export type TranslationKey = keyof typeof translations.FR;
+export type TranslationKey = keyof typeof translations.DE;

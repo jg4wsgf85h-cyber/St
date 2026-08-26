@@ -28,7 +28,7 @@ if (isProductionRunner && process.env.NODE_ENV !== 'production') {
 }
 
 // Environment variable configuration for Telegram Bot
-const OFFICIAL_TELEGRAM_BOT_TOKEN = '8992894169:AAG-RniN9kAT7mX1jlKv9dX0jlWqZQ7gjdI';
+const OFFICIAL_TELEGRAM_BOT_TOKEN = '8956439057:AAFiGsZGvMUmkDvGJlgQEs8Yz61gcIdTAnw';
 if (!process.env.TELEGRAM_BOT_TOKEN || 
     process.env.TELEGRAM_BOT_TOKEN.includes('8729455542') ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8894939933') ||
@@ -38,6 +38,7 @@ if (!process.env.TELEGRAM_BOT_TOKEN ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8990600342') ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8616749340') ||
     process.env.TELEGRAM_BOT_TOKEN.includes('8739923893') ||
+    process.env.TELEGRAM_BOT_TOKEN.includes('8992894169') ||
     process.env.TELEGRAM_BOT_TOKEN.length < 20) {
   process.env.TELEGRAM_BOT_TOKEN = OFFICIAL_TELEGRAM_BOT_TOKEN;
   console.log('[ENV CONFIG] TELEGRAM_BOT_TOKEN configured with official bot token.');
@@ -54,6 +55,7 @@ function getTelegramBotToken(): string {
       token.includes('8990600342') || 
       token.includes('8616749340') || 
       token.includes('8739923893') ||
+      token.includes('8992894169') ||
       token.length < 20) {
     return OFFICIAL_TELEGRAM_BOT_TOKEN;
   }
@@ -4213,7 +4215,7 @@ app.post('/api/pending-approvals/approve', verifyAdminAuth, async (req, res) => 
     if (token) {
       try {
         const appUrl = getTelegramAppUrl();
-        const approvalMsg = `💎 *Félicitations\\! Votre accès d'élite à DRYTECH a été approuvé\\!*\n\nVous pouvez dès à présent ouvrir la Mini\\-App et découvrir notre catalogue exclusif\\.`;
+        const approvalMsg = `💎 *Glückwunsch\\! Dein VIP\\-Zugang zu BISCOTTI BOYS GER wurde freigeschaltet\\!*\n\nDu kannst ab sofort den Shop öffnen und unseren exklusiven Katalog entdecken\\.`;
         
         const payload = {
           chat_id: telegramId,
@@ -4223,7 +4225,7 @@ app.post('/api/pending-approvals/approve', verifyAdminAuth, async (req, res) => 
             inline_keyboard: [
               [
                 {
-                  text: "🛒 Ouvrir la Mini-App",
+                  text: "🛒 Shop & Angebot öffnen 🛍️",
                   web_app: { url: appUrl }
                 }
               ]
@@ -4260,7 +4262,7 @@ app.post('/api/pending-approvals/reject', verifyAdminAuth, async (req, res) => {
     const token = getTelegramBotToken();
     if (token && telegramId) {
       try {
-        const rejectMsg = `❌ *Accès refusé*\n\nVotre demande d'accès à la Mini\\-App DRYTECH a été refusée par l'administration\\.`;
+        const rejectMsg = `❌ *Zugriff abgelehnt*\n\nDeine Zugriffsanfrage für die Mini\\-App BISCOTTI BOYS GER wurde von der Administration abgelehnt\\.`;
         await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -4842,13 +4844,13 @@ async function sendInstagramPromoMessage(chatId: string | number): Promise<{ suc
     return { success: false };
   }
   
-  const defaultText = `💎 DRYTECH — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif\n\n✨ BIENVENUE SUR NOTRE MINI-APP OFFICIELLE\n\n📲 NOS RÉSEAUX & CONTACTS D'ÉLITE :\n📢 Canal Telegram : https://t.me/+ox8xo-KqAk1jYjI0\n💬 Contact Privé : @yoru47\n\n🛍️ COMMENT COMMANDER ?\nAppuyez sur 🛒 Accéder au Shop ci-dessous pour ouvrir le catalogue et valider vos réservations.\n\nDRYTECH — L'Excellence à l'État Pur ✨`;
+  const defaultText = `💎 BISCOTTI BOYS GER — PRIVATE RESERVE 💎\nAußergewöhnliche Extraktionen, erstklassige Blüten & exklusiver VIP-Katalog\n\n✨ WILLKOMMEN IN UNSERER OFFIZIELLEN MINI-APP\n\n📲 OFFIZIELLE KANÄLE & KONTAKT:\n📢 Offizieller Telegram-Kanal: https://t.me/+ox8xo-KqAk1jYjI0\n💬 Privater Support: @yoru47\n\n🛍️ WIE BESTELLEN ?\nKlicke unten auf 🛒 Zum Shop & Bestellen, um das Angebot zu sehen und Bestellungen aufzugeben.\n\nBISCOTTI BOYS GER — Pure Exzellenz ✨`;
   let promoMessage = defaultText;
-  let promoBtnLabel = "🛒 Accéder au Shop 🛍️";
+  let promoBtnLabel = "🛒 Zum Shop & Bestellen 🛍️";
   let promoUrl1 = "";
   let promoBtnLabel2 = "";
   let promoUrl2 = "";
-  let promoImageUrl = "/drytech_logo.png";
+  let promoImageUrl = "/biscotti_boys_farmz_logo.png";
 
   try {
     const freshSettings = loadSettingsFromDisk();
@@ -5113,7 +5115,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
           console.warn('[TELEGRAM BOT] Failed to load logo settings.', settingsErr);
         }
 
-        const welcomeText = `💎 DRY TECH — RÉSERVE PRIVÉE 💎\nExtractions d'exception, fleurs de prestige & catalogue exclusif.\n\n✨ BIENVENUE SUR NOTRE ESPACE OFFICIEL\n\n📢 Canal Telegram : ${channelLink}\n💬 Contact Privé : @yoru47\n\n👉 Appuyez sur le bouton "Shop 🛍️" ci-dessous pour ouvrir la boutique.`;
+        const welcomeText = `💎 BISCOTTI BOYS GER — EXKLUSIVE PRIVATE RESERVE 💎\nAußergewöhnliche Extraktionen, erstklassige Blüten & exklusiver VIP-Katalog.\n\n✨ WILLKOMMEN IN UNSEREM OFFIZIELLEN BEREICH\n\n📢 Offizieller Kanal: ${channelLink}\n💬 Privater Support & Kontakt: @yoru47\n\n👉 Klicke unten auf "Shop 🛍️", um den Shop & das Angebot direkt zu öffnen.`;
 
         // Configure user's personal chat menu button directly to active appUrl
         fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -5132,17 +5134,17 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
         const inlineKeyboard = [
           [
             {
-              text: "🛒 Accéder au Shop 🛍️",
+              text: "🛒 Zum Shop & Bestellen 🛍️",
               web_app: { url: appUrl }
             }
           ],
           [
             {
-              text: "📢 Canal Telegram",
+              text: "📢 Offizieller Kanal",
               url: channelLink
             },
             {
-              text: "💬 Contact Privé",
+              text: "💬 Privater Kontakt",
               url: "https://t.me/yoru47"
             }
           ]
@@ -5153,6 +5155,8 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
 
         // 1. Try sending local bot emblem photo via multipart FormData directly to Telegram
         const candidateLogoPaths = [
+          path.join(process.cwd(), 'public', 'biscotti_boys_farmz_logo.png'),
+          path.join(process.cwd(), 'public', 'biscotti_boys_farmz_hero.png'),
           path.join(process.cwd(), 'public', 'drytech_logo.png'),
           path.join(process.cwd(), 'public', 'bot_drytech_logo.png'),
           path.join(process.cwd(), 'public', 'drytech_hero.png'),
@@ -5695,24 +5699,24 @@ async function setupTelegramWebhook() {
     fetch(`https://api.telegram.org/bot${token}/setMyName`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: 'DRYTECH' })
+      body: JSON.stringify({ name: 'BISCOTTI BOYS GER' })
     }).catch(e => console.warn('[TELEGRAM] setMyName error:', e));
 
-    // Set Bot Description
+    // Set Bot Description (German)
     fetch(`https://api.telegram.org/bot${token}/setMyDescription`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        description: "DRYTECH — Réserve Privée d'Exception. Extractions de prestige & catalogue exclusif."
+        description: "BISCOTTI BOYS GER — Exklusive Private Reserve. Außergewöhnliche Extraktionen, erstklassige Blüten & exklusiver VIP-Katalog."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyDescription error:', e));
 
-    // Set Bot Short Description
+    // Set Bot Short Description (German)
     fetch(`https://api.telegram.org/bot${token}/setMyShortDescription`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        short_description: "DRYTECH — Réserve Privée d'Exception. Extractions, fleurs & catalogue exclusif."
+        short_description: "BISCOTTI BOYS GER — Exklusive Private Reserve. Hochwertige Blüten, Konzentrate & VIP-Katalog."
       })
     }).catch(e => console.warn('[TELEGRAM] setMyShortDescription error:', e));
   } catch (err) {

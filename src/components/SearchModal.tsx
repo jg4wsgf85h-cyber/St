@@ -92,7 +92,7 @@ export default function SearchModal({
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                 <span>Résultats ({filtered.length})</span>
               </span>
-              <span className="text-[10px] text-neutral-500 uppercase">DRYTECH RESERVE</span>
+              <span className="text-[10px] text-neutral-500 uppercase">BISCOTTI BOYS FARMZ RESERVE</span>
             </div>
 
             {/* Results List */}

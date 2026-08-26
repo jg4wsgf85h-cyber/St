@@ -25,7 +25,7 @@ export default function ProfileView({
   const [selectedOrderDetails, setSelectedOrderDetails] = useState<Order | null>(null);
 
   // User Stats
-  const firstName = tgUser?.first_name || userProfile?.pseudo || 'Membre DRYTECH';
+  const firstName = tgUser?.first_name || userProfile?.pseudo || 'Membre BISCOTTI BOYS FARMZ';
   const username = tgUser?.username ? `@${tgUser.username}` : '@non_specifie';
   const telegramId = tgUser?.id ? String(tgUser.id) : (userProfile?.telegramId || '77812901');
   const dateJoined = userProfile?.dateJoined || '2026-07-28';
@@ -38,6 +38,7 @@ export default function ProfileView({
 
   // Language options
   const languages = [
+    { code: 'DE', label: 'Deutsch', flag: '🇩🇪' },
     { code: 'FR', label: 'Français', flag: '🇫🇷' },
     { code: 'EN', label: 'English', flag: '🇬🇧' },
     { code: 'ES', label: 'Español', flag: '🇪🇸' },
@@ -111,7 +112,7 @@ export default function ProfileView({
           <span>{t('chooseLanguage')}</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {languages.map((lang) => {
             const isActive = language === lang.code;
             return (

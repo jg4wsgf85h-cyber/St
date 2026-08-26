@@ -149,7 +149,7 @@ export default function CatalogView({
               </span>
             </h2>
             <p className="text-xs text-zinc-400 font-mono">
-              DRYTECH Reserve • Expédition sous 24h
+              BISCOTTI BOYS FARMZ Reserve • Expédition sous 24h
             </p>
           </div>
 
@@ -291,7 +291,7 @@ export default function CatalogView({
                   <div className="p-3 space-y-2 bg-black/70 flex-1 flex flex-col justify-between">
                     <div className="space-y-1">
                       <div className="text-[9px] font-mono font-bold text-amber-400/90 uppercase tracking-wider line-clamp-1">
-                        {p.category || 'DRYTECH'}
+                        {p.category || 'BISCOTTI BOYS FARMZ'}
                       </div>
                       <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 transition line-clamp-1 uppercase">
                         {p.title}

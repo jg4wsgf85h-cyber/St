@@ -1,6 +1,6 @@
 {
-  "name": "DRYTECH",
-  "description": "DRYTECH — Réserve Privée: Extractions d'exception, fleurs de prestige et catalogue exclusif.",
+  "name": "BISCOTTI BOYS FARMZ",
+  "description": "BISCOTTI BOYS GER — Exklusive Private Reserve: Außergewöhnliche Extraktionen, erstklassige Blüten und VIP-Katalog.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -591,7 +591,7 @@ export default function App() {
               APPLICATION ÉTEINTE
             </h1>
             <p className="text-xs text-neutral-400 font-mono tracking-widest uppercase">
-              DRYTECH — RÉSERVE HORS LIGNE
+              BISCOTTI BOYS FARMZ — RÉSERVE HORS LIGNE
             </p>
           </div>
 
@@ -664,12 +664,12 @@ export default function App() {
                 <img src={branding.logoUrl} alt="Logo" className="w-9 h-9 md:w-10 md:h-10 rounded-2xl border border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.3)] object-cover bg-black group-hover:scale-105 transition duration-300" />
               ) : (
                 <div className="w-9 h-9 md:w-10 md:h-10 rounded-2xl border border-amber-500/40 flex items-center justify-center bg-gradient-to-br from-amber-500/20 via-black to-orange-500/20 text-amber-400 font-mono font-black text-xs md:text-sm shadow-[0_0_12px_rgba(245,158,11,0.3)]">
-                  DT
+                  BBF
                 </div>
               )}
               <div className="hidden sm:block">
                 <h1 className="font-mono text-xs md:text-sm tracking-[0.2em] font-black uppercase text-white flex items-center gap-1 group-hover:text-amber-400 transition">
-                  DRYTECH
+                  BISCOTTI BOYS FARMZ
                   <Sparkles className="w-3 h-3 text-amber-400 animate-pulse" />
                 </h1>
                 <span className="text-[7px] md:text-[8px] text-amber-400/80 font-mono uppercase tracking-[0.2em] block -mt-0.5 font-bold">
