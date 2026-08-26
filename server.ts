@@ -1575,8 +1575,8 @@ const DEFAULT_SETTINGS = {
   homepageHeroBgUrl: '/secret_farmz_hero.jpg',
   logoUrl: '/secret_farmz_logo.jpg',
   telegramChannelUrl: 'https://t.me/+ox8xo-KqAk1jYjI0',
-  telegramSupportUrl: 'https://t.me/yoru47',
-  introStatusLine: 'DRYTECH — PRIVATE RESERVE',
+  telegramSupportUrl: 'https://t.me/BISCOTTIBOY10',
+  introStatusLine: 'BISCOTTI BOYS GER — PRIVATE RESERVE',
   sectionTitles: [
     { id: '1', text: 'LA RÉSERVE PRIVÉE', category: 'All', size: 'L', color: '#D4AF37', enabled: true, order: 1 },
     { id: '2', text: 'SELECTION DRY SIFT', category: 'DRY SIFT', size: 'L', color: '#D4AF37', enabled: true, order: 2 },
@@ -3051,7 +3051,7 @@ async function verifyAdminAuth(req: any, res: any, next: any) {
           const userObj = JSON.parse(userStr);
           const userId = String(userObj.id || '').trim();
           const username = String(userObj.username || '').toLowerCase().trim();
-          const isOwner = username === 'sultan_st212' || username === 'yoru47' || username === 'samy_ghost' || username === 'amine755yss' || username === 'amine_cartel' || userId === '858781160';
+          const isOwner = username === 'sultan_st212' || username === 'yoru47' || username === 'biscottiboy10' || username === 'samy_ghost' || username === 'amine755yss' || username === 'amine_cartel' || userId === '858781160';
           
           if (isOwner) {
             return next();
@@ -3127,7 +3127,7 @@ async function verifyUserOrAdminAuth(req: any, res: any, next: any) {
     const username = String(userObj.username || '').toLowerCase().trim();
 
     // Check if hardcoded OWNER
-    const isOwner = username === 'sultan_st212' || username === 'yoru47' || username === 'samy_ghost' || username === 'amine755yss' || username === 'amine_cartel' || userId === '858781160';
+    const isOwner = username === 'sultan_st212' || username === 'yoru47' || username === 'biscottiboy10' || username === 'samy_ghost' || username === 'amine755yss' || username === 'amine_cartel' || userId === '858781160';
     
     // Check general whitelist
     const whitelist = await loadWhitelistFirestore();
@@ -4844,7 +4844,7 @@ async function sendInstagramPromoMessage(chatId: string | number): Promise<{ suc
     return { success: false };
   }
   
-  const defaultText = `💎 BISCOTTI BOYS GER — PRIVATE RESERVE 💎\nAußergewöhnliche Extraktionen, erstklassige Blüten & exklusiver VIP-Katalog\n\n✨ WILLKOMMEN IN UNSERER OFFIZIELLEN MINI-APP\n\n📲 OFFIZIELLE KANÄLE & KONTAKT:\n📢 Offizieller Telegram-Kanal: https://t.me/+ox8xo-KqAk1jYjI0\n💬 Privater Support: @yoru47\n\n🛍️ WIE BESTELLEN ?\nKlicke unten auf 🛒 Zum Shop & Bestellen, um das Angebot zu sehen und Bestellungen aufzugeben.\n\nBISCOTTI BOYS GER — Pure Exzellenz ✨`;
+  const defaultText = `💎 BISCOTTI BOYS GER — PRIVATE RESERVE 💎\nAußergewöhnliche Extraktionen, erstklassige Blüten & exklusiver VIP-Katalog\n\n✨ WILLKOMMEN IN UNSERER OFFIZIELLEN MINI-APP\n\n📲 OFFIZIELLE KANÄLE & KONTAKT:\n📢 Offizieller Telegram-Kanal: https://t.me/+ox8xo-KqAk1jYjI0\n💬 Privater Support: @BISCOTTIBOY10\n\n🛍️ WIE BESTELLEN ?\nKlicke unten auf 🛒 Zum Shop & Bestellen, um das Angebot zu sehen und Bestellungen aufzugeben.\n\nBISCOTTI BOYS GER — Pure Exzellenz ✨`;
   let promoMessage = defaultText;
   let promoBtnLabel = "🛒 Zum Shop & Bestellen 🛍️";
   let promoUrl1 = "";
@@ -5115,7 +5115,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
           console.warn('[TELEGRAM BOT] Failed to load logo settings.', settingsErr);
         }
 
-        const welcomeText = `💎 BISCOTTI BOYS GER — EXKLUSIVE PRIVATE RESERVE 💎\nAußergewöhnliche Extraktionen, erstklassige Blüten & exklusiver VIP-Katalog.\n\n✨ WILLKOMMEN IN UNSEREM OFFIZIELLEN BEREICH\n\n📢 Offizieller Kanal: ${channelLink}\n💬 Privater Support & Kontakt: @yoru47\n\n👉 Klicke unten auf "Shop 🛍️", um den Shop & das Angebot direkt zu öffnen.`;
+        const welcomeText = `💎 BISCOTTI BOYS GER — EXKLUSIVE PRIVATE RESERVE 💎\nAußergewöhnliche Extraktionen, erstklassige Blüten & exklusiver VIP-Katalog.\n\n✨ WILLKOMMEN IN UNSEREM OFFIZIELLEN BEREICH\n\n📢 Offizieller Kanal: ${channelLink}\n💬 Privater Support & Kontakt: @BISCOTTIBOY10\n\n👉 Klicke unten auf "Shop 🛍️", um den Shop & das Angebot direkt zu öffnen.`;
 
         // Configure user's personal chat menu button directly to active appUrl
         fetch(`https://api.telegram.org/bot${token}/setChatMenuButton`, {
@@ -5145,7 +5145,7 @@ async function processTelegramUpdate(body: any, source: string = 'polling') {
             },
             {
               text: "💬 Privater Kontakt",
-              url: "https://t.me/yoru47"
+              url: "https://t.me/BISCOTTIBOY10"
             }
           ]
         ];

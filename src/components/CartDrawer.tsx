@@ -378,10 +378,10 @@ export default function CartDrawer({
                             ) : (
                               <>
                                 <span className="text-[10px] font-mono text-neutral-400 block mt-1">
-                                  Poids : <b className="text-orange-400 font-bold">{item.selectedSize}</b>
+                                  {t('formatLabel')} : <b className="text-orange-400 font-bold">{item.selectedSize}</b>
                                 </span>
                                 <span className="text-[10px] text-neutral-500 font-mono mt-0.5 block">
-                                  Quantité : {item.quantity}
+                                  {t('quantityLabel')} : {item.quantity}
                                 </span>
                               </>
                             )}
@@ -775,7 +775,7 @@ export default function CartDrawer({
                         } catch (err) {}
 
                         const messageText = encodeURIComponent(txt);
-                        const tgUrl = `https://t.me/yoru47?text=${messageText}`;
+                        const tgUrl = `https://t.me/BISCOTTIBOY10?text=${messageText}`;
                         const tg = (window as any).Telegram?.WebApp;
                         if (tg && typeof tg.openTelegramLink === 'function') {
                           tg.openTelegramLink(tgUrl);

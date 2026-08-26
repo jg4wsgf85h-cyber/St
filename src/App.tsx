@@ -491,7 +491,7 @@ export default function App() {
     triggerHaptic('success', 'Commande Validée');
     setCart([]);
     localStorage.removeItem('omerta_cart');
-    showToast('Réservation transmise ! @yoru47 prend en charge votre commande.');
+    showToast('Bestellung übermittelt ! @BISCOTTIBOY10 kümmert sich um deine Bestellung.');
   };
 
   const handleAdminUnlockSubmit = async (e: FormEvent) => {
@@ -557,7 +557,7 @@ export default function App() {
     if (!tgUser) return false;
     const uStr = String(tgUser.username || '').toLowerCase();
     const idStr = String(tgUser.id);
-    return uStr === 'sultan_st212' || uStr === 'yoru47' || uStr === 'samy_ghost' || uStr === 'amine755yss' || uStr === 'amine_cartel' || idStr === '858781160';
+    return uStr === 'sultan_st212' || uStr === 'yoru47' || uStr === 'biscottiboy10' || uStr === 'samy_ghost' || uStr === 'amine755yss' || uStr === 'amine_cartel' || idStr === '858781160';
   }, [tgUser]);
 
   // Total cart items count

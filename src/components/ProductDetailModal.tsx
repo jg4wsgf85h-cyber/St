@@ -305,7 +305,7 @@ export default function ProductDetailModal({
               </div>
               <div className="flex flex-col gap-1 mt-2.5">
                 <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider block">
-                  {!(product.category || '').toLowerCase().includes('accessoire') ? 'PRIX AU GRAMME :' : 'PRIX UNITAIRE :'} {(product.category || '').toLowerCase().includes('accessoire') ? `${product.price} €` : `${product.price} €/g`}
+                  {!(product.category || '').toLowerCase().includes('accessoire') ? `${t('priceFrom')} :` : `${t('priceFrom')} :`} {(product.category || '').toLowerCase().includes('accessoire') ? `${product.price} €` : `${product.price} €/g`}
                 </span>
                 <AnimatePresence mode="wait">
                   {!selectedSize ? (
@@ -335,7 +335,7 @@ export default function ProductDetailModal({
                         {computedPrice} €
                       </span>
                       <span className="text-[10px] font-mono text-orange-400 font-bold tracking-wider uppercase">
-                        Total pour <b className="text-white bg-black px-1.5 py-0.5 rounded border border-white/5 font-extrabold font-mono">{selectedSize}</b>
+                        {t('totalPrice')} (<b className="text-white bg-black px-1.5 py-0.5 rounded border border-white/5 font-extrabold font-mono">{selectedSize}</b>)
                       </span>
                     </motion.div>
                   )}
@@ -366,8 +366,8 @@ export default function ProductDetailModal({
             {/* WEIGHT SELECTION SECTION */}
             <div className="space-y-3">
               <div className="flex justify-between items-center text-[10px] uppercase font-mono font-bold text-neutral-500 tracking-wider">
-                <span>{(product.category || '').toLowerCase().includes('accessoire') ? 'Quantité / Unités :' : 'Quantité / Poids :'}</span>
-                <span className="text-gray-400 font-normal">Sachet d'origine</span>
+                <span>{(product.category || '').toLowerCase().includes('accessoire') ? t('formatLabel') : `${t('quantityLabel')} / ${t('formatLabel')} :`}</span>
+                <span className="text-gray-400 font-normal">Original Pack</span>
               </div>
 
               <div className="grid grid-cols-3 gap-2">

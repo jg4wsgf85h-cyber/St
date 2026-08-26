@@ -13,7 +13,7 @@ export default function ContactView({ branding, triggerHaptic, showToast }: Cont
   const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
 
   const telegramChannel = branding?.telegramChannelUrl || 'https://t.me/+ox8xo-KqAk1jYjI0';
-  const telegramSupport = branding?.telegramSupportUrl || 'https://t.me/yoru47';
+  const telegramSupport = branding?.telegramSupportUrl || 'https://t.me/BISCOTTIBOY10';
   const instagram = branding?.instagramUrl || 'https://instagram.com/north47_lab';
 
   const contacts = [
@@ -35,7 +35,7 @@ export default function ContactView({ branding, triggerHaptic, showToast }: Cont
       title: 'Support Direct Telegram',
       subtitle: 'Assistance client 24/7, suivi des commandes et conseils',
       handle: telegramSupport,
-      displayHandle: '@yoru47 (Support)',
+      displayHandle: '@BISCOTTIBOY10 (Support)',
       badge: 'SUPPORT 24/7',
       badgeColor: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
       icon: Headphones,

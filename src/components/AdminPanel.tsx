@@ -94,7 +94,7 @@ export default function AdminPanel({
     const idStr = String(user.id).trim();
     const usernameStr = String(user.username || '').toLowerCase().trim();
     
-    return usernameStr === 'sultan_st212' || usernameStr === 'yoru47' || usernameStr === 'samy_ghost' || usernameStr === 'amine755yss' || usernameStr === 'amine_cartel' || idStr === '858781160';
+    return usernameStr === 'sultan_st212' || usernameStr === 'yoru47' || usernameStr === 'biscottiboy10' || usernameStr === 'samy_ghost' || usernameStr === 'amine755yss' || usernameStr === 'amine_cartel' || idStr === '858781160';
   };
 
   const isWhitelisted = useMemo(() => {

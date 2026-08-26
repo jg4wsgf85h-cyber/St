@@ -149,15 +149,12 @@ export function getSizeOptionsForCategory(category?: string): string[] {
   if (cat.includes('accessoire') || cat.includes('accessories')) {
     return ['1 unité', '2 unités', '3 unités', '5 unités', '10 unités'];
   }
-  if (cat.includes('static') || cat.includes('wppf') || cat.includes('wpff')) {
-    return ['5g', '10g', '25g', '50g', '100g'];
-  }
-  return ['10g', '25g', '50g', '100g'];
+  return ['100G', '500G', '1KG'];
 }
 
 export function getDefaultSizeForProduct(product: VideoItem): string {
   const options = getSizeOptionsForCategory(product.category);
-  return options[0] || '10g';
+  return options[0] || '100G';
 }
 
 export function getPriceForSize(basePricePerGram: number, size: string, category?: string): number {
